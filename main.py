@@ -11,7 +11,7 @@ from agents import initialize_agent
 from ui import setup_sidebar, display_chat_history
 from prompts import load_prompt
 
-st.header("Restaurant & Cafe Analytics")
+st.header("StatAgents")
 
 # Windows compatibility
 if sys.platform == "win32":
