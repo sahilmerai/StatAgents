@@ -1,0 +1,72 @@
+# ============================================
+# Python Environment
+# ============================================
+CRA/
+venv/
+env/
+ENV/
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+
+# ============================================
+# Environment Variables & Secrets (CRITICAL!)
+# ============================================
+# Ignore .env files in ALL folders
+.env
+**/.env
+.env.local
+**/.env.local
+
+# Ignore settings.yaml files (GraphRAG configs with API keys)
+settings.yaml
+**/settings.yaml
+
+# Other secret files
+*.key
+secrets.json
+**/*.key
+
+# ============================================
+# Temporary Files
+# ============================================
+temp.py
+Temp/
+*.tmp
+.DS_Store
+Thumbs.db
+
+# ============================================
+# Backup & Old Code
+# ============================================
+Backup codes/
+*.bak
+*.old
+
+# ============================================
+# IDE & Editor Files
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ============================================
+# Logs (except those in Token examples)
+# ============================================
+logs/*.log
+
+# ============================================
+# OS Generated Files
+# ============================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+book/

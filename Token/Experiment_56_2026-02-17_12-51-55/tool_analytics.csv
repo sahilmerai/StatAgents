@@ -1,0 +1,13 @@
+tool_name,agent_name,call_count,total_tokens,total_execution_time,total_cost_inr,success_count,error_count,success_rate,avg_tokens_per_call,avg_time_per_call
+retrieve_workflow,Head_of_the_Department,1,6,2.063023090362549,8.098314e-05,1,0,100.0,6.0,2.063023090362549
+transfer_to_eda_agent,Head_of_the_Department,1,1,1.4997482299804688,1.349719e-05,1,0,100.0,1.0,1.4997482299804688
+analyze_csv_data,EDA_Agent,1,13,0.7801914215087891,0.00017546347,1,0,100.0,13.0,0.7801914215087891
+transfer_to_head_of_the_department,EDA_Agent,1,1,0.8313608169555664,1.349719e-05,1,0,100.0,1.0,0.8313608169555664
+transfer_to_data_processing_unit,Head_of_the_Department,1,1,0.6901543140411377,1.349719e-05,1,0,100.0,1.0,0.6901543140411377
+analyze_csv_data,Data_processing_unit,1,19,1.29899001121521,0.00025644660999999997,1,0,100.0,19.0,1.29899001121521
+execute_python_code,Data_processing_unit,9,1381,88.79878759384155,0.01863961939,9,0,100.0,153.44444444444446,9.866531954871284
+transfer_to_head_of_the_department,Data_processing_unit,1,1,1.2583813667297363,1.349719e-05,1,0,100.0,1.0,1.2583813667297363
+retrieve_business_story,Head_of_the_Department,1,12,0.787545919418335,0.00016196628,1,0,100.0,12.0,0.787545919418335
+transfer_to_ts_agent,Head_of_the_Department,1,1,1.9603445529937744,1.349719e-05,1,0,100.0,1.0,1.9603445529937744
+execute_python_code_T,TS_Agent,3,620,10.096304178237915,0.0083682578,3,0,100.0,206.66666666666666,3.365434726079305
+transfer_to_head_of_the_department,TS_Agent,1,1,8.271588563919067,1.349719e-05,1,0,100.0,1.0,8.271588563919067

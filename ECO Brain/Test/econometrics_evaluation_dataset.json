@@ -1,0 +1,407 @@
+[
+  {
+    "question_id": "ECON_001",
+    "question": "What is econometrics?",
+    "ground_truth_answer": "Econometrics is concerned with the empirical verification of economic theory. It combines economic theory, mathematical economics, economic statistics, and mathematical statistics. While economic theory makes statements that are mostly qualitative in nature, econometrics gives empirical content to most economic theory by providing numerical estimates of economic relationships.",
+    "question_type": "factual",
+    "complexity": "simple",
+    "retrieval_method": "local",
+    "topic": "Introduction to Econometrics"
+  },
+  {
+    "question_id": "ECON_002",
+    "question": "What is regression analysis?",
+    "ground_truth_answer": "Regression analysis is concerned with the study of the dependence of one variable, the dependent variable, on one or more other variables, the explanatory variables, with a view to estimating and/or predicting the (population) mean or average value of the dependent variable in terms of the known or fixed values of the explanatory variables.",
+    "question_type": "factual",
+    "complexity": "simple",
+    "retrieval_method": "local",
+    "topic": "Regression Analysis"
+  },
+  {
+    "question_id": "ECON_003",
+    "question": "What is the Population Regression Function (PRF)?",
+    "ground_truth_answer": "The Population Regression Function (PRF) is the conditional expectation function E(Y|Xi) = f(Xi), which states that the expected value of the distribution of Y given Xi is functionally related to Xi. In the linear case, it can be written as E(Y|Xi) = β1 + β2Xi, where β1 and β2 are unknown but fixed parameters known as regression coefficients. β1 is the intercept coefficient and β2 is the slope coefficient.",
+    "question_type": "factual",
+    "complexity": "simple",
+    "retrieval_method": "local",
+    "topic": "Population Regression Function"
+  },
+  {
+    "question_id": "ECON_004",
+    "question": "What is the difference between the population regression function (PRF) and sample regression function (SRF)?",
+    "ground_truth_answer": "The Population Regression Function (PRF) E(Y|Xi) = β1 + β2Xi represents the true relationship in the entire population, while the Sample Regression Function (SRF) Ŷi = β̂1 + β̂2Xi is estimated from sample data and is used as an approximation of the PRF. The PRF is an idealized concept since we rarely have access to the entire population, so we use the SRF to estimate it. Due to sampling fluctuations, different samples will yield different SRFs, and these are unlikely to be the same as the true PRF.",
+    "question_type": "conceptual",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "PRF vs SRF"
+  },
+  {
+    "question_id": "ECON_005",
+    "question": "What is the stochastic disturbance term (error term) and what is its significance?",
+    "ground_truth_answer": "The stochastic disturbance term ui is a random variable that represents all factors affecting Y that are not explicitly included in the regression model. Its significance includes: (1) Vagueness of theory - we may not know all variables affecting Y; (2) Unavailability of data - even if we know relevant variables, we may lack data; (3) Core vs peripheral variables - some variables may have small effects not worth including; (4) Intrinsic randomness in human behavior; (5) Poor proxy variables - measurement errors in variables; (6) Principle of parsimony - keeping models simple; (7) Wrong functional form - uncertainty about the correct specification.",
+    "question_type": "conceptual",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Stochastic Disturbance Term"
+  },
+  {
+    "question_id": "ECON_006",
+    "question": "What does 'linear' mean in the context of linear regression models?",
+    "ground_truth_answer": "Linear can be interpreted in two ways: (1) Linearity in variables - the conditional expectation of Y is a linear function of Xi (geometrically a straight line); (2) Linearity in parameters - the conditional expectation of Y is a linear function of the parameters (the β's), regardless of whether it's linear in the variables. For regression theory, linearity in parameters is the relevant interpretation. Therefore, E(Y|Xi) = β1 + β2Xi² is a linear regression model (linear in parameters but nonlinear in X), while E(Y|Xi) = β1 + β2²Xi is nonlinear (nonlinear in parameter β2).",
+    "question_type": "conceptual",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Linearity in Regression"
+  },
+  {
+    "question_id": "ECON_007",
+    "question": "What is the Ordinary Least Squares (OLS) method?",
+    "ground_truth_answer": "The method of Ordinary Least Squares (OLS), attributed to Carl Friedrich Gauss, chooses the sample regression function in such a way that the sum of squared residuals Σûi² = Σ(Yi - Ŷi)² is minimized. The method minimizes Σ(Yi - β̂1 - β̂2Xi)² to obtain unique estimates of β1 and β2. The OLS estimators are: β̂2 = Σxiyi/Σxi² where xi = Xi - X̄ and yi = Yi - Ȳ, and β̂1 = Ȳ - β̂2X̄. Under certain assumptions, OLS has very attractive statistical properties.",
+    "question_type": "factual",
+    "complexity": "simple",
+    "retrieval_method": "local",
+    "topic": "Ordinary Least Squares"
+  },
+  {
+    "question_id": "ECON_008",
+    "question": "What are the assumptions of the Classical Linear Regression Model (CLRM)?",
+    "ground_truth_answer": "The key assumptions of the Classical Linear Regression Model are:\n\n1. Linear regression model: Yi = β1 + β2Xi + ui (linear in parameters)\n2. X values are fixed in repeated sampling (nonstochastic/nonrandom)\n3. Zero mean value of disturbance: E(ui|Xi) = 0\n4. Homoscedasticity: var(ui|Xi) = σ² (constant variance for all observations)\n5. No autocorrelation: cov(ui, uj|Xi, Xj) = 0 for i ≠ j (disturbances are uncorrelated)\n6. Zero covariance between ui and Xi: cov(ui, Xi) = 0\n7. Number of observations n must exceed number of parameters to be estimated\n8. Variability in X values: var(X) must be a finite positive number\n9. Correct model specification: no specification bias or error\n10. No perfect multicollinearity: no exact linear relationships among regressors",
+    "question_type": "theoretical",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "CLRM Assumptions"
+  },
+  {
+    "question_id": "ECON_009",
+    "question": "What is homoscedasticity and how does it differ from heteroscedasticity?",
+    "ground_truth_answer": "Homoscedasticity means equal spread or equal variance - the conditional variance of ui is the same for all observations: var(ui|Xi) = σ². This means the Y populations corresponding to various X values have the same variance. Geometrically, the variation around the regression line is the same across all X values.\n\nHeteroscedasticity means unequal spread - the conditional variances vary with X: var(ui|Xi) = σi². For example, in a consumption-income relationship, richer families on average consume more but may also have more variability in their consumption expenditure than poorer families.",
+    "question_type": "conceptual",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Homoscedasticity vs Heteroscedasticity"
+  },
+  {
+    "question_id": "ECON_010",
+    "question": "What is autocorrelation in regression analysis?",
+    "ground_truth_answer": "Autocorrelation (or serial correlation) occurs when the disturbances ui and uj for i ≠ j are correlated, meaning cov(ui, uj|Xi, Xj) ≠ 0. The CLRM assumes no autocorrelation: cov(ui, uj|Xi, Xj) = E(ui|Xi)(uj|Xj) = 0.\n\nPositive autocorrelation: a positive u followed by a positive u, or negative followed by negative.\nNegative autocorrelation: positive u followed by negative u and vice versa.\n\nAutocorrelation is particularly common in time series data where the value of Y at time t may depend not only on Xt but also on ut-1, creating systematic patterns in the residuals.",
+    "question_type": "conceptual",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Autocorrelation"
+  },
+  {
+    "question_id": "ECON_011",
+    "question": "What is the Gauss-Markov theorem?",
+    "ground_truth_answer": "The Gauss-Markov theorem states that given the assumptions of the Classical Linear Regression Model (CLRM), the Ordinary Least Squares (OLS) estimators have minimum variance in the class of linear unbiased estimators. In other words, OLS estimators are BLUE - Best Linear Unbiased Estimators.\n\nBest: minimum variance (most efficient)\nLinear: linear functions of the random variable Y\nUnbiased: E(β̂) = β (on average, the estimator equals the true parameter)\n\nThis means no other linear unbiased estimator has a smaller variance than the OLS estimator, making OLS the most efficient among all linear unbiased estimators.",
+    "question_type": "theoretical",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Gauss-Markov Theorem"
+  },
+  {
+    "question_id": "ECON_012",
+    "question": "What is the coefficient of determination (R²)?",
+    "ground_truth_answer": "The coefficient of determination R² measures the proportion or percentage of the total variation in Y explained by the regression model. It is calculated as:\n\nR² = ESS/TSS = 1 - RSS/TSS\n\nWhere:\n- TSS (Total Sum of Squares) = Σ(Yi - Ȳ)² - total variation in Y\n- ESS (Explained Sum of Squares) = Σ(Ŷi - Ȳ)² - variation explained by regression\n- RSS (Residual Sum of Squares) = Σûi² - unexplained variation\n\nR² lies between 0 and 1. R² = 1 means perfect fit (all points on regression line), R² = 0 means no linear relationship. A high R² indicates a good fit but doesn't prove causation.",
+    "question_type": "formula",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Coefficient of Determination"
+  },
+  {
+    "question_id": "ECON_013",
+    "question": "What is the formula for the OLS slope coefficient estimator in two-variable regression?",
+    "ground_truth_answer": "The OLS slope coefficient estimator β̂2 in the two-variable regression model Y = β1 + β2X + u is:\n\nβ̂2 = Σ(Xi - X̄)(Yi - Ȳ) / Σ(Xi - X̄)²\n     = Σxiyi / Σxi²\n\nAlternatively:\nβ̂2 = [nΣXiYi - (ΣXi)(ΣYi)] / [nΣXi² - (ΣXi)²]\n\nAnd the intercept estimator is:\nβ̂1 = Ȳ - β̂2X̄\n\nThese formulas are derived by minimizing the sum of squared residuals Σûi² = Σ(Yi - β̂1 - β̂2Xi)² using calculus (setting partial derivatives equal to zero).",
+    "question_type": "formula",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "OLS Estimator Formulas"
+  },
+  {
+    "question_id": "ECON_014",
+    "question": "What are the numerical properties of OLS estimators?",
+    "ground_truth_answer": "The numerical properties of OLS estimators hold as a consequence of using OLS, regardless of how the data were generated:\n\n1. The OLS regression line passes through the sample means X̄ and Ȳ (i.e., Ȳ = β̂1 + β̂2X̄)\n2. The mean of the estimated Y values equals the mean of actual Y values: Ȳ̂ = Ȳ\n3. The mean of the residuals is zero: Σûi = 0 (or ūˆ = 0)\n4. The residuals are uncorrelated with the predicted values: Σŷiûi = 0\n5. The residuals are uncorrelated with Xi: ΣXiûi = 0\n\nThese properties hold for any sample data, unlike statistical properties which require certain assumptions about data generation.",
+    "question_type": "theoretical",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Properties of OLS Estimators"
+  },
+  {
+    "question_id": "ECON_015",
+    "question": "What is multicollinearity and what are its consequences?",
+    "ground_truth_answer": "Multicollinearity exists when there are linear relationships among explanatory variables in a multiple regression model. Perfect multicollinearity (exact linear relationship) makes OLS estimation impossible. Near or high multicollinearity (approximate linear relationship) has these consequences:\n\n1. Large variances and covariances of OLS estimators\n2. Wider confidence intervals\n3. Insignificant t-ratios (coefficients appear insignificant even when important)\n4. High R² but few significant t-ratios\n5. OLS estimators and their standard errors become sensitive to small changes in data\n6. Signs of coefficients may be wrong\n\nHowever, OLS estimators remain BLUE - they are still unbiased and have minimum variance among linear unbiased estimators. The problem is that the minimum variance may still be large.",
+    "question_type": "conceptual",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Multicollinearity"
+  },
+  {
+    "question_id": "ECON_016",
+    "question": "How can multicollinearity be detected?",
+    "ground_truth_answer": "Several methods can detect multicollinearity:\n\n1. High R² but few significant t-ratios - classic symptom\n2. High pairwise correlations among regressors (above 0.8), though low correlations don't guarantee absence of multicollinearity with multiple regressors\n3. Examination of partial correlations\n4. Auxiliary regressions - regress each Xi on other X variables; high R²i indicates Xi is collinear with others. Use F-test: Fi = [R²i/(k-2)] / [(1-R²i)/(n-k+1)]\n5. Variance Inflation Factor (VIF): VIFj = 1/(1-R²j) where R²j is from regressing Xj on other regressors. VIF > 10 suggests serious multicollinearity\n6. Tolerance (TOL) = 1/VIF = 1-R²j; low TOL indicates multicollinearity\n7. Condition Index (CI): CI between 10-30 suggests moderate to strong multicollinearity; CI > 30 suggests severe multicollinearity",
+    "question_type": "applied",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Detecting Multicollinearity"
+  },
+  {
+    "question_id": "ECON_017",
+    "question": "What is the Variance Inflation Factor (VIF) and how is it interpreted?",
+    "ground_truth_answer": "The Variance Inflation Factor (VIF) measures how much the variance of an estimated regression coefficient is inflated due to multicollinearity. For regressor Xj:\n\nVIFj = 1/(1 - R²j)\n\nwhere R²j is the coefficient of determination from regressing Xj on all other regressors.\n\nInterpretation:\n- VIF = 1: No correlation between Xj and other regressors\n- VIF > 1: Some degree of collinearity\n- VIF > 5: Moderate multicollinearity (some researchers use this threshold)\n- VIF > 10: Serious multicollinearity (commonly used rule of thumb)\n\nThe variance of β̂j is inflated by a factor of VIFj compared to what it would be if Xj were uncorrelated with other regressors. However, high VIF can be offset by low σ² or high variation in Xj.",
+    "question_type": "formula",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Variance Inflation Factor"
+  },
+  {
+    "question_id": "ECON_018",
+    "question": "What are the consequences of heteroscedasticity for OLS estimation?",
+    "ground_truth_answer": "When heteroscedasticity is present (var(ui|Xi) = σi² varies across observations), the consequences for OLS estimation are:\n\n1. OLS estimators remain unbiased - E(β̂) = β still holds\n2. OLS estimators remain consistent\n3. OLS estimators are no longer efficient - they don't have minimum variance\n4. OLS estimators are no longer BLUE\n5. The usual OLS variance formulas are biased - they may underestimate or overestimate the true variance\n6. Standard errors are incorrect, making hypothesis tests (t-tests, F-tests) unreliable\n7. Confidence intervals may be too wide or too narrow\n\nIn summary, while point estimates remain valid, inference procedures (tests and confidence intervals) become invalid, potentially leading to misleading conclusions about statistical significance.",
+    "question_type": "theoretical",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Consequences of Heteroscedasticity"
+  },
+  {
+    "question_id": "ECON_019",
+    "question": "What tests can be used to detect heteroscedasticity?",
+    "ground_truth_answer": "Several tests can detect heteroscedasticity:\n\n1. Graphical methods: Plot residuals (ûi or ûi²) against fitted values Ŷi or regressors Xi to look for patterns\n\n2. Park Test: Regress ln(ûi²) on ln(Xi) and test if the slope is significant\n\n3. Glejser Test: Regress |ûi| on Xi (or √Xi or 1/Xi) and test significance\n\n4. Breusch-Pagan-Godfrey Test: Regress ûi²/σ̂² on the regressors; test statistic = n×R² follows χ² distribution with (k-1) df under null hypothesis of homoscedasticity\n\n5. White's Test: Regress ûi² on regressors, their squares, and cross-products; test statistic n×R² follows χ² with df equal to number of regressors in auxiliary regression (excluding intercept). Advantage: does not require knowing the form of heteroscedasticity\n\n6. Koenker-Bassett Test: Regress ûi² on Ŷi²; simple and robust to non-normality",
+    "question_type": "applied",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Detecting Heteroscedasticity"
+  },
+  {
+    "question_id": "ECON_020",
+    "question": "What is Generalized Least Squares (GLS) and when is it used?",
+    "ground_truth_answer": "Generalized Least Squares (GLS) is an estimation method used when the assumptions of the classical linear regression model are violated, particularly when there is heteroscedasticity or autocorrelation. GLS transforms the original model to one that satisfies classical assumptions.\n\nFor heteroscedasticity where var(ui) = σi², GLS uses Weighted Least Squares (WLS):\n- Divide the original equation by σi to get: Yi/σi = β1(1/σi) + β2(Xi/σi) + ui/σi\n- The transformed error term has constant variance: var(ui/σi) = 1\n- Apply OLS to the transformed equation\n\nGLS estimators are BLUE when the correct transformation is applied. The weights in WLS give less importance to observations with high variance and more to those with low variance, essentially standardizing the error variance across observations.",
+    "question_type": "theoretical",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Generalized Least Squares"
+  },
+  {
+    "question_id": "ECON_021",
+    "question": "What is White's heteroscedasticity-consistent standard errors?",
+    "ground_truth_answer": "White's heteroscedasticity-consistent standard errors (also called robust standard errors) provide valid standard errors for OLS estimators even when heteroscedasticity is present, without requiring knowledge of the specific form of heteroscedasticity.\n\nWhite showed that even with heteroscedasticity, the OLS variance-covariance matrix can be consistently estimated using the squared residuals ûi² as estimates of the unknown σi². These corrected standard errors allow valid statistical inference (t-tests, F-tests, confidence intervals) in large samples.\n\nAdvantages:\n- No need to know or specify the form of heteroscedasticity\n- Asymptotically valid inference\n- Many software packages compute them automatically\n\nTypically, White's robust standard errors are larger than conventional OLS standard errors when heteroscedasticity is present, leading to smaller t-statistics and more conservative inference.",
+    "question_type": "theoretical",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Robust Standard Errors"
+  },
+  {
+    "question_id": "ECON_022",
+    "question": "What is the Durbin-Watson test?",
+    "ground_truth_answer": "The Durbin-Watson (DW) test detects first-order autocorrelation in the residuals. The test statistic is:\n\nd = Σ(ût - ût-1)² / Σût²  (summation from t=2 to n for numerator, t=1 to n for denominator)\n\nd ranges from 0 to 4:\n- d ≈ 2: No autocorrelation\n- d < 2: Positive autocorrelation (d approaching 0 means strong positive)\n- d > 2: Negative autocorrelation (d approaching 4 means strong negative)\n\nApproximate relationship: d ≈ 2(1 - ρ̂) where ρ̂ is the estimated first-order autocorrelation coefficient\n\nDecision rules use critical values dL and dU from Durbin-Watson tables:\n- If d < dL: reject H0, conclude positive autocorrelation\n- If d > dU: do not reject H0\n- If dL ≤ d ≤ dU: inconclusive\n\nLimitation: Cannot be used when lagged dependent variable is a regressor.",
+    "question_type": "formula",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Durbin-Watson Test"
+  },
+  {
+    "question_id": "ECON_023",
+    "question": "What is the hypothesis testing approach using the t-test for regression coefficients?",
+    "ground_truth_answer": "The t-test for testing hypotheses about individual regression coefficients follows these steps:\n\n1. State hypotheses:\n   H0: βk = βk* (null hypothesis, often βk* = 0)\n   H1: βk ≠ βk* (two-sided) or βk > βk* or βk < βk* (one-sided)\n\n2. Calculate test statistic:\n   t = (β̂k - βk*) / se(β̂k)\n   \n   Under H0, t follows t-distribution with (n-k) degrees of freedom, where n = sample size, k = number of parameters including intercept\n\n3. Decision rule:\n   - If |t| > tα/2,n-k (two-sided) or t > tα,n-k (one-sided), reject H0\n   - Alternatively, compare p-value to significance level α\n\n4. The '2-t rule of thumb': If |t| > 2 and sample size is reasonably large, the coefficient is statistically significant at approximately the 5% level.\n\nFor testing H0: β2 = 0, rejection means the regressor X has a statistically significant effect on Y.",
+    "question_type": "applied",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Hypothesis Testing t-test"
+  },
+  {
+    "question_id": "ECON_024",
+    "question": "What is the F-test for overall significance of regression?",
+    "ground_truth_answer": "The F-test tests the overall significance of a regression model by testing whether all slope coefficients are jointly zero.\n\nHypotheses:\nH0: β2 = β3 = ... = βk = 0 (no regressor has any effect)\nH1: At least one βj ≠ 0\n\nTest statistic:\nF = [ESS/(k-1)] / [RSS/(n-k)]\n  = [R²/(k-1)] / [(1-R²)/(n-k)]\n\nWhere:\n- ESS = Explained Sum of Squares\n- RSS = Residual Sum of Squares\n- k = number of parameters (including intercept)\n- n = sample size\n\nUnder H0, F follows F-distribution with (k-1) and (n-k) degrees of freedom.\n\nDecision: Reject H0 if F > Fα,k-1,n-k\n\nThe relationship between F and R²: A significant F indicates R² is significantly different from zero, meaning the regressors jointly explain a significant portion of variation in Y.",
+    "question_type": "formula",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "F-test Overall Significance"
+  },
+  {
+    "question_id": "ECON_025",
+    "question": "What are dummy variables in regression and how are they used?",
+    "ground_truth_answer": "Dummy variables (also called indicator, binary, or categorical variables) take values of 0 or 1 to incorporate qualitative factors into regression models.\n\nKey rules:\n1. For a qualitative variable with m categories, use (m-1) dummy variables if the model includes an intercept (to avoid the dummy variable trap - perfect multicollinearity)\n2. The omitted category serves as the benchmark or reference group\n\nInterpretation:\n- In Y = α + βD + γX + u, where D = 1 for category A and D = 0 for category B:\n  - For D = 0: E(Y) = α + γX (benchmark group)\n  - For D = 1: E(Y) = (α + β) + γX\n  - β is the differential intercept showing how category A differs from the benchmark\n\nApplications:\n- Comparing groups (gender, region, treatment/control)\n- Seasonal analysis\n- Structural break testing\n- Interaction effects (slope dummies)",
+    "question_type": "conceptual",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Dummy Variables"
+  },
+  {
+    "question_id": "ECON_026",
+    "question": "What is the dummy variable trap and how do you avoid it?",
+    "ground_truth_answer": "The dummy variable trap occurs when you include dummy variables for all categories of a qualitative variable along with an intercept term, causing perfect multicollinearity. This happens because the sum of all dummy variables equals 1 (the intercept), creating an exact linear relationship.\n\nExample: If you have Male (D1) and Female (D2) dummies:\nD1 + D2 = 1 for all observations\nThe intercept column (all 1s) = D1 + D2, so perfect collinearity exists.\n\nSolutions:\n1. Include (m-1) dummies for m categories (most common): One category becomes the reference/benchmark group\n2. Include all m dummies but suppress the intercept term\n3. Include all m dummies with intercept but impose a restriction (e.g., Σcoefficients = 0)\n\nThe omitted category interpretation: The coefficient of each included dummy represents the differential effect compared to the omitted (reference) category.",
+    "question_type": "conceptual",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Dummy Variable Trap"
+  },
+  {
+    "question_id": "ECON_027",
+    "question": "What is the Chow test for structural stability?",
+    "ground_truth_answer": "The Chow test examines whether regression coefficients are stable across two subsamples or time periods - testing for structural breaks.\n\nProcedure:\n1. Estimate regression on full sample (n observations) → RSS (restricted)\n2. Estimate separate regressions on each subsample (n1 and n2 observations) → RSS1 and RSS2\n3. Calculate RSSUR = RSS1 + RSS2 (unrestricted)\n\nTest statistic:\nF = [(RSSR - RSSUR)/k] / [RSSUR/(n1 + n2 - 2k)]\n\nwhere k = number of parameters in each regression\n\nUnder H0 (coefficients are same in both periods), F follows F-distribution with k and (n1 + n2 - 2k) df.\n\nAssumptions:\n- Error variances are same in both periods (σ1² = σ2² = σ²)\n- Errors are normally distributed\n\nThe dummy variable alternative to Chow test can identify whether differences are in intercepts, slopes, or both.",
+    "question_type": "applied",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Chow Test"
+  },
+  {
+    "question_id": "ECON_028",
+    "question": "What is the log-linear (double-log) model and how are its coefficients interpreted?",
+    "ground_truth_answer": "The log-linear or double-log model takes the form:\n\nln Y = β1 + β2 ln X + u\n\nInterpretation of β2:\nβ2 represents the elasticity of Y with respect to X - the percentage change in Y for a 1% change in X.\n\nMathematically:\nβ2 = d(ln Y)/d(ln X) = (dY/Y)/(dX/X) = elasticity\n\nIf Y = AX^β2 e^u (Cobb-Douglas form), taking logs gives the linear model.\n\nExamples:\n- If β2 = 0.5: A 1% increase in X leads to a 0.5% increase in Y (inelastic)\n- If β2 = 1: A 1% increase in X leads to a 1% increase in Y (unit elastic)\n- If β2 = 2: A 1% increase in X leads to a 2% increase in Y (elastic)\n\nAdvantages: Constant elasticity, reduces heteroscedasticity, coefficients directly interpretable as elasticities.",
+    "question_type": "applied",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Log-Linear Model"
+  },
+  {
+    "question_id": "ECON_029",
+    "question": "What is the difference between semi-log models: log-lin and lin-log?",
+    "ground_truth_answer": "Semi-log models have logarithm on only one side:\n\n1. Log-Lin Model (Growth Model): ln Y = β1 + β2X + u\n   - Coefficient interpretation: β2 × 100 = percentage change in Y for a unit change in X\n   - If X is time (t), β2 is the instantaneous growth rate (continuous compounding)\n   - Compound growth rate = (e^β2 - 1) × 100%\n   - Example: ln(GDP) = α + βt → β is the growth rate of GDP\n\n2. Lin-Log Model: Y = β1 + β2 ln X + u\n   - Coefficient interpretation: β2/100 = absolute change in Y for a 1% change in X\n   - Or: ΔY = β2 × (ΔX/X)\n   - Example: If β2 = 500, a 1% increase in X leads to a 5 unit increase in Y\n\nKey difference:\n- Log-lin: Constant growth rate (percentage change in Y for absolute change in X)\n- Lin-log: Diminishing returns (absolute change in Y for percentage change in X)",
+    "question_type": "conceptual",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Semi-Log Models"
+  },
+  {
+    "question_id": "ECON_030",
+    "question": "What is specification bias and what are its types?",
+    "ground_truth_answer": "Specification bias occurs when the regression model is incorrectly specified. Main types include:\n\n1. Omitting a relevant variable (Underfitting):\n   - If true model is Y = β1 + β2X2 + β3X3 + u, but we estimate Y = β̂1 + β̂2X2\n   - E(β̂2) = β2 + β3b32, where b32 is slope from regressing X3 on X2\n   - Bias = β3b32 (unless b32 = 0 or β3 = 0)\n   - OLS estimators are biased and inconsistent\n\n2. Including an irrelevant variable (Overfitting):\n   - If true model is Y = β1 + β2X2 + u, but we estimate Y = β̂1 + β̂2X2 + β̂3X3\n   - OLS estimators remain unbiased\n   - But estimators are inefficient (larger variances than necessary)\n\n3. Wrong functional form:\n   - Using linear when relationship is nonlinear, or vice versa\n\n4. Errors in measurement:\n   - Measurement errors in Y: OLS unbiased but inefficient\n   - Measurement errors in X: OLS biased and inconsistent",
+    "question_type": "theoretical",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Specification Bias"
+  },
+  {
+    "question_id": "ECON_031",
+    "question": "What is the adjusted R² and why is it used?",
+    "ground_truth_answer": "The adjusted R² (R̄²) modifies R² to account for the number of regressors in the model:\n\nR̄² = 1 - (1 - R²) × [(n-1)/(n-k)]\n\nOr equivalently:\nR̄² = 1 - [RSS/(n-k)] / [TSS/(n-1)]\n     = 1 - σ̂²/S²y\n\nwhere:\n- n = number of observations\n- k = number of parameters (including intercept)\n- σ̂² = estimated error variance = RSS/(n-k)\n- S²y = sample variance of Y = TSS/(n-1)\n\nKey properties:\n1. R̄² ≤ R² always\n2. R̄² increases only if the added variable improves the fit more than would be expected by chance\n3. R̄² can be negative (when model fits worse than a horizontal line)\n4. R̄² penalizes adding variables that don't improve fit substantially\n\nUse: Comparing models with different numbers of regressors. Unlike R², which never decreases when variables are added, R̄² only increases if the new variable improves the model sufficiently.",
+    "question_type": "formula",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Adjusted R-squared"
+  },
+  {
+    "question_id": "ECON_032",
+    "question": "What are the three types of data used in econometric analysis?",
+    "ground_truth_answer": "The three main types of data in econometric analysis are:\n\n1. Cross-Sectional Data:\n   - Observations on multiple units (individuals, firms, countries) at a single point in time\n   - Example: GDP of 50 countries in 2020\n   - Issues: Heteroscedasticity is common; no time dimension\n\n2. Time Series Data:\n   - Observations on a single unit over multiple time periods\n   - Example: US GDP from 1950-2020 (quarterly or annually)\n   - Issues: Autocorrelation is common; stationarity concerns; order of observations matters\n\n3. Panel (Longitudinal) Data:\n   - Combines cross-section and time series: multiple units observed over multiple time periods\n   - Example: GDP of 50 countries from 2010-2020\n   - Advantages: More information, more variability, more degrees of freedom, can control for unobserved heterogeneity\n   - Requires specialized techniques (fixed effects, random effects models)\n\nAdditionally, pooled data combines cross-sectional data from different time periods treated as one large cross-section.",
+    "question_type": "factual",
+    "complexity": "simple",
+    "retrieval_method": "local",
+    "topic": "Types of Data"
+  },
+  {
+    "question_id": "ECON_033",
+    "question": "Explain the relationship between the t-test, F-test, and R² in regression analysis.",
+    "ground_truth_answer": "There are important relationships connecting the t-test, F-test, and R² in regression:\n\n1. F and R² relationship:\n   F = [R²/(k-1)] / [(1-R²)/(n-k)]\n   - Testing overall significance (F-test) is equivalent to testing if R² is significantly different from zero\n\n2. t and F relationship (two-variable case):\n   - With one slope coefficient: F = t²\n   - The F-test for overall significance equals the square of the t-test for the slope coefficient\n\n3. Multiple regression:\n   - Individual t-tests assess significance of each coefficient separately\n   - F-test assesses joint significance of all slope coefficients\n   - Possible to have insignificant individual t-tests but significant F-test (multicollinearity symptom)\n\n4. Restricted F-test:\n   F = [(R²UR - R²R)/m] / [(1-R²UR)/(n-k)]\n   Tests whether m restrictions significantly reduce fit\n\nThese relationships highlight that different tests provide different but related information about model fit and parameter significance.",
+    "question_type": "theoretical",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Relationship Between Statistical Tests"
+  },
+  {
+    "question_id": "ECON_034",
+    "question": "What is the RESET test for specification error?",
+    "ground_truth_answer": "Ramsey's RESET (Regression Specification Error Test) tests for functional form misspecification without requiring a specific alternative hypothesis.\n\nProcedure:\n1. Estimate original model: Y = β1 + β2X2 + ... + βkXk + u, obtain Ŷ\n2. Re-estimate with powers of fitted values:\n   Y = β1 + β2X2 + ... + βkXk + α1Ŷ² + α2Ŷ³ + ... + v\n3. Test H0: α1 = α2 = ... = 0\n\nTest statistic:\nF = [(R²new - R²old)/m] / [(1-R²new)/(n-k-m)]\n\nwhere m = number of new terms added\n\nInterpretation:\n- Significant F suggests misspecification (wrong functional form, omitted variables, or both)\n- RESET doesn't tell you what the correct specification is, only that current one may be wrong\n\nAdvantage: General test that doesn't require knowing the specific form of misspecification\nLimitation: Doesn't identify the source of misspecification",
+    "question_type": "applied",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "RESET Test"
+  },
+  {
+    "question_id": "ECON_035",
+    "question": "What is the difference between statistical significance and practical significance?",
+    "ground_truth_answer": "Statistical significance and practical significance address different questions:\n\nStatistical Significance:\n- Can we reject H0: β = 0 at some significance level (e.g., 5%)?\n- Depends on: sample size, standard error, coefficient magnitude\n- With large samples, even tiny effects can be statistically significant\n- Answers: Is the effect distinguishable from zero/sampling variation?\n\nPractical (Economic/Substantive) Significance:\n- Is the effect large enough to matter in practice?\n- Depends on the context and decision being made\n- A coefficient might be statistically significant but economically negligible\n- Answers: Is the effect meaningful in real-world terms?\n\nExample:\n- β̂ = 0.001 with t = 3.5 (statistically significant)\n- But if this means a $1000 increase in X raises Y by only $1, it may be practically insignificant\n\nGuidelines:\n1. Always report both coefficient magnitudes and their standard errors/t-statistics\n2. Consider confidence intervals to assess range of plausible effects\n3. Interpret results in context of the problem\n4. Don't confuse 'not significant' with 'no effect' (especially in small samples)",
+    "question_type": "conceptual",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Statistical vs Practical Significance"
+  },
+  {
+    "question_id": "ECON_036",
+    "question": "How do you interpret regression coefficients in a multiple regression with standardized variables?",
+    "ground_truth_answer": "Regression with standardized variables (also called beta coefficients or standardized coefficients) transforms both Y and X variables to have mean 0 and standard deviation 1:\n\nY* = (Y - Ȳ)/Sy and X* = (X - X̄)/Sx\n\nThe standardized regression:\nY*i = β*2X*2i + β*3X*3i + ... + u*i\n\n(Note: No intercept because variables have mean zero)\n\nInterpretation of β*j (standardized coefficient):\n- A one standard deviation change in Xj is associated with a β*j standard deviation change in Y\n- Allows comparison of relative importance of different regressors measured in different units\n\nRelationship to unstandardized coefficients:\nβ*j = β̂j × (Sxj/Sy)\n\nAdvantages:\n- Makes coefficients comparable regardless of original measurement units\n- Useful when comparing relative impacts of different variables\n\nLimitation:\n- Standard deviations are sample-specific, so comparisons across samples may be misleading",
+    "question_type": "applied",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Standardized Coefficients"
+  },
+  {
+    "question_id": "ECON_037",
+    "question": "What are the consequences of OLS when autocorrelation is present?",
+    "ground_truth_answer": "When autocorrelation is present [E(ui, uj) ≠ 0 for i ≠ j], the consequences for OLS estimation are:\n\n1. OLS estimators remain unbiased - E(β̂) = β\n2. OLS estimators remain consistent\n3. OLS estimators are no longer efficient - not minimum variance\n4. OLS estimators are no longer BLUE\n\n5. The usual OLS variance formulas are biased:\n   - With positive autocorrelation (most common case), conventional standard errors underestimate true standard errors\n   - This leads to inflated t-statistics\n   - Coefficients appear more significant than they actually are\n\n6. R² may be overstated\n\n7. Forecasts remain unbiased but not efficient\n\nPractical implications:\n- Hypothesis tests are unreliable (Type I error rate inflated)\n- Confidence intervals are too narrow\n- May incorrectly conclude that variables are significant when they're not\n\nRemedies include: GLS, Newey-West standard errors, correcting for autocorrelation structure (e.g., Cochrane-Orcutt, Prais-Winsten)",
+    "question_type": "theoretical",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Consequences of Autocorrelation"
+  },
+  {
+    "question_id": "ECON_038",
+    "question": "What is the Breusch-Pagan test for heteroscedasticity?",
+    "ground_truth_answer": "The Breusch-Pagan-Godfrey test detects heteroscedasticity by testing whether error variance is related to the regressors.\n\nProcedure:\n1. Estimate original model Y = β1 + β2X2 + ... + βkXk + u by OLS\n2. Obtain residuals ûi and compute σ̂² = Σûi²/n\n3. Construct pi = ûi²/σ̂² (normalized squared residuals)\n4. Regress pi on the regressors: pi = α1 + α2X2i + ... + αkXki + vi\n5. Compute ESS/2 from step 4\n\nTest statistic:\nBP = ESS/2 = (n/2) × R²\n\nAlternative: LM = n × R² from auxiliary regression in step 4\n\nUnder H0 (homoscedasticity):\nBP ~ χ²(k-1) asymptotically\n\nDecision:\n- Reject H0 if BP > χ²α,k-1\n- Large values indicate heteroscedasticity\n\nAssumption: Errors are normally distributed. White's test doesn't require this assumption.",
+    "question_type": "applied",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Breusch-Pagan Test"
+  },
+  {
+    "question_id": "ECON_039",
+    "question": "How do you interpret interaction terms in regression?",
+    "ground_truth_answer": "Interaction terms capture how the effect of one variable depends on another variable's value.\n\nModel with interaction:\nY = β0 + β1X1 + β2X2 + β3(X1×X2) + u\n\nInterpretation:\n- Effect of X1 on Y: ∂Y/∂X1 = β1 + β3X2\n- The effect of X1 depends on the level of X2\n- β3 shows how the effect of X1 changes for a unit change in X2\n\nExample with dummy variable:\nY = β0 + β1X + β2D + β3(X×D) + u\nwhere D = 1 for treatment group, 0 otherwise\n\nFor D = 0 (control): Y = β0 + β1X\nFor D = 1 (treatment): Y = (β0 + β2) + (β1 + β3)X\n\n- β2 = differential intercept\n- β3 = differential slope (how the effect of X differs between groups)\n\nTesting β3 = 0 tests whether the slopes are equal across groups.\n\nImportant: When including an interaction, always include the constituent main effects (X1 and X2) to avoid omitted variable bias and ensure proper interpretation.",
+    "question_type": "applied",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Interaction Terms"
+  },
+  {
+    "question_id": "ECON_040",
+    "question": "What is the first-difference transformation and when is it used?",
+    "ground_truth_answer": "The first-difference transformation converts level variables into changes, primarily used to address autocorrelation or nonstationarity.\n\nOriginal model: Yt = β1 + β2Xt + ut\nLagged model: Yt-1 = β1 + β2Xt-1 + ut-1\n\nFirst-difference: (Yt - Yt-1) = β2(Xt - Xt-1) + (ut - ut-1)\nOr: ΔYt = β2ΔXt + vt\n\nUses:\n1. Reducing autocorrelation: If ut = ρut-1 + εt with ρ ≈ 1, first-differencing removes much of the autocorrelation\n\n2. Addressing multicollinearity: Even if X2 and X3 are highly correlated in levels, their first differences may not be\n\n3. Making nonstationary series stationary: Many economic time series have unit roots; differencing can achieve stationarity\n\nNote:\n- The intercept disappears in first-differenced model\n- Interpretation changes: β2 now represents how changes in X affect changes in Y\n- Information is lost (one observation)\n- If ρ < 1, first-differencing may not be optimal",
+    "question_type": "applied",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "First-Difference Transformation"
+  },
+  {
+    "question_id": "ECON_041",
+    "question": "Connect the concepts: How do heteroscedasticity, multicollinearity, and autocorrelation affect OLS estimation differently?",
+    "ground_truth_answer": "Comparing how these three problems affect OLS estimation:\n\n**Multicollinearity:**\n- OLS remains BLUE (unbiased, efficient among linear unbiased)\n- Problem: High variances of estimates, but this is the minimum achievable\n- Main issue: Difficulty separating effects of correlated regressors\n- Tests remain valid but may lack power\n\n**Heteroscedasticity:**\n- OLS is unbiased but NOT efficient (not BLUE)\n- GLS is more efficient\n- Standard errors are biased (usually understated)\n- t-tests and F-tests are invalid\n- R² interpretation unaffected\n\n**Autocorrelation:**\n- OLS is unbiased but NOT efficient (not BLUE)\n- GLS is more efficient\n- Standard errors are biased (usually understated with positive autocorrelation)\n- t-tests and F-tests are invalid\n- R² may be overstated\n\n**Common to heteroscedasticity and autocorrelation:**\n- Both violate the spherical disturbances assumption (E(uu') = σ²I)\n- Both make conventional inference procedures unreliable\n- Both can be addressed by GLS or robust standard errors\n- OLS point estimates remain consistent\n\n**Key difference:**\n- Multicollinearity: The problem is in the X data\n- Heteroscedasticity/Autocorrelation: The problem is in the error structure",
+    "question_type": "synthesis",
+    "complexity": "high",
+    "retrieval_method": "global",
+    "topic": "Comparison of Regression Problems"
+  },
+  {
+    "question_id": "ECON_042",
+    "question": "How would you systematically diagnose and address potential problems in a regression model?",
+    "ground_truth_answer": "A systematic approach to regression diagnostics:\n\n**Step 1: Examine R² and F-test**\n- Is overall model significant?\n- Is R² reasonable for the context?\n\n**Step 2: Check individual coefficients**\n- Are signs as expected by theory?\n- Are t-statistics significant?\n- Are magnitudes economically sensible?\n\n**Step 3: Test for multicollinearity**\n- Calculate VIF for each regressor (VIF > 10 is concerning)\n- Look for high R² but insignificant t-tests\n- Examine correlation matrix of regressors\n\n**Step 4: Test for heteroscedasticity**\n- Plot residuals vs. fitted values and regressors\n- Run White's test or Breusch-Pagan test\n- If detected: Use robust standard errors or GLS/WLS\n\n**Step 5: Test for autocorrelation (time series)**\n- Plot residuals over time\n- Calculate Durbin-Watson statistic\n- Run Breusch-Godfrey test\n- If detected: Use Newey-West standard errors or GLS\n\n**Step 6: Check specification**\n- Run RESET test\n- Consider alternative functional forms\n- Check for omitted variables\n\n**Step 7: Examine residuals**\n- Test for normality (Jarque-Bera)\n- Check for outliers and influential observations\n\n**Step 8: Sensitivity analysis**\n- Check stability across subsamples (Chow test)\n- Remove potential outliers and re-estimate",
+    "question_type": "synthesis",
+    "complexity": "high",
+    "retrieval_method": "global",
+    "topic": "Regression Diagnostics Framework"
+  },
+  {
+    "question_id": "ECON_043",
+    "question": "What is the difference between consistency and unbiasedness of an estimator?",
+    "ground_truth_answer": "Unbiasedness and consistency are different properties of estimators:\n\n**Unbiasedness (finite sample property):**\n- E(β̂) = β for any sample size\n- On average (across repeated samples), the estimator equals the true parameter\n- Does not depend on sample size\n- An unbiased estimator can still be far from the true value in any particular sample\n\n**Consistency (asymptotic/large sample property):**\n- plim(β̂) = β as n → ∞\n- The estimator converges in probability to the true parameter as sample size increases\n- Requires both: lim E(β̂) = β AND lim Var(β̂) = 0\n- With enough data, a consistent estimator will be arbitrarily close to the true value\n\n**Relationship:**\n- Unbiasedness does NOT imply consistency (an unbiased estimator with non-vanishing variance is not consistent)\n- Consistency does NOT imply unbiasedness (a biased estimator can be consistent if bias vanishes as n → ∞)\n- An unbiased estimator with variance that → 0 as n → ∞ is consistent\n\n**For OLS:**\n- Under CLRM assumptions: Unbiased and consistent\n- With heteroscedasticity: Unbiased and consistent (but not efficient)\n- With autocorrelation: Unbiased and consistent (but not efficient)\n- With endogeneity (correlated X and u): Biased AND inconsistent",
+    "question_type": "theoretical",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Consistency vs Unbiasedness"
+  },
+  {
+    "question_id": "ECON_044",
+    "question": "What is the intuition behind the Gauss-Markov theorem assumptions?",
+    "ground_truth_answer": "The Gauss-Markov theorem states OLS is BLUE under certain conditions. Here's the intuition behind each assumption:\n\n**1. Linearity in parameters:**\n- Ensures we're working with a model where linear estimation makes sense\n- Allows derivation of closed-form OLS formulas\n\n**2. Random sampling / Fixed X:**\n- Ensures each observation provides independent information\n- Allows us to condition on X values when deriving properties\n\n**3. E(u|X) = 0 (Zero conditional mean):**\n- Omitted factors are uncorrelated with included regressors\n- If violated, X 'picks up' effect of omitted variables, biasing β̂\n- Ensures X affects Y only through the specified channel\n\n**4. Homoscedasticity:**\n- All observations are equally informative\n- If some observations have higher variance, they should receive less weight\n- Violation doesn't bias OLS, but makes it inefficient\n\n**5. No autocorrelation:**\n- Each residual provides independent information\n- If errors are correlated, neighboring observations partially duplicate information\n- Violation doesn't bias OLS, but makes it inefficient\n\n**6. No perfect multicollinearity:**\n- Can uniquely identify the contribution of each variable\n- Mathematical necessity: (X'X) must be invertible\n\n**Why BLUE?**\n- Under these assumptions, no linear combination of Y can do better than OLS for estimating β\n- OLS extracts all available information from the linear structure",
+    "question_type": "theoretical",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Gauss-Markov Intuition"
+  },
+  {
+    "question_id": "ECON_045",
+    "question": "What is the Akaike Information Criterion (AIC) and how is it used for model selection?",
+    "ground_truth_answer": "The Akaike Information Criterion (AIC) is a model selection criterion that balances goodness of fit against model complexity.\n\nFormula:\nAIC = -2ln(L) + 2k = n×ln(RSS/n) + 2k\n\nWhere:\n- L = maximized likelihood value\n- k = number of parameters (including intercept)\n- n = sample size\n- RSS = residual sum of squares\n\nInterpretation:\n- First term: measures fit (smaller RSS = better fit = lower AIC)\n- Second term: penalty for complexity (more parameters = higher AIC)\n- Lower AIC is better\n- No absolute scale - only meaningful for comparing models on same data\n\nRelated criteria:\n\n**Schwarz/Bayesian Information Criterion (BIC):**\nBIC = n×ln(RSS/n) + k×ln(n)\n- Penalizes complexity more heavily than AIC\n- More consistent (asymptotically selects true model)\n- Tends to select simpler models\n\n**Usage:**\n1. Estimate competing models on same dataset\n2. Calculate AIC/BIC for each\n3. Select model with lowest criterion value\n4. Models need not be nested (unlike F-test)\n\nCaution: These are relative measures; a model with lowest AIC can still be poorly specified.",
+    "question_type": "formula",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Model Selection Criteria"
+  }
+]

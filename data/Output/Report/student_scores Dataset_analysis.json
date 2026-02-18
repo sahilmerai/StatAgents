@@ -1,0 +1,127 @@
+{
+  "dataset_info": {
+    "filename": "student_scores Dataset.csv",
+    "is_processed_data": false,
+    "file_location": "./data/Raw_data\\student_scores Dataset.csv",
+    "rows": 25,
+    "columns": 2,
+    "column_names": [
+      "Hours",
+      "Scores"
+    ],
+    "total_cells": 50,
+    "memory_usage_mb": 0.0,
+    "analyzed_at": "2026-02-17 12:02:01"
+  },
+  "data_type_identification": {
+    "likely_type": "Unclear Structure",
+    "confidence": "Low",
+    "reasons": [
+      "\u26a0 Unable to determine data structure",
+      "Columns: ['Hours', 'Scores']"
+    ],
+    "detected_columns": {
+      "id_columns": [],
+      "time_columns": [],
+      "numeric_columns": [
+        "Hours",
+        "Scores"
+      ],
+      "categorical_columns": []
+    },
+    "recommendations": [
+      "Review column names and data structure",
+      "Consider adding ID or time identifiers if applicable"
+    ]
+  },
+  "column_dtypes": {
+    "Hours": "float64",
+    "Scores": "int64"
+  },
+  "missing_summary": {
+    "total_missing": 0,
+    "total_missing_pct": 0.0,
+    "columns_with_missing": {}
+  },
+  "duplicates": {
+    "duplicate_rows": 0,
+    "duplicate_pct": 0.0
+  },
+  "numerical_analysis": {
+    "Hours": {
+      "count": 25,
+      "missing": 0,
+      "missing_pct": 0.0,
+      "mean": 5.012,
+      "median": 4.8,
+      "mode": 2.5,
+      "std": 2.5251,
+      "variance": 6.3761,
+      "min": 1.1,
+      "max": 9.2,
+      "range": 8.1,
+      "q1": 2.7,
+      "q3": 7.4,
+      "iqr": 4.7,
+      "skewness": 0.1903,
+      "skewness_type": "approximately symmetric",
+      "kurtosis": -1.3023,
+      "kurtosis_type": "mesokurtic (normal-like)",
+      "outliers": {
+        "count": 0,
+        "percentage": 0.0,
+        "indices": [],
+        "values": []
+      }
+    },
+    "Scores": {
+      "count": 25,
+      "missing": 0,
+      "missing_pct": 0.0,
+      "mean": 51.48,
+      "median": 47.0,
+      "mode": 30.0,
+      "std": 25.2869,
+      "variance": 639.4267,
+      "min": 17.0,
+      "max": 95.0,
+      "range": 78.0,
+      "q1": 30.0,
+      "q3": 75.0,
+      "iqr": 45.0,
+      "skewness": 0.234,
+      "skewness_type": "approximately symmetric",
+      "kurtosis": -1.4438,
+      "kurtosis_type": "mesokurtic (normal-like)",
+      "outliers": {
+        "count": 0,
+        "percentage": 0.0,
+        "indices": [],
+        "values": []
+      }
+    }
+  },
+  "categorical_analysis": {},
+  "correlations": {
+    "correlation_matrix": {
+      "Hours": {
+        "Hours": 1.0,
+        "Scores": 0.9762
+      },
+      "Scores": {
+        "Hours": 0.9762,
+        "Scores": 1.0
+      }
+    },
+    "high_correlation": [
+      {
+        "var1": "Hours",
+        "var2": "Scores",
+        "correlation": 0.9762
+      }
+    ],
+    "medium_correlation": [],
+    "low_correlation": [],
+    "negative_correlation": []
+  }
+}

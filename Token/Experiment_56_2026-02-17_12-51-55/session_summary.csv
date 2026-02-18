@@ -1,0 +1,7 @@
+session_id,experiment_id,start_time,end_time,user_query,user_query_length,user_query_tokens,total_messages,system_prompt_tokens,conversation_input_tokens,conversation_output_tokens,total_input_tokens,total_output_tokens,total_tokens,total_execution_time,system_prompt_cost_inr,conversation_cost_inr,total_cost_inr,agents_involved,tools_used,total_handoffs,success_rate,status
+Experiment_56_2026-02-17_12-51-55,Experiment_56_2026-02-17_12-51-55,2026-02-17_12-51-55,2026-02-17_12-58-04,"Hi 
+analyze this data : Credit Card Dataset.csv
+i dont know how to make analysis on this. 
+visual will help to know what is going on into the data.
+i need to make certain decisions from this data. 
+do the needful.",213,53,43,62044,83269,2548,145313,2548,147861,268.59459471702576,0.8374196563599998,1.2614609765099998,2.0988806328699994,"User, Head_of_the_Department, EDA_Agent, Data_processing_unit, TS_Agent","retrieve_business_story, analyze_csv_data, execute_python_code, transfer_to_head_of_the_department, transfer_to_ts_agent, retrieve_workflow, transfer_to_data_processing_unit, transfer_to_eda_agent, execute_python_code_T",6,100.0,completed

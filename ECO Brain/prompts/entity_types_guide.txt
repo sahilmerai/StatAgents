@@ -1,0 +1,35 @@
+# Econometrics GraphRAG Entity Types Configuration
+# Add this to your settings.yaml under extract_graph section
+
+# Recommended Entity Types for Econometrics Textbook:
+
+entity_types:
+  - CONCEPT          # Core econometric concepts (R-squared, elasticity, efficiency)
+  - METHOD           # Estimation/analysis methods (OLS, GLS, WLS, MLE, 2SLS)
+  - ASSUMPTION       # Model assumptions (homoscedasticity, normality, no autocorrelation)
+  - TEST             # Statistical tests (t-test, F-test, Durbin-Watson, White's test, Breusch-Pagan)
+  - FORMULA          # Mathematical formulas and equations
+  - MODEL            # Regression models (CLRM, CNLRM, simultaneous equations)
+  - PROPERTY         # Statistical properties (BLUE, unbiasedness, consistency, efficiency)
+  - PROBLEM          # Econometric problems (multicollinearity, heteroscedasticity, autocorrelation)
+  - VARIABLE         # Types of variables (dependent, independent, dummy, instrumental)
+  - ESTIMATOR        # Specific estimators (OLS estimator, IV estimator)
+  - DISTRIBUTION     # Statistical distributions (normal, t, F, chi-square)
+  - DIAGNOSTIC       # Diagnostic tools and measures (VIF, tolerance, condition number)
+
+# Example settings.yaml section:
+# 
+# extract_graph:
+#   prompt: "prompts/extract_graph.txt"
+#   entity_types:
+#     - CONCEPT
+#     - METHOD
+#     - ASSUMPTION
+#     - TEST
+#     - FORMULA
+#     - MODEL
+#     - PROPERTY
+#     - PROBLEM
+#     - VARIABLE
+#     - ESTIMATOR
+#   max_gleanings: 1

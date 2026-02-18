@@ -1,0 +1,46 @@
+﻿question_id,question,ground_truth_answer,question_type,complexity,topic,retrieved_context,generated_answer,timestamp,method
+DOE_001,What is a factorial design?,"A factorial design is an experimental design where all possible combinations of factor levels are tested. In a full factorial design with k factors each at n levels, there are n^k treatment combinations. This allows estimation of main effects and interactions between factors.",factual,simple,Factorial Designs - Basics,"📚 **GraphRAG LOCAL Results**
+
+## Understanding Factorial Design
+
+Factorial design is a systematic approach used in experimental research to evaluate the effects of two or more factors simultaneously. This design allows researchers to investigate not only the individual effects of each factor but also the interactions between them. By conducting experiments at all possible combinations of factor levels, factorial designs provide a comprehensive understanding of how different factors influence a response variable.
+
+### Key Features of Factorial Design
+
+1. **Multiple Factors**: Factorial designs involve multiple factors, each of which can have two or more levels. For example, in a two-factor design, researchers might examine the effects of temperature and pressure on a chemical reaction.
+
+2. **Comprehensive Analysis**: The primary purpose of factorial designs is to understand the interaction effects between factors. This is crucial in fields such as agriculture, manufacturing, and pharmaceuticals, where optimizing conditions can lead to better outcomes [Data: Reports (2)].
+
+3. **Mathematical Representation**: The mathematical model for a full factorial design can be expressed as:
+   \[
+   Y = \mu + \sum_{i=1}^{k} \beta_i X_i + \sum_{i<j} \beta_{ij} X_i X_j + \epsilon
+   \]
+   where \(Y\) is the response variable, \(\mu\) is the overall mean, \(\beta_i\) are the main effects, \(\beta_{ij}\) are the interaction effects, \(X_i\) are the factor levels, and \(\epsilon\) is the error term [Data: Relationships (2928)].
+
+### Types of Factorial Designs
+
+Factorial designs can be categorized into full factorial designs and fractional factorial designs:
+
+- **Full Factorial Designs**: These designs evaluate all possible combinations of factor levels, providing a complete picture of the effects and interactions. However, they can become impractical with a large number of factors due to the exponential increase in the number of experimental runs required.
+
+- **Fractional Factorial Designs**: To address the limitations of full factorial designs, fractional factorial designs use a subset of the full factorial combinations. This approach allows researchers to identify significant factors and interactions while significantly reducing the number of experimental runs needed. This is particularly useful when resources are limited or when the number of factors is large [Data: Reports (2)].
+
+### Applications and Importance
+
+Factorial designs are widely used in various fields, including industrial experiments, agricultural studies, and clinical trials. They are essential for optimizing processes and treatments, as they allow researchers to explore the effects of multiple factors efficiently. The ability to analyze interactions between factors is particularly valuable in complex systems where multiple variables can influence outcomes [Data: Reports (2)].
+
+In summary, factorial design is a powerful experimental methodology that enables researchers to systematically investigate the effects of multiple factors and their interactions, leading to more informed decisions and optimized processes in various applications.","A factorial design is a systematic experimental approach used to evaluate the effects of two or more factors simultaneously. It allows researchers to investigate both the individual effects of each factor and the interactions between them by conducting experiments at all possible combinations of factor levels.
+
+Key features include:
+
+1. **Multiple Factors**: Involves two or more factors, each with two or more levels (e.g., temperature and pressure in a chemical reaction).
+  
+2. **Comprehensive Analysis**: Aims to understand interaction effects, which is crucial in fields like agriculture and pharmaceuticals.
+
+The mathematical model for a full factorial design is represented as:
+\[
+Y = \mu + \sum_{i=1}^{k} \beta_i X_i + \sum_{i<j} \beta_{ij} X_i X_j + \epsilon
+\]
+where \(Y\) is the response variable, \(\mu\) is the overall mean, \(\beta_i\) are the main effects, \(\beta_{ij}\) are the interaction effects, \(X_i\) are the factor levels, and \(\epsilon\) is the error term.
+
+Factorial designs can be categorized into full factorial designs, which evaluate all combinations, and fractional factorial designs, which use a subset to reduce the number of experimental runs while still identifying significant factors and interactions.",2026-01-19 16:12:01,GraphRAG_Local

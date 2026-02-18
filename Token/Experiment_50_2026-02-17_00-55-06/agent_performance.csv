@@ -1,0 +1,6 @@
+agent_name,call_count,system_prompt_loads,system_prompt_tokens,conversation_input_tokens,conversation_output_tokens,total_input_tokens,total_output_tokens,total_tokens,tool_call_tokens,handoff_tokens,total_execution_time,system_prompt_cost_inr,conversation_cost_inr,total_cost_inr,tools_used,handoffs_made,success_count,error_count,success_rate
+User,2,0,0,0,89,0,89,89,0,0,0.0,0.0,0.0048050032000000005,0.0048050032000000005,,,2,0,100.0
+Head_of_the_Department,8,4,16364,8966,570,25330,570,25900,9,3,15.364315748214722,0.22086801715999999,0.15178942154,0.3726574387,"retrieve_workflow, transfer_to_eda_agent, transfer_to_visualizer_agent, transfer_to_codeexecutor","EDA_Agent, visualizer_Agent, Codeexecutor",8,0,100.0
+EDA_Agent,3,1,3179,4210,66,7389,66,7455,15,1,6.388811111450195,0.042907567009999995,0.06038643070000001,0.10329399771,"analyze_csv_data, transfer_to_head_of_the_department",Head_of_the_Department,3,0,100.0
+visualizer_Agent,7,3,1791,12517,414,14308,414,14722,163,1,18.578070163726807,0.024173467289999993,0.19129569043,0.21546915771999997,"execute_python_code, transfer_to_head_of_the_department",Head_of_the_Department,7,0,100.0
+CodeExecutor,4,2,7098,9840,29,16938,29,16967,45,1,12.3455069065094,0.09580305462,0.1343780248,0.23018107942,"execute_python_code, transfer_to_head_of_the_department",Head_of_the_Department,4,0,100.0

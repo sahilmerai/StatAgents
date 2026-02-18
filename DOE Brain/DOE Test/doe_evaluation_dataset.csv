@@ -1,0 +1,2 @@
+question_id,question,ground_truth_answer,question_type,complexity,retrieval_method,topic
+DOE_001,What is a factorial design?,"A factorial design is an experimental design where all possible combinations of factor levels are tested. In a full factorial design with k factors each at n levels, there are n^k treatment combinations. This allows estimation of main effects and interactions between factors.",factual,simple,local,Factorial Designs - Basics

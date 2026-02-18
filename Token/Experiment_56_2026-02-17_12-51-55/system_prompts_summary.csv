@@ -1,0 +1,5 @@
+agent_name,prompt_tokens,times_loaded,total_tokens,total_cost_inr
+Head_of_the_Department,4091,5,20455,0.27608502144999997
+EDA_Agent,3179,1,3179,0.042907567009999995
+Data_processing_unit,3432,4,13728,0.18528942431999998
+TS_Agent,3526,7,24682,0.33313764358

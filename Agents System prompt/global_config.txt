@@ -1,0 +1,65 @@
+# GLOBAL FILE PATH CONFIGURATION
+# All agents MUST follow these paths exactly
+# Note: Paths use ./data/ format - auto-converted to /data/ for Docker execution
+
+## INPUT PATHS
+RAW_DATA: ./data/Raw_data/{filename}.csv
+PROCESSED_DATA: ./data/Processed_data/{filename}_processed.csv
+
+## OUTPUT PATHS
+PLOTS: ./data/Output/Plots/{plot_name}.png
+REPORTS: ./data/Output/Report/{filename}_analysis.json
+TRANSFORMED_DATA: ./data/Processed_data/{filename}_processed_transformed.csv
+PROCESSING_REPORT: ./data/Processed_data/{filename}_processing_report.txt
+
+## FILE NAMING
+- Raw: {filename}.csv
+- Processed: {filename}_processed.csv
+- Transformed: {filename}_processed_transformed.csv
+- Report JSON: {filename}_analysis.json
+- Report TXT: {filename}_processing_report.txt
+- Plots: {descriptive_name}_{timestamp}.png
+
+## DEFAULT RULES
+1. Use PROCESSED data by default (if available)
+2. Use RAW data only if:
+   - User explicitly requests "raw data"
+   - Processed file doesn't exist
+3. ALWAYS use paths starting with ./data/
+4. Path structure: ./data/{subfolder}/{filename}
+
+## PLOT RULES
+- NEVER use plt.show()
+- ALWAYS use plt.savefig('./data/Output/Plots/name.png')
+- ALWAYS call plt.close() after saving
+
+## CORRECT PATH EXAMPLES
+```python
+# Reading raw data
+df = pd.read_csv('./data/Raw_data/Tractor_Sales.csv')
+
+# Reading processed data
+df = pd.read_csv('./data/Processed_data/Tractor_Sales_processed.csv')
+
+# Saving plots
+plt.savefig('./data/Output/Plots/sales_trend.png')
+
+# Saving processed data
+df.to_csv('./data/Processed_data/Tractor_Sales_processed.csv', index=False)
+
+# Saving JSON report
+with open('./data/Output/Report/analysis.json', 'w') as f:
+    json.dump(data, f)
+```
+
+## WRONG PATH EXAMPLES (NEVER USE)
+```python
+# WRONG - missing subfolder
+df = pd.read_csv('./data/file.csv')
+
+# WRONG - no path at all
+df = pd.read_csv('file.csv')
+
+# WRONG - direct /data without ./
+df = pd.read_csv('/data/file.csv')
+```

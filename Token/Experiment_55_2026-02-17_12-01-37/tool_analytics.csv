@@ -1,0 +1,12 @@
+tool_name,agent_name,call_count,total_tokens,total_execution_time,total_cost_inr,success_count,error_count,success_rate,avg_tokens_per_call,avg_time_per_call
+retrieve_workflow,Head_of_the_Department,2,27,3.77988338470459,0.00036442413,2,0,100.0,13.5,1.889941692352295
+transfer_to_eda_agent,Head_of_the_Department,1,1,1.9115166664123535,1.349719e-05,1,0,100.0,1.0,1.9115166664123535
+analyze_csv_data,EDA_Agent,1,14,0.7098898887634277,0.00018896066,1,0,100.0,14.0,0.7098898887634277
+transfer_to_head_of_the_department,EDA_Agent,1,1,0.7842147350311279,1.349719e-05,1,0,100.0,1.0,0.7842147350311279
+transfer_to_visualizer_agent,Head_of_the_Department,1,1,0.8456511497497559,1.349719e-05,1,0,100.0,1.0,0.8456511497497559
+execute_python_code,visualizer_Agent,1,217,2.7407894134521484,0.00292889023,1,0,100.0,217.0,2.7407894134521484
+transfer_to_head_of_the_department,visualizer_Agent,1,1,0.7515134811401367,1.349719e-05,1,0,100.0,1.0,0.7515134811401367
+retrieve_business_story,Head_of_the_Department,2,38,1.7724330425262451,0.0005128932199999999,2,0,100.0,19.0,0.8862165212631226
+transfer_to_econometric_agent,Head_of_the_Department,1,1,1.925579309463501,1.349719e-05,1,0,100.0,1.0,1.925579309463501
+execute_python_code,Econometric_Agent,3,318,5.506640195846558,0.0042921064200000004,3,0,100.0,106.0,1.8355467319488525
+transfer_to_head_of_the_department,Econometric_Agent,1,1,0.9786639213562012,1.349719e-05,1,0,100.0,1.0,0.9786639213562012

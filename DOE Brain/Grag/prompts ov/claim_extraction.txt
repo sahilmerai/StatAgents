@@ -1,0 +1,109 @@
+-Target activity-
+You are an intelligent assistant that helps analysts extract claims, findings, and assertions from Design of Experiments and Analysis of Variance literature.
+
+-Goal-
+Given experimental design or ANOVA text, extract verifiable claims about design properties, ANOVA results, relationships between designs, assumptions, and empirical findings.
+
+-Steps-
+1. Extract named entities matching the predefined specification (experimental designs, analysis methods, tests, assumptions, factors, effects)
+
+2. For each entity, extract claims that are:
+   * Design relationships (e.g., "RCBD extends CRD by incorporating blocking")
+   * Assumption requirements (e.g., "ANOVA requires normality assumption")
+   * Empirical findings (e.g., "F-test shows p < 0.05 for treatment effect")
+   * Theoretical properties (e.g., "Orthogonal contrasts have sum equal to zero")
+   * Performance comparisons (e.g., "Latin Square is more efficient than RCBD when blocking in two directions")
+   * Design features (e.g., "Factorial design allows estimation of interactions")
+   * Statistical results (e.g., "Main effect of temperature is significant at α=0.05")
+
+For each claim extract:
+- Subject: Experimental design, analysis method, or statistical entity making or subject to the claim
+- Object: Entity affected, compared, or related (use **NONE** if not applicable)
+- Claim Type: 
+  * DESIGN_RELATIONSHIP: How designs relate to each other
+  * ASSUMPTION_REQUIREMENT: Required assumptions for validity
+  * EMPIRICAL_FINDING: Data-based results from experiments
+  * THEORETICAL_PROPERTY: Mathematical or statistical properties
+  * PERFORMANCE_COMPARISON: Comparison of designs/methods
+  * DESIGN_FEATURE: Capabilities or characteristics of designs
+  * STATISTICAL_RESULT: Hypothesis test outcomes
+  * METHODOLOGICAL_ASSERTION: Statements about methods
+  * EFFICIENCY_CLAIM: Claims about resource usage or precision
+  * APPLICABILITY: When/where to use specific designs
+
+- Claim Status: 
+  * **PROVEN** (established theory, mathematical theorems)
+  * **EMPIRICAL** (based on data/experiments)
+  * **CONDITIONAL** (depends on assumptions or conditions)
+  * **COMPARATIVE** (relative statements between methods)
+
+- Claim Description: Detailed explanation with context, conditions, and any quantitative information
+- Claim Date: Publication date if available (ISO-8601 format), else **NONE**
+- Claim Source Text: Exact quotes supporting the claim
+
+Format: (<subject_entity>{tuple_delimiter}<object_entity>{tuple_delimiter}<claim_type>{tuple_delimiter}<claim_status>{tuple_delimiter}<claim_start_date>{tuple_delimiter}<claim_end_date>{tuple_delimiter}<claim_description>{tuple_delimiter}<claim_source>)
+
+3. Return output using **{record_delimiter}** as list delimiter
+
+4. When finished, output {completion_delimiter}
+
+######################
+-Examples-
+######################
+
+Example 1:
+Text:
+The Randomized Complete Block Design (RCBD) is an extension of the Completely Randomized Design (CRD) that incorporates blocking to control for one source of systematic variation. RCBD is more efficient than CRD when there is heterogeneity among experimental units. The F-test for treatment effects in RCBD showed F = 12.45 (p < 0.001), indicating highly significant treatment differences. RCBD requires that treatments are randomly assigned within each block.
+
+Output:
+(RANDOMIZED COMPLETE BLOCK DESIGN{tuple_delimiter}COMPLETELY RANDOMIZED DESIGN{tuple_delimiter}DESIGN_RELATIONSHIP{tuple_delimiter}PROVEN{tuple_delimiter}NONE{tuple_delimiter}NONE{tuple_delimiter}RCBD is an extension of CRD that adds blocking structure to control for one known source of systematic variation among experimental units. This extension maintains randomization within blocks while accounting for block-to-block variability.{tuple_delimiter}"The Randomized Complete Block Design (RCBD) is an extension of the Completely Randomized Design (CRD) that incorporates blocking")
+{record_delimiter}
+(RANDOMIZED COMPLETE BLOCK DESIGN{tuple_delimiter}COMPLETELY RANDOMIZED DESIGN{tuple_delimiter}PERFORMANCE_COMPARISON{tuple_delimiter}CONDITIONAL{tuple_delimiter}NONE{tuple_delimiter}NONE{tuple_delimiter}RCBD demonstrates superior efficiency compared to CRD specifically when experimental units exhibit heterogeneity. The efficiency gain comes from removing block-to-block variation from the error term, resulting in smaller standard errors and increased power. This advantage only materializes when blocking factor genuinely accounts for variation.{tuple_delimiter}"RCBD is more efficient than CRD when there is heterogeneity among experimental units")
+{record_delimiter}
+(F-TEST{tuple_delimiter}TREATMENT EFFECT{tuple_delimiter}STATISTICAL_RESULT{tuple_delimiter}EMPIRICAL{tuple_delimiter}NONE{tuple_delimiter}NONE{tuple_delimiter}The F-test applied to treatment effects in an RCBD experiment yielded F-statistic of 12.45 with associated p-value less than 0.001, providing strong statistical evidence against the null hypothesis of equal treatment means. This result indicates highly significant differences among treatments after accounting for block effects.{tuple_delimiter}"The F-test for treatment effects in RCBD showed F = 12.45 (p < 0.001), indicating highly significant treatment differences")
+{record_delimiter}
+(RANDOMIZED COMPLETE BLOCK DESIGN{tuple_delimiter}RANDOM ASSIGNMENT{tuple_delimiter}DESIGN_FEATURE{tuple_delimiter}PROVEN{tuple_delimiter}NONE{tuple_delimiter}NONE{tuple_delimiter}RCBD maintains the principle of randomization by requiring that treatments be randomly assigned to experimental units within each block. This within-block randomization ensures that treatment assignment is not confounded with any systematic within-block patterns and maintains the validity of statistical inference.{tuple_delimiter}"RCBD requires that treatments are randomly assigned within each block")
+{completion_delimiter}
+
+######################
+Example 2:
+Text:
+A 2^3 factorial design with three replications was conducted to study the effects of temperature, pressure, and catalyst concentration on yield. The three-way interaction (ABC) was not significant (F = 1.23, p = 0.28), but the two-way interaction between temperature and pressure (AB) was highly significant (F = 18.7, p < 0.001). Factorial designs are efficient because they allow estimation of all main effects and interactions with fewer runs compared to one-factor-at-a-time experiments. The assumption of normality was verified using the Shapiro-Wilk test (W = 0.976, p = 0.45).
+
+Output:
+(2^3 FACTORIAL DESIGN{tuple_delimiter}YIELD{tuple_delimiter}APPLICABILITY{tuple_delimiter}EMPIRICAL{tuple_delimiter}NONE{tuple_delimiter}NONE{tuple_delimiter}A 2^3 factorial design with three replications was implemented to investigate the effects of three factors (temperature, pressure, and catalyst concentration) on yield response. This design allows systematic exploration of the entire experimental space defined by the three factors at two levels each, requiring 8 treatment combinations replicated three times for 24 total runs.{tuple_delimiter}"A 2^3 factorial design with three replications was conducted to study the effects of temperature, pressure, and catalyst concentration on yield")
+{record_delimiter}
+(THREE-WAY INTERACTION{tuple_delimiter}NONE{tuple_delimiter}STATISTICAL_RESULT{tuple_delimiter}EMPIRICAL{tuple_delimiter}NONE{tuple_delimiter}NONE{tuple_delimiter}The three-way interaction effect (ABC) between temperature, pressure, and catalyst concentration was tested and found to be not statistically significant with F-statistic of 1.23 and p-value of 0.28. This indicates that the two-way interactions do not change across levels of the third factor, simplifying interpretation of lower-order effects.{tuple_delimiter}"The three-way interaction (ABC) was not significant (F = 1.23, p = 0.28)")
+{record_delimiter}
+(TWO-WAY INTERACTION{tuple_delimiter}TEMPERATURE AND PRESSURE{tuple_delimiter}STATISTICAL_RESULT{tuple_delimiter}EMPIRICAL{tuple_delimiter}NONE{tuple_delimiter}NONE{tuple_delimiter}The two-way interaction between temperature and pressure (AB interaction) demonstrated high statistical significance with F-statistic of 18.7 and p-value less than 0.001. This strong interaction effect indicates that the effect of temperature on yield depends on the level of pressure, requiring joint consideration of both factors for optimization.{tuple_delimiter}"the two-way interaction between temperature and pressure (AB) was highly significant (F = 18.7, p < 0.001)")
+{record_delimiter}
+(FACTORIAL DESIGN{tuple_delimiter}ONE-FACTOR-AT-A-TIME EXPERIMENT{tuple_delimiter}EFFICIENCY_CLAIM{tuple_delimiter}PROVEN{tuple_delimiter}NONE{tuple_delimiter}NONE{tuple_delimiter}Factorial designs demonstrate superior efficiency compared to one-factor-at-a-time (OFAT) experiments because they enable estimation of all main effects and interaction effects using fewer experimental runs. For k factors at two levels, a factorial design requires 2^k runs to estimate all effects, while OFAT would require at least k separate experiments and cannot detect interactions.{tuple_delimiter}"Factorial designs are efficient because they allow estimation of all main effects and interactions with fewer runs compared to one-factor-at-a-time experiments")
+{record_delimiter}
+(NORMALITY ASSUMPTION{tuple_delimiter}SHAPIRO-WILK TEST{tuple_delimiter}EMPIRICAL_FINDING{tuple_delimiter}EMPIRICAL{tuple_delimiter}NONE{tuple_delimiter}NONE{tuple_delimiter}The normality assumption underlying ANOVA was formally tested and verified using the Shapiro-Wilk test, which yielded a test statistic of W = 0.976 with associated p-value of 0.45. This high p-value (> 0.05) provides no evidence against the null hypothesis of normality, supporting the validity of the parametric ANOVA approach.{tuple_delimiter}"The assumption of normality was verified using the Shapiro-Wilk test (W = 0.976, p = 0.45)")
+{completion_delimiter}
+
+######################
+Example 3:
+Text:
+Latin Square design is appropriate when two blocking factors need to be controlled simultaneously. The design requires that the number of treatments equals the number of levels of each blocking factor. Latin Square achieves orthogonality among row effects, column effects, and treatment effects. The efficiency of Latin Square relative to RCBD increases with the degree of heterogeneity in both blocking directions. Graeco-Latin Square extends Latin Square to accommodate a third blocking factor.
+
+Output:
+(LATIN SQUARE DESIGN{tuple_delimiter}TWO BLOCKING FACTORS{tuple_delimiter}APPLICABILITY{tuple_delimiter}PROVEN{tuple_delimiter}NONE{tuple_delimiter}NONE{tuple_delimiter}Latin Square design is the appropriate choice when experimental situation requires simultaneous control of two sources of systematic variation through two blocking factors. This design is particularly useful in agricultural experiments (rows and columns) or industrial experiments (batches and time periods) where variation exists in two perpendicular directions.{tuple_delimiter}"Latin Square design is appropriate when two blocking factors need to be controlled simultaneously")
+{record_delimiter}
+(LATIN SQUARE DESIGN{tuple_delimiter}NUMBER OF TREATMENTS{tuple_delimiter}DESIGN_FEATURE{tuple_delimiter}PROVEN{tuple_delimiter}NONE{tuple_delimiter}NONE{tuple_delimiter}A fundamental structural requirement of Latin Square design is that the number of treatments must equal the number of levels of each blocking factor. This constraint (t = r = c, where t is treatments, r is rows, c is columns) is necessary to achieve the balanced, orthogonal structure that allows independent estimation of all effects. This requirement can be a limitation when factors have different numbers of levels.{tuple_delimiter}"The design requires that the number of treatments equals the number of levels of each blocking factor")
+{record_delimiter}
+(LATIN SQUARE DESIGN{tuple_delimiter}ORTHOGONALITY{tuple_delimiter}THEORETICAL_PROPERTY{tuple_delimiter}PROVEN{tuple_delimiter}NONE{tuple_delimiter}NONE{tuple_delimiter}Latin Square design achieves complete orthogonality among row effects, column effects, and treatment effects. This orthogonality means that estimates of these effects are statistically independent, sum of squares partitions exactly without overlap, and the efficiency of one effect estimation is not compromised by estimation of other effects. Mathematically, the design matrix columns for these effects are orthogonal.{tuple_delimiter}"Latin Square achieves orthogonality among row effects, column effects, and treatment effects")
+{record_delimiter}
+(LATIN SQUARE DESIGN{tuple_delimiter}RANDOMIZED COMPLETE BLOCK DESIGN{tuple_delimiter}PERFORMANCE_COMPARISON{tuple_delimiter}CONDITIONAL{tuple_delimiter}NONE{tuple_delimiter}NONE{tuple_delimiter}The relative efficiency of Latin Square compared to RCBD (which controls one blocking factor) increases as the degree of heterogeneity in both blocking directions increases. When substantial variation exists in both row and column directions, Latin Square removes more variation from error term than RCBD, resulting in smaller standard errors and greater power. However, if heterogeneity exists in only one direction, RCBD may be preferable due to more error degrees of freedom.{tuple_delimiter}"The efficiency of Latin Square relative to RCBD increases with the degree of heterogeneity in both blocking directions")
+{record_delimiter}
+(GRAECO-LATIN SQUARE{tuple_delimiter}LATIN SQUARE DESIGN{tuple_delimiter}DESIGN_RELATIONSHIP{tuple_delimiter}PROVEN{tuple_delimiter}NONE{tuple_delimiter}NONE{tuple_delimiter}Graeco-Latin Square is an extension of Latin Square design that accommodates control of a third blocking factor. It is formed by superimposing two orthogonal Latin Squares (one using Latin letters, one using Greek letters), creating a design where three blocking factors and treatments are mutually orthogonal. This design is only possible for certain treatment numbers (e.g., exists for t≥3 except t=6).{tuple_delimiter}"Graeco-Latin Square extends Latin Square to accommodate a third blocking factor")
+{completion_delimiter}
+
+######################
+-Real Data-
+######################
+Entity specification: {entity_specs}
+Claim description: {claim_description}
+Text: {input_text}
+######################
+Output:

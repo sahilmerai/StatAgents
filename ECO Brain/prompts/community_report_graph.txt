@@ -1,0 +1,143 @@
+
+You are an expert econometrician analyzing clusters of related econometric concepts, methods, and their interconnections within a knowledge graph.
+
+# Goal
+Write a comprehensive report about a community of related econometric concepts, given a list of entities (concepts, methods, tests, assumptions, formulas, models) that belong to the community and their relationships. The report will help students and practitioners understand how these econometric concepts relate to each other.
+
+# Report Structure
+
+The report should include the following sections:
+
+- TITLE: A descriptive name representing the key econometric concepts in this community - title should be specific and technically accurate. Include the main concept names when possible.
+- SUMMARY: An executive summary of the community's overall structure, explaining how the econometric concepts, methods, and assumptions are related to each other, and their significance in regression analysis or statistical inference.
+- IMPORTANCE RATING: A float score between 0-10 that represents the importance of this concept cluster for understanding econometrics. Higher scores for foundational concepts (like OLS, CLRM assumptions) or widely-used methods.
+- RATING EXPLANATION: A single sentence explaining the importance rating based on the centrality and applicability of these concepts.
+- DETAILED FINDINGS: A list of 5-10 key insights about how these econometric concepts work together. Each insight should have a short summary followed by multiple paragraphs of explanatory text grounded according to the grounding rules below. Be comprehensive.
+
+Return output as a well-formed JSON-formatted string with the following format:
+    {{
+        "title": <report_title>,
+        "summary": <executive_summary>,
+        "rating": <importance_rating>,
+        "rating_explanation": <rating_explanation>,
+        "findings": [
+            {{
+                "summary":<insight_1_summary>,
+                "explanation": <insight_1_explanation>
+            }},
+            {{
+                "summary":<insight_2_summary>,
+                "explanation": <insight_2_explanation>
+            }}
+        ]
+    }}
+
+# Grounding Rules
+
+Points supported by data should list their data references as follows:
+
+"This is an example sentence supported by multiple data references [Data: <dataset name> (record ids); <dataset name> (record ids)]."
+
+Do not list more than 5 record ids in a single reference. Instead, list the top 5 most relevant record ids and add "+more" to indicate that there are more.
+
+For example:
+"OLS estimation requires the Gauss-Markov assumptions to produce BLUE estimators [Data: Entities (5, 7); Relationships (23, 45)]."
+
+where 5, 7, 23, and 45 represent the id (not the index) of the relevant data record.
+
+Do not include information where the supporting evidence for it is not provided.
+
+Limit the total report length to {max_report_length} words.
+
+# Example Input
+-----------
+Text:
+
+Entities
+
+id,entity,description
+5,ORDINARY LEAST SQUARES,OLS is a method for estimating regression coefficients by minimizing sum of squared residuals
+6,GAUSS-MARKOV THEOREM,States that OLS estimators are BLUE under classical assumptions
+7,HOMOSCEDASTICITY,The assumption that error variance is constant across observations
+8,HETEROSCEDASTICITY,The condition where error variance varies across observations
+
+Relationships
+
+id,source,target,description
+37,ORDINARY LEAST SQUARES,GAUSS-MARKOV THEOREM,OLS achieves BLUE property under Gauss-Markov assumptions
+38,HOMOSCEDASTICITY,ORDINARY LEAST SQUARES,Homoscedasticity is required for OLS to be BLUE
+39,HETEROSCEDASTICITY,ORDINARY LEAST SQUARES,Heteroscedasticity violates OLS assumptions and affects inference
+
+Output:
+{{
+    "title": "OLS Estimation and the Gauss-Markov Framework",
+    "summary": "This community centers on Ordinary Least Squares (OLS) estimation and its theoretical foundations in the Gauss-Markov theorem. The relationships show how OLS properties depend on classical assumptions like homoscedasticity, and what happens when these assumptions are violated by heteroscedasticity.",
+    "rating": 9.5,
+    "rating_explanation": "The extremely high importance rating reflects that OLS is the foundational estimation method in econometrics, and understanding its assumptions is critical for valid inference.",
+    "findings": [
+        {{
+            "summary": "OLS is the central estimation method in classical econometrics",
+            "explanation": "Ordinary Least Squares is the most widely used method for estimating regression parameters. It works by finding coefficient values that minimize the sum of squared differences between observed and predicted values. This method forms the foundation of regression analysis and is connected to all other concepts in this cluster. [Data: Entities (5), Relationships (37, 38, 39)]"
+        }},
+        {{
+            "summary": "The Gauss-Markov theorem establishes OLS optimality conditions",
+            "explanation": "The Gauss-Markov theorem proves that under classical assumptions (including homoscedasticity and no autocorrelation), OLS estimators are the Best Linear Unbiased Estimators (BLUE). This means no other linear unbiased estimator has smaller variance. This theorem provides the theoretical justification for using OLS. [Data: Entities (6), Relationships (37)]"
+        }},
+        {{
+            "summary": "Homoscedasticity is essential for valid OLS inference",
+            "explanation": "The assumption of constant error variance (homoscedasticity) is crucial for OLS to achieve its optimal properties. When this assumption holds, the standard errors computed by OLS are correct, enabling valid hypothesis tests and confidence intervals. [Data: Entities (7), Relationships (38)]"
+        }},
+        {{
+            "summary": "Heteroscedasticity undermines OLS inference",
+            "explanation": "When error variance varies across observations (heteroscedasticity), OLS estimators remain unbiased but are no longer efficient. More importantly, the standard errors become biased, leading to invalid t-tests and F-tests. This makes detecting and addressing heteroscedasticity crucial in applied work. [Data: Entities (8), Relationships (39)]"
+        }}
+    ]
+}}
+
+
+# Real Data
+
+Use the following text for your answer. Do not make anything up in your answer.
+
+Text:
+{input_text}
+
+The report should include the following sections:
+
+- TITLE: community's name that represents its key econometric concepts - title should be short but specific. When possible, include representative concept names in the title.
+- SUMMARY: An executive summary of the community's overall structure, how its concepts are related to each other, and significant information about these econometric methods or theories.
+- IMPORTANCE RATING: a float score between 0-10 that represents the importance of these concepts for understanding econometrics.
+- RATING EXPLANATION: Give a single sentence explanation of the importance rating.
+- DETAILED FINDINGS: A list of 5-10 key insights about the community. Each insight should have a short summary followed by multiple paragraphs of explanatory text grounded according to the grounding rules below. Be comprehensive.
+
+Return output as a well-formed JSON-formatted string with the following format:
+    {{
+        "title": <report_title>,
+        "summary": <executive_summary>,
+        "rating": <importance_rating>,
+        "rating_explanation": <rating_explanation>,
+        "findings": [
+            {{
+                "summary":<insight_1_summary>,
+                "explanation": <insight_1_explanation>
+            }},
+            {{
+                "summary":<insight_2_summary>,
+                "explanation": <insight_2_explanation>
+            }}
+        ]
+    }}
+
+# Grounding Rules
+
+Points supported by data should list their data references as follows:
+
+"This is an example sentence supported by multiple data references [Data: <dataset name> (record ids); <dataset name> (record ids)]."
+
+Do not list more than 5 record ids in a single reference. Instead, list the top 5 most relevant record ids and add "+more" to indicate that there are more.
+
+Do not include information where the supporting evidence for it is not provided.
+
+Limit the total report length to {max_report_length} words.
+
+Output:

@@ -1,0 +1,15 @@
+# Ignore all experiment folders by default
+*/
+
+# Keep only these 3 specific experiment folders
+!Experiment_50_2026-02-17_00-55-06/
+!Experiment_55_2026-02-17_12-01-37/
+!Experiment_56_2026-02-17_12-51-55/
+
+# Keep all files inside the whitelisted folders
+!Experiment_50_2026-02-17_00-55-06/**
+!Experiment_55_2026-02-17_12-01-37/**
+!Experiment_56_2026-02-17_12-51-55/**
+
+# Keep this .gitignore file itself
+!.gitignore

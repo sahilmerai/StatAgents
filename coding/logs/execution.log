@@ -1,0 +1,300 @@
+
+==================================================
+ERROR LOG
+==================================================
+Error: [Errno 2] No such file or directory: '../data/Raw_data/student_scores Dataset.csv'
+Code:
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import time
+
+# Load the dataset
+file_path = '../data/Raw_data/student_scores Dataset.csv'
+df = pd.read_csv(file_path)
+
+# Create a scatter plot to show the relationship between study hours and scores
+plt.figure(figsize=(10, 6))
+sns.scatterplot(data=df, x='Hours', y='Scores', color='blue', s=100, edgecolor='black')
+plt.title('Relationship between Study Hours and Scores')
+plt.xlabel('Study Hours')
+plt.ylabel('Scores')
+plt.grid(True, alpha=0.3)
+plt.xlim(0, 10)
+plt.ylim(0, 100)
+# Save the figure
+plt.savefig('../data/Output/Plots/study_hours_vs_scores.png', dpi=300, bbox_inches='tight')
+plt.close()
+
+==================================================
+ERROR LOG
+==================================================
+Error: [Errno 2] No such file or directory: '../data/Raw_data/student_scores Dataset.csv'
+Code:
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import time
+
+# Load the dataset
+file_path = '../data/Raw_data/student_scores Dataset.csv'
+df = pd.read_csv(file_path)
+
+# Create a scatter plot to show the relationship between study hours and scores
+plt.figure(figsize=(10, 6))
+sns.scatterplot(data=df, x='Hours', y='Scores', color='blue', s=100, edgecolor='black')
+plt.title('Relationship between Study Hours and Scores')
+plt.xlabel('Study Hours')
+plt.ylabel('Scores')
+plt.grid(True, alpha=0.3)
+plt.xlim(0, 10)
+plt.ylim(0, 100)
+# Save the figure
+plt.savefig('../data/Output/Plots/study_hours_vs_scores.png', dpi=300, bbox_inches='tight')
+plt.close()
+
+==================================================
+ERROR LOG
+==================================================
+Error: [Errno 2] No such file or directory: '../data/Raw_data/student_scores Dataset.csv'
+Code:
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import time
+
+# Load the dataset
+file_path = '../data/Raw_data/student_scores Dataset.csv'
+df = pd.read_csv(file_path)
+
+# Create a scatter plot to show the relationship between study hours and scores
+plt.figure(figsize=(10, 6))
+sns.scatterplot(data=df, x='Hours', y='Scores', color='blue', s=100, edgecolor='black')
+plt.title('Relationship between Study Hours and Scores')
+plt.xlabel('Study Hours')
+plt.ylabel('Scores')
+plt.grid(True, alpha=0.3)
+plt.xlim(0, 10)
+plt.ylim(0, 100)
+# Save the figure
+plt.savefig('../data/Output/Plots/study_hours_vs_scores.png', dpi=300, bbox_inches='tight')
+plt.close()
+
+==================================================
+EXECUTION LOG
+==================================================
+Code executed successfully
+
+
+==================================================
+EXECUTION LOG
+==================================================
+Code executed successfully
+
+Output:
+✅ Visualization saved
+
+Warnings:
+<string>:20: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+
+
+==================================================
+ERROR LOG
+==================================================
+Error: [Errno 2] No such file or directory: './data/Processed_data/student_scores Dataset_processed.csv'
+Code:
+import pandas as pd
+import statsmodels.api as sm
+
+# Load the data
+file_path = './data/Processed_data/student_scores Dataset_processed.csv'
+df = pd.read_csv(file_path)
+
+# Define the independent variable (Hours) and dependent variable (Scores)
+X = df['Hours']
+Y = df['Scores']
+
+# Add a constant to the model (for the intercept)
+X = sm.add_constant(X)
+
+# Fit the Ordinary Least Squares (OLS) regression model
+model = sm.OLS(Y, X).fit()
+
+# Output the summary of the regression results
+model_summary = model.summary()
+model_summary
+
+==================================================
+EXECUTION LOG
+==================================================
+Code executed successfully
+
+
+==================================================
+EXECUTION LOG
+==================================================
+Code executed successfully
+
+
+==================================================
+ERROR LOG
+==================================================
+Error: name 'plt' is not defined
+Code:
+# Heatmap for correlation analysis
+plt.figure(figsize=(10, 8))
+corr_matrix = df.corr()
+sns.heatmap(corr_matrix, annot=True, fmt='.2f', cmap='coolwarm', center=0, square=True)
+plt.title('Correlation Heatmap of Credit Card Transactions', fontsize=16)
+plt.tight_layout()
+plt.savefig('./data/Output/Plots/correlation_heatmap.png', dpi=300, bbox_inches='tight')
+plt.close()
+
+==================================================
+ERROR LOG
+==================================================
+Error: name 'plt' is not defined
+Code:
+# 3. Transaction amount over hours
+plt.figure(figsize=(14, 7))
+average_transaction = df.groupby('transaction_hour')['amount'].mean()
+average_transaction.plot(kind='line', color='steelblue', marker='o', linewidth=2)
+plt.title('Average Transaction Amount by Hour of the Day', fontsize=16)
+plt.xlabel('Transaction Hour', fontsize=14)
+plt.ylabel('Average Amount ($)', fontsize=14)
+plt.grid(alpha=0.3)
+plt.xticks(range(0, 24))
+plt.tight_layout()
+plt.savefig('./data/Output/Plots/average_transaction_hour.png', dpi=300, bbox_inches='tight')
+plt.close()
+
+==================================================
+ERROR LOG
+==================================================
+Error: name 'plt' is not defined
+Code:
+# 4. Distribution of Fraud Cases by Merchant Category
+plt.figure(figsize=(12, 6))
+df['merchant_category'].value_counts().plot(kind='bar', color='orange')
+plt.title('Distribution of Fraud Cases by Merchant Category', fontsize=16)
+plt.xlabel('Merchant Category', fontsize=14)
+plt.ylabel('Frequency', fontsize=14)
+plt.xticks(rotation=45)
+plt.grid(alpha=0.3)
+plt.tight_layout()
+plt.savefig('./data/Output/Plots/fraud_cases_by_merchant_category.png', dpi=300, bbox_inches='tight')
+plt.close()
+
+==================================================
+EXECUTION LOG
+==================================================
+Code executed successfully
+
+
+==================================================
+ERROR LOG
+==================================================
+Error: could not convert string to float: 'Electronics'
+Code:
+# Heatmap for correlation analysis
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+file_path = './data/Raw_data/Credit Card Dataset.csv'
+df = pd.read_csv(file_path)
+
+plt.figure(figsize=(10, 8))
+corr_matrix = df.corr()
+sns.heatmap(corr_matrix, annot=True, fmt='.2f', cmap='coolwarm', center=0, square=True)
+plt.title('Correlation Heatmap of Credit Card Transactions', fontsize=16)
+plt.tight_layout()
+plt.savefig('./data/Output/Plots/correlation_heatmap.png', dpi=300, bbox_inches='tight')
+plt.close()
+
+==================================================
+EXECUTION LOG
+==================================================
+Code executed successfully
+
+
+==================================================
+EXECUTION LOG
+==================================================
+Code executed successfully
+
+
+==================================================
+EXECUTION LOG
+==================================================
+Code executed successfully
+
+
+==================================================
+EXECUTION LOG
+==================================================
+Code executed successfully
+
+
+==================================================
+EXECUTION LOG (Extended Timeout)
+==================================================
+Code executed successfully
+
+Output:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 10000 entries, 0 to 9999
+Data columns (total 10 columns):
+ #   Column               Non-Null Count  Dtype  
+---  ------               --------------  -----  
+ 0   transaction_id       10000 non-null  int64  
+ 1   amount               10000 non-null  float64
+ 2   transaction_hour     10000 non-null  int64  
+ 3   merchant_category    10000 non-null  object 
+ 4   foreign_transaction  10000 non-null  int64  
+ 5   location_mismatch    10000 non-null  int64  
+ 6   device_trust_score   10000 non-null  int64  
+ 7   velocity_last_24h    10000 non-null  int64  
+ 8   cardholder_age       10000 non-null  int64  
+ 9   is_fraud             10000 non-null  int64  
+dtypes: float64(1), int64(8), object(1)
+memory usage: 781.4+ KB
+
+
+==================================================
+ERROR LOG (Extended Timeout)
+==================================================
+Error: name 'df' is not defined
+Code:
+# Calculate average transaction amount and transaction count by hour
+average_amount_by_hour = df.groupby('transaction_hour')['amount'].mean()  # Average transaction amount
+transaction_count_by_hour = df.groupby('transaction_hour')['transaction_id'].count()  # Transaction count
+
+# Prepare data for visualization
+trends_data = pd.DataFrame({
+    'Average Amount': average_amount_by_hour,
+    'Transaction Count': transaction_count_by_hour
+})
+
+# Visualize the data
+plt.figure(figsize=(14, 7))
+plt.plot(trends_data.index, trends_data['Average Amount'], label='Average Transaction Amount', marker='o')
+plt.bar(trends_data.index, trends_data['Transaction Count'], color='lightgray', alpha=0.7, label='Transaction Count')
+
+# Chart details
+plt.title('Transaction Trends by Hour of Day')
+plt.xlabel('Hour of Day')
+plt.ylabel('Amounts and Counts')
+plt.xticks(trends_data.index)
+plt.grid(alpha=0.3)
+plt.legend()
+plt.tight_layout()
+plt.savefig('./data/Output/Plots/transaction_trends_hour.png')
+plt.close()
+
+==================================================
+EXECUTION LOG (Extended Timeout)
+==================================================
+Code executed successfully
+

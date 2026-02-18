@@ -1,0 +1,555 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+                <link href="lib/tom-select/tom-select.css" rel="stylesheet">
+                <script src="lib/tom-select/tom-select.complete.min.js"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 950px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+             #loadingBar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width: 100%;
+                 height: 950px;
+                 background-color:rgba(200,200,200,0.8);
+                 -webkit-transition: all 0.5s ease;
+                 -moz-transition: all 0.5s ease;
+                 -ms-transition: all 0.5s ease;
+                 -o-transition: all 0.5s ease;
+                 transition: all 0.5s ease;
+                 opacity:1;
+             }
+
+             #bar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width:20px;
+                 height:20px;
+                 margin:auto auto auto auto;
+                 border-radius:11px;
+                 border:2px solid rgba(30,30,30,0.05);
+                 background: rgb(0, 173, 246); /* Old browsers */
+                 box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+             }
+
+             #border {
+                 position:absolute;
+                 top:10px;
+                 left:10px;
+                 width:500px;
+                 height:23px;
+                 margin:auto auto auto auto;
+                 box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+                 border-radius:10px;
+             }
+
+             #text {
+                 position:absolute;
+                 top:8px;
+                 left:530px;
+                 width:30px;
+                 height:50px;
+                 margin:auto auto auto auto;
+                 font-size:22px;
+                 color: #000000;
+             }
+
+             div.outerBorder {
+                 position:relative;
+                 top:400px;
+                 width:600px;
+                 height:44px;
+                 margin:auto auto auto auto;
+                 border:8px solid rgba(0,0,0,0.1);
+                 background: rgb(252,252,252); /* Old browsers */
+                 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+                 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+                 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+                 background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+                 background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+                 background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+                 border-radius:72px;
+                 box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+             }
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+                <div id="select-menu" class="card-header">
+                    <div class="row no-gutters">
+                        <div class="col-10 pb-2">
+                            <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="selectNode([value]);"
+                            id="select-node"
+                            placeholder="Select node..."
+                            >
+                                <option selected>Select a Node by ID</option>
+                                
+                                    <option value="DAMODAR N. GUJARATI">DAMODAR N. GUJARATI</option>
+                                
+                                    <option value="U.S. MILITARY ACADEMY">U.S. MILITARY ACADEMY</option>
+                                
+                                    <option value="CITY UNIVERSITY OF NEW YORK">CITY UNIVERSITY OF NEW YORK</option>
+                                
+                                    <option value="UNIVERSITY OF BOMBAY">UNIVERSITY OF BOMBAY</option>
+                                
+                                    <option value="UNIVERSITY OF CHICAGO">UNIVERSITY OF CHICAGO</option>
+                                
+                                    <option value="NATIONAL UNIVERSITY OF SINGAPORE">NATIONAL UNIVERSITY OF SINGAPORE</option>
+                                
+                                    <option value="UNIVERSITY OF NEW SOUTH WALES">UNIVERSITY OF NEW SOUTH WALES</option>
+                                
+                                    <option value="AUSTRALIA">AUSTRALIA</option>
+                                
+                                    <option value="CANADA">CANADA</option>
+                                
+                                    <option value="MEXICO">MEXICO</option>
+                                
+                                    <option value="MCGRAW-HILL HIGHER EDUCATION">MCGRAW-HILL HIGHER EDUCATION</option>
+                                
+                                    <option value="MCDRAW-HILL">MCDRAW-HILL</option>
+                                
+                                    <option value="ECONOMETRICS">ECONOMETRICS</option>
+                                
+                                    <option value="EFFECTSMODEL">EFFECTSMODEL</option>
+                                
+                                    <option value="REGRESSION ANALYSIS">REGRESSION ANALYSIS</option>
+                                
+                                    <option value="MATHEMATICAL MODEL">MATHEMATICAL MODEL</option>
+                                
+                                    <option value="METHODOLOGY OF ECONOMETRICS">METHODOLOGY OF ECONOMETRICS</option>
+                                
+                                    <option value="STATISTICAL PREREQUISITES">STATISTICAL PREREQUISITES</option>
+                                
+                                    <option value="MCGRAW-HILL">MCGRAW-HILL</option>
+                                
+                                    <option value="HYPOTHESIS TESTING">HYPOTHESIS TESTING</option>
+                                
+                                    <option value="FORECASTING">FORECASTING</option>
+                                
+                                    <option value="ORDINARY LEAST SQUARES">ORDINARY LEAST SQUARES</option>
+                                
+                                    <option value="TWO-VARIABLE REGRESSION">TWO-VARIABLE REGRESSION</option>
+                                
+                                    <option value="SINGLE-EQUATION REGRESSION MODELS">SINGLE-EQUATION REGRESSION MODELS</option>
+                                
+                                    <option value="ANALYSIS">ANALYSIS</option>
+                                
+                                    <option value="CHILD MORTALITY">CHILD MORTALITY</option>
+                                
+                                    <option value="VARIANCE">VARIANCE</option>
+                                
+                                    <option value="MAXIMUM LIKELIHOOD ESTIMATION">MAXIMUM LIKELIHOOD ESTIMATION</option>
+                                
+                                    <option value="SAS OUTPUT">SAS OUTPUT</option>
+                                
+                                    <option value="MULTIPLE COEFFICIENT OF DETERMINATION">MULTIPLE COEFFICIENT OF DETERMINATION</option>
+                                
+                                    <option value="PARTIAL REGRESSION COEFFICIENTS">PARTIAL REGRESSION COEFFICIENTS</option>
+                                
+                                    <option value="GUJARATI">GUJARATI</option>
+                                
+                                    <option value="CLASSICAL NORMAL LINEAR REGRESSION MODEL">CLASSICAL NORMAL LINEAR REGRESSION MODEL</option>
+                                
+                                    <option value="MAXIMUM LIKELIHOOD">MAXIMUM LIKELIHOOD</option>
+                                
+                                    <option value="DATA">DATA</option>
+                                
+                                    <option value="ECONOMIC ANALYSIS">ECONOMIC ANALYSIS</option>
+                                
+                                    <option value="CONSUMPTION">CONSUMPTION</option>
+                                
+                                    <option value="PROBABILITY DISTRIBUTIONS">PROBABILITY DISTRIBUTIONS</option>
+                                
+                                    <option value="NORMAL DISTRIBUTION">NORMAL DISTRIBUTION</option>
+                                
+                                    <option value="COBB-DOUGLAS PRODUCTION FUNCTION">COBB-DOUGLAS PRODUCTION FUNCTION</option>
+                                
+                                    <option value="MULTIPLE REGRESSION">MULTIPLE REGRESSION</option>
+                                
+                                    <option value="DUMMY VARIABLE">DUMMY VARIABLE</option>
+                                
+                                    <option value="DUMMY VARIABLES">DUMMY VARIABLES</option>
+                                
+                                    <option value="ANOVA MODELS">ANOVA MODELS</option>
+                                
+                                    <option value="REGRESSION">REGRESSION</option>
+                                
+                                    <option value="INTERACTION EFFECTS">INTERACTION EFFECTS</option>
+                                
+                                    <option value="SEASONAL ANALYSIS">SEASONAL ANALYSIS</option>
+                                
+                                    <option value="CONSUMPTION EXPENDITURE">CONSUMPTION EXPENDITURE</option>
+                                
+                                    <option value="MULTICOLLINEARITY">MULTICOLLINEARITY</option>
+                                
+                                    <option value="OLS">OLS</option>
+                                
+                                    <option value="LONGLEY DATA">LONGLEY DATA</option>
+                                
+                                    <option value="PANEL DATA REGRESSION MODELS">PANEL DATA REGRESSION MODELS</option>
+                                
+                                    <option value="HETEROSCEDASTICITY">HETEROSCEDASTICITY</option>
+                                
+                                    <option value="GLS">GLS</option>
+                                
+                                    <option value="AUTOCORRELATION">AUTOCORRELATION</option>
+                                
+                                    <option value="TIME SERIES ECONOMETRICS">TIME SERIES ECONOMETRICS</option>
+                                
+                                    <option value="QUALITATIVE RESPONSE REGRESSION MODELS">QUALITATIVE RESPONSE REGRESSION MODELS</option>
+                                
+                                    <option value="DYNAMIC ECONOMETRIC MODELS">DYNAMIC ECONOMETRIC MODELS</option>
+                                
+                                    <option value="ECONOMETRIC MODELING">ECONOMETRIC MODELING</option>
+                                
+                                    <option value="MODEL SELECTION CRITERIA">MODEL SELECTION CRITERIA</option>
+                                
+                                    <option value="ERROR TERM">ERROR TERM</option>
+                                
+                                    <option value="SPECIFICATION ERRORS">SPECIFICATION ERRORS</option>
+                                
+                                    <option value="OUTLIERS">OUTLIERS</option>
+                                
+                                    <option value="CHOW'S PREDICTION FAILURE TEST">CHOW'S PREDICTION FAILURE TEST</option>
+                                
+                                    <option value="NESTED MODELS">NESTED MODELS</option>
+                                
+                                    <option value="AUTOREGRESSIVE MODELS">AUTOREGRESSIVE MODELS</option>
+                                
+                                    <option value="DISTRIBUTED-LAG MODELS">DISTRIBUTED-LAG MODELS</option>
+                                
+                                    <option value="APPENDIX 13A">APPENDIX 13A</option>
+                                
+                                    <option value="APPENDIX 12A">APPENDIX 12A</option>
+                                
+                                    <option value="APPENDIX 14A">APPENDIX 14A</option>
+                                
+                                    <option value="APPENDIX 15A">APPENDIX 15A</option>
+                                
+                                    <option value="PART III TOPICS IN ECONOMETRICS">PART III TOPICS IN ECONOMETRICS</option>
+                                
+                                    <option value="PART I">PART I</option>
+                                
+                                    <option value="PART II">PART II</option>
+                                
+                                    <option value="GRANGER CAUSALITY TEST">GRANGER CAUSALITY TEST</option>
+                                
+                                    <option value="SIMULTANEOUS-EQUATION MODELS">SIMULTANEOUS-EQUATION MODELS</option>
+                                
+                                    <option value="IDENTIFICATION PROBLEM">IDENTIFICATION PROBLEM</option>
+                                
+                                    <option value="INSTRUMENTAL VARIABLES">INSTRUMENTAL VARIABLES</option>
+                                
+                                    <option value="COINTEGRATION">COINTEGRATION</option>
+                                
+                                    <option value="BASIC ECONOMETRICS">BASIC ECONOMETRICS</option>
+                                
+                                    <option value="EVIWS">EVIWS</option>
+                                
+                                    <option value="LIMDEP">LIMDEP</option>
+                                
+                                    <option value="MICROFIT">MICROFIT</option>
+                                
+                                    <option value="MINITAB">MINITAB</option>
+                                
+                                    <option value="PCGIVE">PCGIVE</option>
+                                
+                                    <option value="SAS">SAS</option>
+                                
+                                    <option value="SHAZAM">SHAZAM</option>
+                                
+                                    <option value="STATA">STATA</option>
+                                
+                                    <option value="ECONOMICS">ECONOMICS</option>
+                                
+                                    <option value="POLITICS">POLITICS</option>
+                                
+                                    <option value="INTERNATIONAL RELATIONS">INTERNATIONAL RELATIONS</option>
+                                
+                                    <option value="AGRICULTURE">AGRICULTURE</option>
+                                
+                                    <option value="HEALTH SCIENCES">HEALTH SCIENCES</option>
+                                
+                                    <option value="EVIEWS">EVIEWS</option>
+                                
+                                    <option value="STUDENT SOLUTIONS MANUAL">STUDENT SOLUTIONS MANUAL</option>
+                                
+                                    <option value="DATA CD">DATA CD</option>
+                                
+                                    <option value="NEW YORK">NEW YORK</option>
+                                
+                                    <option value="BURR RIDGE">BURR RIDGE</option>
+                                
+                                    <option value="DUBUQUE">DUBUQUE</option>
+                                
+                                    <option value="MADISON">MADISON</option>
+                                
+                                    <option value="SAN FRANCISCO">SAN FRANCISCO</option>
+                                
+                                    <option value="ST. LOUIS">ST. LOUIS</option>
+                                
+                                    <option value="BANGKOK">BANGKOK</option>
+                                
+                                    <option value="BOGOTA">BOGOTA</option>
+                                
+                                    <option value="CARACAS">CARACAS</option>
+                                
+                                    <option value="KUALA LUMPUR">KUALA LUMPUR</option>
+                                
+                                    <option value="LISBON">LISBON</option>
+                                
+                                    <option value="LONDON">LONDON</option>
+                                
+                                    <option value="MADRID">MADRID</option>
+                                
+                                    <option value="MEXICO CITY">MEXICO CITY</option>
+                                
+                                    <option value="MILAN">MILAN</option>
+                                
+                                    <option value="MONTREAL">MONTREAL</option>
+                                
+                                    <option value="NEW DELHI">NEW DELHI</option>
+                                
+                                    <option value="SANTIAGO">SANTIAGO</option>
+                                
+                                    <option value="SEOUL">SEOUL</option>
+                                
+                                    <option value="SINGAPORE">SINGAPORE</option>
+                                
+                                    <option value="SYDNEY">SYDNEY</option>
+                                
+                                    <option value="TAIPEI">TAIPEI</option>
+                                
+                                    <option value="TORONTO">TORONTO</option>
+                                
+                                    <option value="SEMILOGARITHMIC REGRESSION">SEMILOGARITHMIC REGRESSION</option>
+                                
+                                    <option value="TECHNICAL ASPECTS OF DUMMY VARIABLE TECHNIQUE">TECHNICAL ASPECTS OF DUMMY VARIABLE TECHNIQUE</option>
+                                
+                                    <option value="NON-NESTED HYPOTHESES">NON-NESTED HYPOTHESES</option>
+                                
+                                    <option value="VAR MODEL">VAR MODEL</option>
+                                
+                                    <option value="ARCH MODELS">ARCH MODELS</option>
+                                
+                                    <option value="GARCH MODELS">GARCH MODELS</option>
+                                
+                                    <option value="DURBIN-WATSON">DURBIN-WATSON</option>
+                                
+                                    <option value="PROBABILITY DENSITY FUNCTION">PROBABILITY DENSITY FUNCTION</option>
+                                
+                                    <option value="CHI-SQUARE DISTRIBUTION">CHI-SQUARE DISTRIBUTION</option>
+                                
+                                    <option value="STUDENT'S T DISTRIBUTION">STUDENT'S T DISTRIBUTION</option>
+                                
+                                    <option value="F DISTRIBUTION">F DISTRIBUTION</option>
+                                
+                                    <option value="BERNOULLI BINOMIAL DISTRIBUTION">BERNOULLI BINOMIAL DISTRIBUTION</option>
+                                
+                                    <option value="POISSON DISTRIBUTION">POISSON DISTRIBUTION</option>
+                                
+                                    <option value="POINT ESTIMATION">POINT ESTIMATION</option>
+                                
+                                    <option value="INTERVAL ESTIMATION">INTERVAL ESTIMATION</option>
+                                
+                                    <option value="CONFIDENCE INTERVAL">CONFIDENCE INTERVAL</option>
+                                
+                                    <option value="ANALYSIS OF VARIANCE">ANALYSIS OF VARIANCE</option>
+                                
+                                    <option value="OLS ESTIMATORS">OLS ESTIMATORS</option>
+                                
+                                    <option value="WHITE'S ROBUST STANDARD ERRORS">WHITE'S ROBUST STANDARD ERRORS</option>
+                                
+                                    <option value="NEWY-WEST METHOD">NEWY-WEST METHOD</option>
+                                
+                                    <option value="AIC">AIC</option>
+                                
+                                    <option value="SCHWARZ CRITERION">SCHWARZ CRITERION</option>
+                                
+                                    <option value="MALLOWS'S C CRITERION">MALLOWS'S C CRITERION</option>
+                                
+                                    <option value="NONLINEAR REGRESSION MODELS">NONLINEAR REGRESSION MODELS</option>
+                                
+                                    <option value="STATIONARY TIME SERIES">STATIONARY TIME SERIES</option>
+                                
+                                    <option value="BOX-JENKINS METHODOLOGY">BOX-JENKINS METHODOLOGY</option>
+                                
+                                    <option value="ARCH AND GARCH TECHNIQUES">ARCH AND GARCH TECHNIQUES</option>
+                                
+                                    <option value="UNIVERSITY OF WESTERN AUSTRALIA">UNIVERSITY OF WESTERN AUSTRALIA</option>
+                                
+                                    <option value="SIMON FRAZER UNIVERSITY">SIMON FRAZER UNIVERSITY</option>
+                                
+                                    <option value="UNIVERSITY OF BRITISH COLUMBIA">UNIVERSITY OF BRITISH COLUMBIA</option>
+                                
+                                    <option value="CHRISTOPHER NEWPORT UNIVERSITY">CHRISTOPHER NEWPORT UNIVERSITY</option>
+                                
+                            </select>
+                        </div>
+                        <div class="col-2 pb-2">
+                            <button type="button" class="btn btn-primary btn-block" onclick="neighbourhoodHighlight({nodes: []});">Reset Selection</button>
+                        </div>
+                    </div>
+                </div>
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+            <div id="loadingBar">
+              <div class="outerBorder">
+                <div id="text">0%</div>
+                <div id="border">
+                  <div id="bar"></div>
+                </div>
+              </div>
+            </div>
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+                  new TomSelect("#select-node",{
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      }
+                  });
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"font": {"color": "black"}, "group": "PERSON", "id": "DAMODAR N. GUJARATI", "label": "DAMODAR N. GUJARATI", "shape": "dot", "size": 10, "title": "\u003cb\u003eDAMODAR N. GUJARATI\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Damodar N. Gujarati**\n\nDamodar N. Gujarati is a prominent figure in the field of econometrics, serving as a professor of economics at the U.S. Military Academy at West Point, New York. He is widely recognized for his extensive contributions to econometrics through both his academic publications an"}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "U.S. MILITARY ACADEMY", "label": "U.S. MILITARY ACADEMY", "shape": "dot", "size": 10, "title": "\u003cb\u003eU.S. MILITARY ACADEMY\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe U.S. Military Academy at West Point is a federal service academy in the United States that trains future leaders of the Army."}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "CITY UNIVERSITY OF NEW YORK", "label": "CITY UNIVERSITY OF NEW YORK", "shape": "dot", "size": 10, "title": "\u003cb\u003eCITY UNIVERSITY OF NEW YORK\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe City University of New York (CUNY) is a prominent public university system located in New York City. It serves as a significant educational institution that encompasses multiple colleges and schools, providing a diverse range of academic programs and research opportunities. Notably, CUNY has bee"}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "UNIVERSITY OF BOMBAY", "label": "UNIVERSITY OF BOMBAY", "shape": "dot", "size": 10, "title": "\u003cb\u003eUNIVERSITY OF BOMBAY\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe University of Bombay is a public university in Mumbai, India, where Damodar N. Gujarati received his M.Com. degree."}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "UNIVERSITY OF CHICAGO", "label": "UNIVERSITY OF CHICAGO", "shape": "dot", "size": 10, "title": "\u003cb\u003eUNIVERSITY OF CHICAGO\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe University of Chicago is a prestigious private research university located in Chicago, Illinois. It is renowned for its rigorous academic programs and contributions to various fields, including economics and finance. Notably, Damodar N. Gujarati, a prominent figure in econometrics, earned both h"}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "NATIONAL UNIVERSITY OF SINGAPORE", "label": "NATIONAL UNIVERSITY OF SINGAPORE", "shape": "dot", "size": 10, "title": "\u003cb\u003eNATIONAL UNIVERSITY OF SINGAPORE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe National University of Singapore is a leading global university located in Singapore, where Damodar N. Gujarati was a visiting professor."}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "UNIVERSITY OF NEW SOUTH WALES", "label": "UNIVERSITY OF NEW SOUTH WALES", "shape": "dot", "size": 10, "title": "\u003cb\u003eUNIVERSITY OF NEW SOUTH WALES\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe University of New South Wales is a public research university in Sydney, Australia, where Damodar N. Gujarati was a visiting professor."}, {"font": {"color": "black"}, "group": "GEO", "id": "AUSTRALIA", "label": "AUSTRALIA", "shape": "dot", "size": 10, "title": "\u003cb\u003eAUSTRALIA\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: Australia**\n\nAustralia is a country and continent situated in the Southern Hemisphere, known for its diverse geography, rich cultural heritage, and significant economic activities. It is a member of various international organizations and plays a vital role in global trade and economics. N"}, {"font": {"color": "black"}, "group": "GEO", "id": "CANADA", "label": "CANADA", "shape": "dot", "size": 10, "title": "\u003cb\u003eCANADA\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Canada: An Overview in Econometric Context**\n\nCanada is a country located in North America, recognized for its rich economic data and diverse economic policies. It serves as a significant case study in various econometric analyses, particularly in the context of time series econometrics. The count"}, {"font": {"color": "black"}, "group": "GEO", "id": "MEXICO", "label": "MEXICO", "shape": "dot", "size": 10, "title": "\u003cb\u003eMEXICO\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: Mexico**\n\nMexico is a country located in North America, recognized for its rich cultural heritage and diverse landscapes. It is a significant player in the global economy, as highlighted by its notable rates of change in stock prices and consumer prices, which are documented in economic an"}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "MCGRAW-HILL HIGHER EDUCATION", "label": "MCGRAW-HILL HIGHER EDUCATION", "shape": "dot", "size": 10, "title": "\u003cb\u003eMCGRAW-HILL HIGHER EDUCATION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eMcGraw-Hill Higher Education is a division of The McGraw-Hill Companies that publishes educational materials, including textbooks."}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "MCDRAW-HILL", "label": "MCDRAW-HILL", "shape": "dot", "size": 10, "title": "\u003cb\u003eMCDRAW-HILL\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: McGraw-Hill**\n\nMcGraw-Hill is a prominent educational publisher recognized for its extensive range of textbooks and educational resources, particularly in the field of econometrics. The company has established itself as a key player in the academic publishing industry, providing materials "}, {"font": {"color": "black"}, "group": "EVENT", "id": "ECONOMETRICS", "label": "ECONOMETRICS", "shape": "dot", "size": 10, "title": "\u003cb\u003eECONOMETRICS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Econometrics**\n\nEconometrics is a specialized field within economics that employs statistical methods to analyze economic data and relationships. It serves as a bridge between theoretical economic models and real-world data, providing empirical content to economic theories. By applying statistical"}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "EFFECTSMODEL", "label": "EFFECTSMODEL", "shape": "dot", "size": 10, "title": "\u003cb\u003eEFFECTSMODEL\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eEFFECTSMODEL is a model used in econometrics for analyzing the effects of variables in a given context."}, {"font": {"color": "black"}, "group": "EVENT", "id": "REGRESSION ANALYSIS", "label": "REGRESSION ANALYSIS", "shape": "dot", "size": 10, "title": "\u003cb\u003eREGRESSION ANALYSIS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Regression Analysis**\n\nRegression Analysis is a comprehensive statistical method employed to estimate and model the relationships among variables, particularly focusing on the relationship between a dependent variable and one or more independent variables. This method is widely utilized in econome"}, {"font": {"color": "black"}, "group": "EVENT", "id": "MATHEMATICAL MODEL", "label": "MATHEMATICAL MODEL", "shape": "dot", "size": 10, "title": "\u003cb\u003eMATHEMATICAL MODEL\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Mathematical Model in Econometrics**\n\nA mathematical model in econometrics serves as a formal representation of economic processes, theories, or hypotheses through mathematical expressions. These models are essential tools for analyzing economic phenomena and making predictions based on theoretica"}, {"font": {"color": "black"}, "group": "", "id": "METHODOLOGY OF ECONOMETRICS", "label": "METHODOLOGY OF ECONOMETRICS", "shape": "dot", "size": 10, "title": "\u003cb\u003eMETHODOLOGY OF ECONOMETRICS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e"}, {"font": {"color": "black"}, "group": "EVENT", "id": "STATISTICAL PREREQUISITES", "label": "STATISTICAL PREREQUISITES", "shape": "dot", "size": 10, "title": "\u003cb\u003eSTATISTICAL PREREQUISITES\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eStatistical prerequisites are the foundational statistical concepts and techniques necessary for conducting econometric analysis."}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "MCGRAW-HILL", "label": "MCGRAW-HILL", "shape": "dot", "size": 10, "title": "\u003cb\u003eMCGRAW-HILL\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**McGraw-Hill: A Comprehensive Overview**\n\nMcGraw-Hill is a prominent global educational publisher recognized for its extensive range of textbooks and educational resources across various subjects, with a significant focus on economics and econometrics. The company has established itself as a key pl"}, {"font": {"color": "black"}, "group": "EVENT", "id": "HYPOTHESIS TESTING", "label": "HYPOTHESIS TESTING", "shape": "dot", "size": 10, "title": "\u003cb\u003eHYPOTHESIS TESTING\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Hypothesis Testing**\n\nHypothesis testing is a fundamental statistical method employed in econometrics and other fields to make inferences about population parameters based on sample data. It serves as a systematic approach to evaluate the validity of a hypothesis concerning a population parameter,"}, {"font": {"color": "black"}, "group": "EVENT", "id": "FORECASTING", "label": "FORECASTING", "shape": "dot", "size": 10, "title": "\u003cb\u003eFORECASTING\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Forecasting in Econometrics**\n\nForecasting in econometrics is a critical process that involves predicting future values of economic variables based on historical data and econometric models. It serves as a fundamental aspect of econometric analysis, enabling economists and analysts to make informe"}, {"font": {"color": "black"}, "group": "EVENT", "id": "ORDINARY LEAST SQUARES", "label": "ORDINARY LEAST SQUARES", "shape": "dot", "size": 10, "title": "\u003cb\u003eORDINARY LEAST SQUARES\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Ordinary Least Squares (OLS)**\n\nOrdinary Least Squares (OLS) is a widely utilized statistical method for estimating the parameters of a linear regression model. The primary objective of OLS is to find the parameter estimates that minimize the sum of the squares of the residuals, which are the diff"}, {"font": {"color": "black"}, "group": "EVENT", "id": "TWO-VARIABLE REGRESSION", "label": "TWO-VARIABLE REGRESSION", "shape": "dot", "size": 10, "title": "\u003cb\u003eTWO-VARIABLE REGRESSION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Two-Variable Regression**\n\nTwo-variable regression is a fundamental statistical method widely utilized in econometrics to model and analyze the relationship between two variables. This technique is particularly important for understanding how changes in one variable (the independent variable) affe"}, {"font": {"color": "black"}, "group": "EVENT", "id": "SINGLE-EQUATION REGRESSION MODELS", "label": "SINGLE-EQUATION REGRESSION MODELS", "shape": "dot", "size": 10, "title": "\u003cb\u003eSINGLE-EQUATION REGRESSION MODELS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Single-Equation Regression Models**\n\nSingle-Equation Regression Models are a fundamental type of econometric model that estimates the relationship between a dependent variable and one or more independent variables. These models are widely utilized in econometrics to analyze and quantify the relati"}, {"font": {"color": "black"}, "group": "EVENT", "id": "ANALYSIS", "label": "ANALYSIS", "shape": "dot", "size": 10, "title": "\u003cb\u003eANALYSIS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eAnalysis refers to the systematic examination of data or information to understand and interpret results, often used in statistical contexts."}, {"font": {"color": "black"}, "group": "EVENT", "id": "CHILD MORTALITY", "label": "CHILD MORTALITY", "shape": "dot", "size": 10, "title": "\u003cb\u003eCHILD MORTALITY\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Child Mortality: A Comprehensive Summary**\n\nChild mortality is defined as the death of children under the age of five, and it serves as a critical indicator of the overall health and well-being of a population. This metric is often expressed as the number of deaths per 1,000 live births, making it"}, {"font": {"color": "black"}, "group": "", "id": "VARIANCE", "label": "VARIANCE", "shape": "dot", "size": 10, "title": "\u003cb\u003eVARIANCE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e"}, {"font": {"color": "black"}, "group": "EVENT", "id": "MAXIMUM LIKELIHOOD ESTIMATION", "label": "MAXIMUM LIKELIHOOD ESTIMATION", "shape": "dot", "size": 10, "title": "\u003cb\u003eMAXIMUM LIKELIHOOD ESTIMATION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Maximum Likelihood Estimation (MLE)**\n\nMaximum Likelihood Estimation (MLE) is a fundamental statistical method employed for estimating the parameters of a statistical model by maximizing the likelihood function. The likelihood function quantifies the probability of observing the given sample data "}, {"font": {"color": "black"}, "group": "EVENT", "id": "SAS OUTPUT", "label": "SAS OUTPUT", "shape": "dot", "size": 10, "title": "\u003cb\u003eSAS OUTPUT\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eSAS output refers to the results generated by the SAS software, commonly used for statistical analysis and data management."}, {"font": {"color": "black"}, "group": "EVENT", "id": "MULTIPLE COEFFICIENT OF DETERMINATION", "label": "MULTIPLE COEFFICIENT OF DETERMINATION", "shape": "dot", "size": 10, "title": "\u003cb\u003eMULTIPLE COEFFICIENT OF DETERMINATION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe multiple coefficient of determination (R) measures the proportion of variance in the dependent variable that can be explained by the independent variables in a regression model."}, {"font": {"color": "black"}, "group": "EVENT", "id": "PARTIAL REGRESSION COEFFICIENTS", "label": "PARTIAL REGRESSION COEFFICIENTS", "shape": "dot", "size": 10, "title": "\u003cb\u003ePARTIAL REGRESSION COEFFICIENTS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Partial Regression Coefficients**\n\nPartial regression coefficients are essential components in multiple regression analysis, serving as measures of the effect of one independent variable on a dependent variable while holding other independent variables constant. These coefficients provide insight "}, {"font": {"color": "black"}, "group": "PERSON", "id": "GUJARATI", "label": "GUJARATI", "shape": "dot", "size": 10, "title": "\u003cb\u003eGUJARATI\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Damodar Gujarati: Contributions to Econometrics**\n\nDamodar Gujarati is a prominent economist and author known for his significant contributions to the field of econometrics, particularly through his widely used textbook, \"Basic Econometrics.\" This book serves as a foundational resource for student"}, {"font": {"color": "black"}, "group": "EVENT", "id": "CLASSICAL NORMAL LINEAR REGRESSION MODEL", "label": "CLASSICAL NORMAL LINEAR REGRESSION MODEL", "shape": "dot", "size": 10, "title": "\u003cb\u003eCLASSICAL NORMAL LINEAR REGRESSION MODEL\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe Classical Normal Linear Regression Model (CNLRM) is a fundamental statistical framework in econometrics that is employed to estimate the relationships between variables. It is characterized by its assumption of a linear relationship between the dependent and independent variables, as well as the"}, {"font": {"color": "black"}, "group": "EVENT", "id": "MAXIMUM LIKELIHOOD", "label": "MAXIMUM LIKELIHOOD", "shape": "dot", "size": 10, "title": "\u003cb\u003eMAXIMUM LIKELIHOOD\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Maximum Likelihood (ML)**\n\nMaximum Likelihood (ML) is a fundamental statistical method employed for estimating the parameters of a statistical model. The core principle of ML is to maximize the likelihood function, which quantifies how likely it is to observe the given data under different paramet"}, {"font": {"color": "black"}, "group": "EVENT", "id": "DATA", "label": "DATA", "shape": "dot", "size": 10, "title": "\u003cb\u003eDATA\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**DATA**\n\nData is a fundamental concept in econometrics, referring to the collection of quantitative or qualitative information that can be analyzed to derive insights, particularly in the context of regression analysis. It encompasses a wide range of facts and statistics that are essential for cond"}, {"font": {"color": "black"}, "group": "EVENT", "id": "ECONOMIC ANALYSIS", "label": "ECONOMIC ANALYSIS", "shape": "dot", "size": 10, "title": "\u003cb\u003eECONOMIC ANALYSIS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eEconomic analysis involves the systematic approach to evaluating economic data and relationships."}, {"font": {"color": "black"}, "group": "EVENT", "id": "CONSUMPTION", "label": "CONSUMPTION", "shape": "dot", "size": 10, "title": "\u003cb\u003eCONSUMPTION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Consumption**\n\nConsumption is a fundamental component of Gross Domestic Product (GDP) that reflects real private consumption within an economy. It represents the total value of goods and services utilized by households, making it a critical variable in economic analysis and modeling. Econometric m"}, {"font": {"color": "black"}, "group": "EVENT", "id": "PROBABILITY DISTRIBUTIONS", "label": "PROBABILITY DISTRIBUTIONS", "shape": "dot", "size": 10, "title": "\u003cb\u003ePROBABILITY DISTRIBUTIONS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Probability Distributions**\n\nProbability distributions are fundamental mathematical functions that characterize the likelihood of various outcomes associated with a random variable. They serve as a cornerstone for statistical analysis by detailing how the values of a random variable are distribute"}, {"font": {"color": "black"}, "group": "EVENT", "id": "NORMAL DISTRIBUTION", "label": "NORMAL DISTRIBUTION", "shape": "dot", "size": 10, "title": "\u003cb\u003eNORMAL DISTRIBUTION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Normal Distribution**\n\nThe normal distribution is a fundamental probability distribution in statistics and econometrics, characterized by its symmetric bell-shaped curve. It is defined by two parameters: the mean (), which indicates the center of the distribution, and the standard deviation (), "}, {"font": {"color": "black"}, "group": "EVENT", "id": "COBB-DOUGLAS PRODUCTION FUNCTION", "label": "COBB-DOUGLAS PRODUCTION FUNCTION", "shape": "dot", "size": 10, "title": "\u003cb\u003eCOBB-DOUGLAS PRODUCTION FUNCTION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe Cobb-Douglas Production Function is a widely utilized mathematical model in economics that characterizes the relationship between multiple inputstypically labor and capitaland the resulting output produced. This specific form of production function is expressed mathematically as:\n\n\\[\nQ = A L^\\"}, {"font": {"color": "black"}, "group": "EVENT", "id": "MULTIPLE REGRESSION", "label": "MULTIPLE REGRESSION", "shape": "dot", "size": 10, "title": "\u003cb\u003eMULTIPLE REGRESSION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Multiple Regression**\n\nMultiple regression is a statistical technique employed in econometrics to model the relationship between a dependent variable and multiple independent variables. This method extends the basic principles of regression analysis, which typically involves a single independent v"}, {"font": {"color": "black"}, "group": "EVENT", "id": "DUMMY VARIABLE", "label": "DUMMY VARIABLE", "shape": "dot", "size": 10, "title": "\u003cb\u003eDUMMY VARIABLE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Dummy Variable**\n\nA dummy variable is a numerical variable used in regression analysis to represent categorical data, allowing researchers to include qualitative variables in their models. This technique is essential for analyzing data that can be divided into distinct groups or categories, such a"}, {"font": {"color": "black"}, "group": "EVENT", "id": "DUMMY VARIABLES", "label": "DUMMY VARIABLES", "shape": "dot", "size": 10, "title": "\u003cb\u003eDUMMY VARIABLES\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Dummy Variables**\n\nDummy variables are a crucial statistical tool employed in regression models to represent qualitative data and facilitate the analysis of categorical variables. They serve to classify samples into distinct subgroups, enabling researchers to assess the impact of these categories "}, {"font": {"color": "black"}, "group": "EVENT", "id": "ANOVA MODELS", "label": "ANOVA MODELS", "shape": "dot", "size": 10, "title": "\u003cb\u003eANOVA MODELS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eANOVA models are statistical methods used to analyze the differences among group means in a sample."}, {"font": {"color": "black"}, "group": "EVENT", "id": "REGRESSION", "label": "REGRESSION", "shape": "dot", "size": 10, "title": "\u003cb\u003eREGRESSION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Regression**\n\nRegression is a fundamental statistical method employed to analyze and model the relationships between a dependent variable and one or more independent variables. It serves as a cornerstone in econometric modeling, enabling researchers and analysts to estimate how changes in independ"}, {"font": {"color": "black"}, "group": "EVENT", "id": "INTERACTION EFFECTS", "label": "INTERACTION EFFECTS", "shape": "dot", "size": 10, "title": "\u003cb\u003eINTERACTION EFFECTS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eInteraction effects occur when the effect of one independent variable on the dependent variable changes depending on the level of another independent variable."}, {"font": {"color": "black"}, "group": "EVENT", "id": "SEASONAL ANALYSIS", "label": "SEASONAL ANALYSIS", "shape": "dot", "size": 10, "title": "\u003cb\u003eSEASONAL ANALYSIS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eSeasonal analysis involves examining data to identify and understand seasonal patterns and trends over time."}, {"font": {"color": "black"}, "group": "EVENT", "id": "CONSUMPTION EXPENDITURE", "label": "CONSUMPTION EXPENDITURE", "shape": "dot", "size": 10, "title": "\u003cb\u003eCONSUMPTION EXPENDITURE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Consumption Expenditure**\n\nConsumption expenditure is defined as the total amount of money spent by households on goods and services within a specified period. It serves as a critical variable in economic analysis, reflecting the spending behavior of consumers and its relationship to broader econo"}, {"font": {"color": "black"}, "group": "EVENT", "id": "MULTICOLLINEARITY", "label": "MULTICOLLINEARITY", "shape": "dot", "size": 10, "title": "\u003cb\u003eMULTICOLLINEARITY\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Multicollinearity**\n\nMulticollinearity is a statistical phenomenon that occurs in regression analysis when two or more predictor variables (independent variables) are highly correlated. This high correlation complicates the estimation of regression coefficients, leading to unreliable and unstable "}, {"font": {"color": "black"}, "group": "EVENT", "id": "OLS", "label": "OLS", "shape": "dot", "size": 10, "title": "\u003cb\u003eOLS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eOrdinary Least Squares (OLS) is a widely utilized statistical method for estimating the parameters of a linear regression model. The primary objective of OLS is to minimize the sum of the squares of the differences between the observed values and the predicted values, often referred to as residuals."}, {"font": {"color": "black"}, "group": "EVENT", "id": "LONGLEY DATA", "label": "LONGLEY DATA", "shape": "dot", "size": 10, "title": "\u003cb\u003eLONGLEY DATA\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Longley Data**\n\nThe Longley data is a well-known dataset in econometrics, primarily utilized to illustrate the effects and challenges of multicollinearity in regression analysis. This dataset, collected over the years 1947 to 1962, encompasses various economic indicators, making it a valuable reso"}, {"font": {"color": "black"}, "group": "", "id": "PANEL DATA REGRESSION MODELS", "label": "PANEL DATA REGRESSION MODELS", "shape": "dot", "size": 10, "title": "\u003cb\u003ePANEL DATA REGRESSION MODELS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e"}, {"font": {"color": "black"}, "group": "EVENT", "id": "HETEROSCEDASTICITY", "label": "HETEROSCEDASTICITY", "shape": "dot", "size": 10, "title": "\u003cb\u003eHETEROSCEDASTICITY\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Heteroscedasticity**\n\nHeteroscedasticity is a statistical phenomenon encountered in regression analysis, characterized by the non-constant variance of error terms across observations. Specifically, it occurs when the variance of the errors, denoted as \\( \\text{Var}(u_i) \\), varies with different l"}, {"font": {"color": "black"}, "group": "EVENT", "id": "GLS", "label": "GLS", "shape": "dot", "size": 10, "title": "\u003cb\u003eGLS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eGeneralized Least Squares (GLS) is a statistical method employed to estimate the parameters of a regression model, particularly when the assumptions of Ordinary Least Squares (OLS) are violated due to the presence of correlation among error terms, heteroscedasticity, or autocorrelation. GLS provides"}, {"font": {"color": "black"}, "group": "EVENT", "id": "AUTOCORRELATION", "label": "AUTOCORRELATION", "shape": "dot", "size": 10, "title": "\u003cb\u003eAUTOCORRELATION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Autocorrelation**\n\nAutocorrelation is a statistical phenomenon that measures the correlation of a time series with its own past values, often referred to as lagged values. It is a crucial concept in econometrics and time series analysis, as it helps in understanding time-dependent structures withi"}, {"font": {"color": "black"}, "group": "", "id": "TIME SERIES ECONOMETRICS", "label": "TIME SERIES ECONOMETRICS", "shape": "dot", "size": 10, "title": "\u003cb\u003eTIME SERIES ECONOMETRICS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e"}, {"font": {"color": "black"}, "group": "EVENT", "id": "QUALITATIVE RESPONSE REGRESSION MODELS", "label": "QUALITATIVE RESPONSE REGRESSION MODELS", "shape": "dot", "size": 10, "title": "\u003cb\u003eQUALITATIVE RESPONSE REGRESSION MODELS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Qualitative Response Regression Models**\n\nQualitative Response Regression Models are a class of statistical models specifically designed to predict outcomes that are categorical in nature, particularly binary outcomes. These models are essential in econometrics for analyzing situations where the d"}, {"font": {"color": "black"}, "group": "EVENT", "id": "DYNAMIC ECONOMETRIC MODELS", "label": "DYNAMIC ECONOMETRIC MODELS", "shape": "dot", "size": 10, "title": "\u003cb\u003eDYNAMIC ECONOMETRIC MODELS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Dynamic Econometric Models**\n\nDynamic Econometric Models are a category of statistical models specifically designed to analyze economic data over time, incorporating time and lag effects to capture the temporal dynamics of economic variables. These models are particularly relevant in the context o"}, {"font": {"color": "black"}, "group": "EVENT", "id": "ECONOMETRIC MODELING", "label": "ECONOMETRIC MODELING", "shape": "dot", "size": 10, "title": "\u003cb\u003eECONOMETRIC MODELING\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Econometric Modeling**\n\nEconometric Modeling is a fundamental concept in econometrics that encompasses the process of creating statistical models to analyze economic data and represent economic processes. This concept is extensively discussed in the Gujarati textbook, which outlines the assumption"}, {"font": {"color": "black"}, "group": "EVENT", "id": "MODEL SELECTION CRITERIA", "label": "MODEL SELECTION CRITERIA", "shape": "dot", "size": 10, "title": "\u003cb\u003eMODEL SELECTION CRITERIA\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eModel selection criteria are methods used to choose the best statistical model among a set of candidates based on their performance."}, {"font": {"color": "black"}, "group": "EVENT", "id": "ERROR TERM", "label": "ERROR TERM", "shape": "dot", "size": 10, "title": "\u003cb\u003eERROR TERM\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe \"Error Term\" is a fundamental concept in econometrics, particularly in regression analysis. It refers to the difference between the observed values of the dependent variable and the values predicted by the regression model. Mathematically, the error term (often denoted as \\( \\epsilon \\)) can be "}, {"font": {"color": "black"}, "group": "EVENT", "id": "SPECIFICATION ERRORS", "label": "SPECIFICATION ERRORS", "shape": "dot", "size": 10, "title": "\u003cb\u003eSPECIFICATION ERRORS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Specification Errors**\n\nSpecification errors refer to the inaccuracies that arise when a statistical model is incorrectly formulated. These errors can significantly impact the reliability of the model\u0027s estimates and predictions. Specifically, specification errors occur when the model fails to acc"}, {"font": {"color": "black"}, "group": "EVENT", "id": "OUTLIERS", "label": "OUTLIERS", "shape": "dot", "size": 10, "title": "\u003cb\u003eOUTLIERS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Outliers in Econometrics**\n\nOutliers are defined as data points that deviate significantly from other observations within a dataset. Their presence can have substantial implications for the accuracy and reliability of econometric analyses, particularly in regression models. Outliers can arise from"}, {"font": {"color": "black"}, "group": "EVENT", "id": "CHOW\u0027S PREDICTION FAILURE TEST", "label": "CHOW\u0027S PREDICTION FAILURE TEST", "shape": "dot", "size": 10, "title": "\u003cb\u003eCHOW\u0027S PREDICTION FAILURE TEST\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eChow\u0027s Prediction Failure Test is a statistical test employed to assess the stability of the parameters of a regression model over time. This test is particularly useful in econometrics for evaluating whether the relationships captured by a model remain consistent across different time periods, whic"}, {"font": {"color": "black"}, "group": "EVENT", "id": "NESTED MODELS", "label": "NESTED MODELS", "shape": "dot", "size": 10, "title": "\u003cb\u003eNESTED MODELS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Nested Models**\n\nNested models are a specific class of statistical models characterized by the relationship where one model is a special case of another. This hierarchical structure allows for a systematic comparison between the models, particularly in terms of their fit to the data. The concept o"}, {"font": {"color": "black"}, "group": "EVENT", "id": "AUTOREGRESSIVE MODELS", "label": "AUTOREGRESSIVE MODELS", "shape": "dot", "size": 10, "title": "\u003cb\u003eAUTOREGRESSIVE MODELS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Autoregressive Models**\n\nAutoregressive models (AR models) are a class of statistical models employed primarily for forecasting future values in time series data by utilizing past values of the same variable. These models are integral to econometric analysis, particularly in the context of time se"}, {"font": {"color": "black"}, "group": "EVENT", "id": "DISTRIBUTED-LAG MODELS", "label": "DISTRIBUTED-LAG MODELS", "shape": "dot", "size": 10, "title": "\u003cb\u003eDISTRIBUTED-LAG MODELS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Distributed-Lag Models**\n\nDistributed-lag models are a class of econometric models that establish a relationship between a dependent variable and its own past values, as well as the past values of one or more independent variables. These models are particularly significant in time series analysis,"}, {"font": {"color": "black"}, "group": "EVENT", "id": "APPENDIX 13A", "label": "APPENDIX 13A", "shape": "dot", "size": 10, "title": "\u003cb\u003eAPPENDIX 13A\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eAppendix 13A includes proofs and discussions on the consequences of including irrelevant variables in econometric models."}, {"font": {"color": "black"}, "group": "", "id": "APPENDIX 12A", "label": "APPENDIX 12A", "shape": "dot", "size": 10, "title": "\u003cb\u003eAPPENDIX 12A\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e"}, {"font": {"color": "black"}, "group": "EVENT", "id": "APPENDIX 14A", "label": "APPENDIX 14A", "shape": "dot", "size": 10, "title": "\u003cb\u003eAPPENDIX 14A\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eAppendix 14A provides derivations of equations related to nonlinear regression models and their estimation methods."}, {"font": {"color": "black"}, "group": "EVENT", "id": "APPENDIX 15A", "label": "APPENDIX 15A", "shape": "dot", "size": 10, "title": "\u003cb\u003eAPPENDIX 15A\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eAppendix 15A discusses maximum likelihood estimation techniques for logit and probit models in econometrics."}, {"font": {"color": "black"}, "group": "EVENT", "id": "PART III TOPICS IN ECONOMETRICS", "label": "PART III TOPICS IN ECONOMETRICS", "shape": "dot", "size": 10, "title": "\u003cb\u003ePART III TOPICS IN ECONOMETRICS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003ePart III covers various advanced topics in econometrics, including nonlinear regression models and qualitative response models."}, {"font": {"color": "black"}, "group": "EVENT", "id": "PART I", "label": "PART I", "shape": "dot", "size": 10, "title": "\u003cb\u003ePART I\u003c/b\u003e\u003cbr\u003e\u003cbr\u003ePart I introduces fundamental concepts in econometrics, including model specification and diagnostic testing."}, {"font": {"color": "black"}, "group": "EVENT", "id": "PART II", "label": "PART II", "shape": "dot", "size": 10, "title": "\u003cb\u003ePART II\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Part II: Model Selection Criteria and Specification Errors in Econometric Analysis**\n\nPart II of the text delves into critical aspects of econometric analysis, specifically focusing on model selection criteria and the implications of specification errors. This section serves as a foundational comp"}, {"font": {"color": "black"}, "group": "EVENT", "id": "GRANGER CAUSALITY TEST", "label": "GRANGER CAUSALITY TEST", "shape": "dot", "size": 10, "title": "\u003cb\u003eGRANGER CAUSALITY TEST\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe Granger Causality Test is a statistical hypothesis test employed to ascertain whether one time series can predict another. This test is grounded in the concept of temporal precedence, which posits that if a time series \\( X \\) Granger-causes another time series \\( Y \\), then past values of \\( X "}, {"font": {"color": "black"}, "group": "EVENT", "id": "SIMULTANEOUS-EQUATION MODELS", "label": "SIMULTANEOUS-EQUATION MODELS", "shape": "dot", "size": 10, "title": "\u003cb\u003eSIMULTANEOUS-EQUATION MODELS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Simultaneous-Equation Models**\n\nSimultaneous-Equation Models (SEMs) are a class of econometric models that are designed to analyze systems of equations where multiple variables are interdependent. These models are particularly useful in situations where the relationships among variables are not un"}, {"font": {"color": "black"}, "group": "EVENT", "id": "IDENTIFICATION PROBLEM", "label": "IDENTIFICATION PROBLEM", "shape": "dot", "size": 10, "title": "\u003cb\u003eIDENTIFICATION PROBLEM\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Identification Problem in Econometrics**\n\nThe Identification Problem is a fundamental concept in econometrics that addresses the conditions under which a model can be uniquely identified and its parameters estimated. It encompasses the challenges associated with determining the unique relationship"}, {"font": {"color": "black"}, "group": "EVENT", "id": "INSTRUMENTAL VARIABLES", "label": "INSTRUMENTAL VARIABLES", "shape": "dot", "size": 10, "title": "\u003cb\u003eINSTRUMENTAL VARIABLES\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Instrumental Variables**\n\nInstrumental Variables (IV) are a crucial econometric technique employed to address issues of endogeneity in regression models. Endogeneity arises when an explanatory variable is correlated with the error term, leading to biased and inconsistent estimators. This correlati"}, {"font": {"color": "black"}, "group": "EVENT", "id": "COINTEGRATION", "label": "COINTEGRATION", "shape": "dot", "size": 10, "title": "\u003cb\u003eCOINTEGRATION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Cointegration**\n\nCointegration is a fundamental concept in time series econometrics that describes a statistical property of a collection of time series variables, indicating the presence of a long-term equilibrium relationship among them. Specifically, cointegration occurs when a linear combinati"}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "BASIC ECONOMETRICS", "label": "BASIC ECONOMETRICS", "shape": "dot", "size": 10, "title": "\u003cb\u003eBASIC ECONOMETRICS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Basic Econometrics**\n\nBasic Econometrics is a foundational textbook designed to introduce students from various disciplines to the field of econometrics without delving into advanced mathematical concepts. The text serves as a comprehensive guide to essential econometric methods and models, with a"}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "EVIWS", "label": "EVIWS", "shape": "dot", "size": 10, "title": "\u003cb\u003eEVIWS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**EViews: Comprehensive Summary**\n\nEViews is a powerful statistical software package widely utilized for econometric analysis, particularly in the fields of nonlinear regression analysis and statistical modeling. It serves as an essential tool for researchers and practitioners in economics and relat"}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "LIMDEP", "label": "LIMDEP", "shape": "dot", "size": 10, "title": "\u003cb\u003eLIMDEP\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eLIMDEP is a comprehensive software package specifically designed for econometric analysis, with a strong emphasis on limited dependent variable models. This software is widely utilized in the field of econometrics for its robust capabilities in handling various types of regression analyses, includin"}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "MICROFIT", "label": "MICROFIT", "shape": "dot", "size": 10, "title": "\u003cb\u003eMICROFIT\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**MICROFIT: A Comprehensive Overview**\n\nMICROFIT is a specialized software package designed for econometric analysis and modeling, widely utilized in the field of economics. It provides a robust platform for researchers and practitioners to conduct various econometric tasks, including model estimati"}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "MINITAB", "label": "MINITAB", "shape": "dot", "size": 10, "title": "\u003cb\u003eMINITAB\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: MINITAB**\n\nMINITAB is a comprehensive statistical software package widely utilized for data analysis, particularly in the fields of regression analysis and quality improvement. It serves as a powerful tool for statisticians, researchers, and data analysts, enabling them to perform a variet"}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "PCGIVE", "label": "PCGIVE", "shape": "dot", "size": 10, "title": "\u003cb\u003ePCGIVE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**PCGIVE: A Comprehensive Overview**\n\nPCGIVE is a sophisticated software tool designed for econometric analysis and regression modeling. It serves as a comprehensive package that facilitates the implementation of various econometric models, with a particular emphasis on regression techniques. This s"}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "SAS", "label": "SAS", "shape": "dot", "size": 10, "title": "\u003cb\u003eSAS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**SAS: Comprehensive Summary**\n\nSAS, which stands for Statistical Analysis System, is a prominent software suite developed by SAS Institute Inc. that provides a wide array of analytics software and solutions, particularly utilized in econometric analysis. The software is designed to facilitate advan"}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "SHAZAM", "label": "SHAZAM", "shape": "dot", "size": 10, "title": "\u003cb\u003eSHAZAM\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**SHAZAM: An Overview of Econometric Software**\n\nSHAZAM is a comprehensive statistical software package specifically designed for econometric analysis and regression modeling. It is widely referenced in econometrics literature and serves as a valuable tool for researchers and practitioners in the fi"}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "STATA", "label": "STATA", "shape": "dot", "size": 10, "title": "\u003cb\u003eSTATA\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**STATA**\n\nSTATA is a comprehensive software application widely utilized for data analysis, manipulation, and econometric modeling. It serves as a powerful tool for researchers and practitioners in various fields, particularly in economics, sociology, and political science, where data analysis is cr"}, {"font": {"color": "black"}, "group": "GEO", "id": "ECONOMICS", "label": "ECONOMICS", "shape": "dot", "size": 10, "title": "\u003cb\u003eECONOMICS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eEconomics is a field of study that the book is primarily aimed at, along with other disciplines."}, {"font": {"color": "black"}, "group": "GEO", "id": "POLITICS", "label": "POLITICS", "shape": "dot", "size": 10, "title": "\u003cb\u003ePOLITICS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003ePolitics is one of the disciplines that utilize the book for econometric techniques."}, {"font": {"color": "black"}, "group": "GEO", "id": "INTERNATIONAL RELATIONS", "label": "INTERNATIONAL RELATIONS", "shape": "dot", "size": 10, "title": "\u003cb\u003eINTERNATIONAL RELATIONS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eInternational relations is a field that benefits from the econometric techniques discussed in the book."}, {"font": {"color": "black"}, "group": "GEO", "id": "AGRICULTURE", "label": "AGRICULTURE", "shape": "dot", "size": 10, "title": "\u003cb\u003eAGRICULTURE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eAgriculture is one of the disciplines that find the econometric discussions in the book useful."}, {"font": {"color": "black"}, "group": "GEO", "id": "HEALTH SCIENCES", "label": "HEALTH SCIENCES", "shape": "dot", "size": 10, "title": "\u003cb\u003eHEALTH SCIENCES\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eHealth sciences is another discipline that utilizes the econometric techniques presented in the book."}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "EVIEWS", "label": "EVIEWS", "shape": "dot", "size": 10, "title": "\u003cb\u003eEVIEWS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eEViews is a comprehensive statistical software package specifically designed for time series analysis, econometric modeling, forecasting, and simulation. It serves as a vital tool for researchers and practitioners in the field of econometrics, providing a user-friendly interface and a robust set of "}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "STUDENT SOLUTIONS MANUAL", "label": "STUDENT SOLUTIONS MANUAL", "shape": "dot", "size": 10, "title": "\u003cb\u003eSTUDENT SOLUTIONS MANUAL\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe \"Student Solutions Manual\" is an essential resource designed to complement the primary econometrics textbook by providing detailed solutions to the questions and problems presented within. This manual serves both instructors and students, facilitating a deeper understanding of econometric concep"}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "DATA CD", "label": "DATA CD", "shape": "dot", "size": 10, "title": "\u003cb\u003eDATA CD\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe Data CD contains data from the econometrics textbook in ASCII or text format for use with various software packages."}, {"font": {"color": "black"}, "group": "GEO", "id": "NEW YORK", "label": "NEW YORK", "shape": "dot", "size": 10, "title": "\u003cb\u003eNEW YORK\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: New York**\n\nNew York is a prominent city and state in the United States, recognized for its substantial cultural, financial, and educational influence. As a major urban center, New York City serves as a cultural and financial hub, housing numerous institutions, landmarks, and events that c"}, {"font": {"color": "black"}, "group": "GEO", "id": "BURR RIDGE", "label": "BURR RIDGE", "shape": "dot", "size": 10, "title": "\u003cb\u003eBURR RIDGE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eBurr Ridge is a village in Illinois, located near Chicago, known for its affluent residential areas."}, {"font": {"color": "black"}, "group": "GEO", "id": "DUBUQUE", "label": "DUBUQUE", "shape": "dot", "size": 10, "title": "\u003cb\u003eDUBUQUE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eDubuque is a city in Iowa, situated along the Mississippi River, known for its historical architecture and riverfront."}, {"font": {"color": "black"}, "group": "GEO", "id": "MADISON", "label": "MADISON", "shape": "dot", "size": 10, "title": "\u003cb\u003eMADISON\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eMadison is the capital city of Wisconsin, known for its university and vibrant cultural scene."}, {"font": {"color": "black"}, "group": "GEO", "id": "SAN FRANCISCO", "label": "SAN FRANCISCO", "shape": "dot", "size": 10, "title": "\u003cb\u003eSAN FRANCISCO\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eSan Francisco is a major city in California, known for its iconic Golden Gate Bridge and diverse culture."}, {"font": {"color": "black"}, "group": "GEO", "id": "ST. LOUIS", "label": "ST. LOUIS", "shape": "dot", "size": 10, "title": "\u003cb\u003eST. LOUIS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eSt. Louis is a city in Missouri, known for its Gateway Arch and rich musical heritage."}, {"font": {"color": "black"}, "group": "GEO", "id": "BANGKOK", "label": "BANGKOK", "shape": "dot", "size": 10, "title": "\u003cb\u003eBANGKOK\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eBangkok is the capital city of Thailand, known for its vibrant street life and cultural landmarks."}, {"font": {"color": "black"}, "group": "GEO", "id": "BOGOTA", "label": "BOGOTA", "shape": "dot", "size": 10, "title": "\u003cb\u003eBOGOTA\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eBogota is the capital city of Colombia, known for its historical sites and cultural institutions."}, {"font": {"color": "black"}, "group": "GEO", "id": "CARACAS", "label": "CARACAS", "shape": "dot", "size": 10, "title": "\u003cb\u003eCARACAS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eCaracas is the capital city of Venezuela, known for its modern architecture and cultural diversity."}, {"font": {"color": "black"}, "group": "GEO", "id": "KUALA LUMPUR", "label": "KUALA LUMPUR", "shape": "dot", "size": 10, "title": "\u003cb\u003eKUALA LUMPUR\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eKuala Lumpur is the capital city of Malaysia, known for its skyscrapers and vibrant economy."}, {"font": {"color": "black"}, "group": "GEO", "id": "LISBON", "label": "LISBON", "shape": "dot", "size": 10, "title": "\u003cb\u003eLISBON\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eLisbon is the capital city of Portugal, known for its hilly landscape and historic neighborhoods."}, {"font": {"color": "black"}, "group": "GEO", "id": "LONDON", "label": "LONDON", "shape": "dot", "size": 10, "title": "\u003cb\u003eLONDON\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eLondon is the capital city of the United Kingdom, known for its history, culture, and financial district."}, {"font": {"color": "black"}, "group": "GEO", "id": "MADRID", "label": "MADRID", "shape": "dot", "size": 10, "title": "\u003cb\u003eMADRID\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eMadrid is the capital city of Spain, known for its cultural heritage and vibrant nightlife."}, {"font": {"color": "black"}, "group": "GEO", "id": "MEXICO CITY", "label": "MEXICO CITY", "shape": "dot", "size": 10, "title": "\u003cb\u003eMEXICO CITY\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eMexico City is the capital of Mexico, known for its rich history and cultural landmarks."}, {"font": {"color": "black"}, "group": "GEO", "id": "MILAN", "label": "MILAN", "shape": "dot", "size": 10, "title": "\u003cb\u003eMILAN\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eMilan is a city in Italy, known for its fashion and design industries."}, {"font": {"color": "black"}, "group": "GEO", "id": "MONTREAL", "label": "MONTREAL", "shape": "dot", "size": 10, "title": "\u003cb\u003eMONTREAL\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eMontreal is a city in Canada, known for its cultural diversity and vibrant arts scene."}, {"font": {"color": "black"}, "group": "GEO", "id": "NEW DELHI", "label": "NEW DELHI", "shape": "dot", "size": 10, "title": "\u003cb\u003eNEW DELHI\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eNew Delhi is the capital city of India, known for its historical landmarks and government buildings."}, {"font": {"color": "black"}, "group": "GEO", "id": "SANTIAGO", "label": "SANTIAGO", "shape": "dot", "size": 10, "title": "\u003cb\u003eSANTIAGO\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eSantiago is the capital city of Chile, known for its modern skyline and cultural institutions."}, {"font": {"color": "black"}, "group": "GEO", "id": "SEOUL", "label": "SEOUL", "shape": "dot", "size": 10, "title": "\u003cb\u003eSEOUL\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eSeoul is the capital city of South Korea, known for its technology and rich history."}, {"font": {"color": "black"}, "group": "GEO", "id": "SINGAPORE", "label": "SINGAPORE", "shape": "dot", "size": 10, "title": "\u003cb\u003eSINGAPORE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: Singapore**\n\nSingapore is a city-state located in Southeast Asia, recognized for its status as a global financial hub and its highly developed economy. It is characterized by a multicultural population and society, which contributes to its vibrant economic landscape. The country has establ"}, {"font": {"color": "black"}, "group": "GEO", "id": "SYDNEY", "label": "SYDNEY", "shape": "dot", "size": 10, "title": "\u003cb\u003eSYDNEY\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eSydney is a major city in Australia, known for its Sydney Opera House and beautiful harbor."}, {"font": {"color": "black"}, "group": "GEO", "id": "TAIPEI", "label": "TAIPEI", "shape": "dot", "size": 10, "title": "\u003cb\u003eTAIPEI\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eTaipei is the capital city of Taiwan, known for its vibrant street food scene and cultural landmarks."}, {"font": {"color": "black"}, "group": "GEO", "id": "TORONTO", "label": "TORONTO", "shape": "dot", "size": 10, "title": "\u003cb\u003eTORONTO\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eToronto is the capital city of Ontario, Canada, known for its diversity and cultural institutions.)\u003c|COMPLETE|\u003e"}, {"font": {"color": "black"}, "group": "EVENT", "id": "SEMILOGARITHMIC REGRESSION", "label": "SEMILOGARITHMIC REGRESSION", "shape": "dot", "size": 10, "title": "\u003cb\u003eSEMILOGARITHMIC REGRESSION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Semilogarithmic Regression**\n\nSemilogarithmic regression is a specialized form of regression analysis that involves transforming the dependent variable using a logarithmic function. This transformation is particularly useful for stabilizing variance and facilitating the interpretation of results i"}, {"font": {"color": "black"}, "group": "EVENT", "id": "TECHNICAL ASPECTS OF DUMMY VARIABLE TECHNIQUE", "label": "TECHNICAL ASPECTS OF DUMMY VARIABLE TECHNIQUE", "shape": "dot", "size": 10, "title": "\u003cb\u003eTECHNICAL ASPECTS OF DUMMY VARIABLE TECHNIQUE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThis refers to the specific methodologies and considerations involved in effectively using dummy variables in statistical analysis."}, {"font": {"color": "black"}, "group": "EVENT", "id": "NON-NESTED HYPOTHESES", "label": "NON-NESTED HYPOTHESES", "shape": "dot", "size": 10, "title": "\u003cb\u003eNON-NESTED HYPOTHESES\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eNon-nested hypotheses are competing models that cannot be derived from one another, requiring different methods for comparison."}, {"font": {"color": "black"}, "group": "EVENT", "id": "VAR MODEL", "label": "VAR MODEL", "shape": "dot", "size": 10, "title": "\u003cb\u003eVAR MODEL\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**VAR Model**\n\nThe Vector Autoregression (VAR) model is a statistical framework employed in econometrics for forecasting and analyzing the interdependencies among multiple time series data. It is particularly useful in capturing the dynamic relationships between several variables over time, allowing"}, {"font": {"color": "black"}, "group": "EVENT", "id": "ARCH MODELS", "label": "ARCH MODELS", "shape": "dot", "size": 10, "title": "\u003cb\u003eARCH MODELS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eARCH models are used for measuring volatility in financial time series, referenced in the context of econometric techniques."}, {"font": {"color": "black"}, "group": "EVENT", "id": "GARCH MODELS", "label": "GARCH MODELS", "shape": "dot", "size": 10, "title": "\u003cb\u003eGARCH MODELS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**GARCH Models**\n\nGeneralized Autoregressive Conditional Heteroskedasticity (GARCH) models are sophisticated statistical tools designed to analyze and forecast the volatility of time series data, particularly in financial markets. They extend the Autoregressive Conditional Heteroskedasticity (ARCH) "}, {"font": {"color": "black"}, "group": "EVENT", "id": "DURBIN-WATSON", "label": "DURBIN-WATSON", "shape": "dot", "size": 10, "title": "\u003cb\u003eDURBIN-WATSON\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe Durbin-Watson (DW) statistic is a widely utilized test in econometrics for detecting serial correlation, specifically autocorrelation, in the residuals of a regression analysis. Developed by statisticians Durbin and Watson, this test is crucial for validating the assumptions underlying linear re"}, {"font": {"color": "black"}, "group": "EVENT", "id": "PROBABILITY DENSITY FUNCTION", "label": "PROBABILITY DENSITY FUNCTION", "shape": "dot", "size": 10, "title": "\u003cb\u003ePROBABILITY DENSITY FUNCTION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe Probability Density Function (PDF) is a fundamental concept in probability theory and statistics that describes the likelihood of a continuous random variable assuming a specific value. Formally, the PDF is denoted as \\( f(x) \\), where \\( x \\) represents the value of the random variable. The key"}, {"font": {"color": "black"}, "group": "EVENT", "id": "CHI-SQUARE DISTRIBUTION", "label": "CHI-SQUARE DISTRIBUTION", "shape": "dot", "size": 10, "title": "\u003cb\u003eCHI-SQUARE DISTRIBUTION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe Chi-Square Distribution is a fundamental statistical distribution utilized extensively in hypothesis testing and statistical inference. It is particularly important in assessing how observed data compares to expected outcomes, making it a critical tool in various statistical analyses.\n\n### Defin"}, {"font": {"color": "black"}, "group": "EVENT", "id": "STUDENT\u0027S T DISTRIBUTION", "label": "STUDENT\u0027S T DISTRIBUTION", "shape": "dot", "size": 10, "title": "\u003cb\u003eSTUDENT\u0027S T DISTRIBUTION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Student\u0027s T Distribution**\n\nStudent\u0027s T Distribution is a probability distribution that plays a crucial role in statistical inference, particularly in hypothesis testing and the estimation of population parameters when dealing with small sample sizes. It was introduced by William Sealy Gosset unde"}, {"font": {"color": "black"}, "group": "EVENT", "id": "F DISTRIBUTION", "label": "F DISTRIBUTION", "shape": "dot", "size": 10, "title": "\u003cb\u003eF DISTRIBUTION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe F Distribution is a crucial probability distribution in statistics, particularly prominent in the contexts of analysis of variance (ANOVA) and regression analysis. It plays a significant role in statistical inference, especially when assessing the significance of model parameters and comparing v"}, {"font": {"color": "black"}, "group": "EVENT", "id": "BERNOULLI BINOMIAL DISTRIBUTION", "label": "BERNOULLI BINOMIAL DISTRIBUTION", "shape": "dot", "size": 10, "title": "\u003cb\u003eBERNOULLI BINOMIAL DISTRIBUTION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe Bernoulli Binomial Distribution is a probability distribution for a random variable that counts the number of successes in a fixed number of independent Bernoulli trials, referenced in the text."}, {"font": {"color": "black"}, "group": "EVENT", "id": "POISSON DISTRIBUTION", "label": "POISSON DISTRIBUTION", "shape": "dot", "size": 10, "title": "\u003cb\u003ePOISSON DISTRIBUTION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe Poisson Distribution is a fundamental probability distribution in statistics that models the number of events occurring within a fixed interval of time or space. It is particularly useful in scenarios where events occur independently and the average rate of occurrence is known. The distribution "}, {"font": {"color": "black"}, "group": "EVENT", "id": "POINT ESTIMATION", "label": "POINT ESTIMATION", "shape": "dot", "size": 10, "title": "\u003cb\u003ePOINT ESTIMATION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Point Estimation**\n\nPoint estimation is a fundamental method in statistical inference that involves estimating the value of a population parameter using sample data. It provides a single value, known as a point estimate, which serves as the best guess of the true parameter value based on the infor"}, {"font": {"color": "black"}, "group": "EVENT", "id": "INTERVAL ESTIMATION", "label": "INTERVAL ESTIMATION", "shape": "dot", "size": 10, "title": "\u003cb\u003eINTERVAL ESTIMATION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Interval Estimation**\n\nInterval Estimation is a statistical method used to estimate a range of values for a population parameter based on sample data. Unlike point estimation, which provides a single value as an estimate, interval estimation offers a range within which the population parameter is "}, {"font": {"color": "black"}, "group": "EVENT", "id": "CONFIDENCE INTERVAL", "label": "CONFIDENCE INTERVAL", "shape": "dot", "size": 10, "title": "\u003cb\u003eCONFIDENCE INTERVAL\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Confidence Interval**\n\nA Confidence Interval (CI) is a statistical concept that provides a range of values derived from sample statistics, which is likely to contain the true value of an unknown population parameter. This range is crucial in statistical analysis, particularly in the context of reg"}, {"font": {"color": "black"}, "group": "EVENT", "id": "ANALYSIS OF VARIANCE", "label": "ANALYSIS OF VARIANCE", "shape": "dot", "size": 10, "title": "\u003cb\u003eANALYSIS OF VARIANCE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Analysis of Variance (ANOVA)**\n\nAnalysis of Variance (ANOVA) is a statistical method employed to compare means among different groups, particularly useful in econometric studies. Its primary purpose is to determine whether there are significant differences between the means of three or more indepe"}, {"font": {"color": "black"}, "group": "EVENT", "id": "OLS ESTIMATORS", "label": "OLS ESTIMATORS", "shape": "dot", "size": 10, "title": "\u003cb\u003eOLS ESTIMATORS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**OLS Estimators**\n\nOrdinary Least Squares (OLS) estimators are statistical methods employed in econometrics and regression analysis to estimate the parameters of a linear regression model. The primary purpose of OLS estimators is to determine the relationship between a dependent variable and one or"}, {"font": {"color": "black"}, "group": "EVENT", "id": "WHITE\u0027S ROBUST STANDARD ERRORS", "label": "WHITE\u0027S ROBUST STANDARD ERRORS", "shape": "dot", "size": 10, "title": "\u003cb\u003eWHITE\u0027S ROBUST STANDARD ERRORS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eWhite\u0027s robust standard errors are a method used to correct standard errors in the presence of heteroscedasticity in regression models."}, {"font": {"color": "black"}, "group": "EVENT", "id": "NEWY-WEST METHOD", "label": "NEWY-WEST METHOD", "shape": "dot", "size": 10, "title": "\u003cb\u003eNEWY-WEST METHOD\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe Newey-West method is a robust statistical technique employed in regression analysis to correct standard errors of Ordinary Least Squares (OLS) estimators for the presence of both autocorrelation and heteroscedasticity. This method is particularly important in time series data where these issues "}, {"font": {"color": "black"}, "group": "EVENT", "id": "AIC", "label": "AIC", "shape": "dot", "size": 10, "title": "\u003cb\u003eAIC\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe Akaike Information Criterion (AIC) is a widely utilized statistical measure for model selection in econometrics and statistics. It serves to compare the relative quality of different statistical models fitted to the same dataset, with the primary goal of identifying the model that best explains "}, {"font": {"color": "black"}, "group": "EVENT", "id": "SCHWARZ CRITERION", "label": "SCHWARZ CRITERION", "shape": "dot", "size": 10, "title": "\u003cb\u003eSCHWARZ CRITERION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe Schwarz Criterion, commonly referred to as the Bayesian Information Criterion (BIC), is a statistical tool used for model selection among a finite set of competing models. It serves as a criterion to evaluate the goodness of fit of a model while simultaneously incorporating a penalty for the com"}, {"font": {"color": "black"}, "group": "EVENT", "id": "MALLOWS\u0027S C CRITERION", "label": "MALLOWS\u0027S C CRITERION", "shape": "dot", "size": 10, "title": "\u003cb\u003eMALLOWS\u0027S C CRITERION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eMallows\u0027s C criterion is a statistical measure used for model selection in regression analysis."}, {"font": {"color": "black"}, "group": "EVENT", "id": "NONLINEAR REGRESSION MODELS", "label": "NONLINEAR REGRESSION MODELS", "shape": "dot", "size": 10, "title": "\u003cb\u003eNONLINEAR REGRESSION MODELS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Nonlinear Regression Models**\n\nNonlinear Regression Models are a class of statistical methods employed to analyze and model relationships between variables that do not conform to a linear pattern. Unlike linear regression, which assumes a straight-line relationship between the independent and depe"}, {"font": {"color": "black"}, "group": "EVENT", "id": "STATIONARY TIME SERIES", "label": "STATIONARY TIME SERIES", "shape": "dot", "size": 10, "title": "\u003cb\u003eSTATIONARY TIME SERIES\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Stationary Time Series**\n\nA stationary time series is defined as a time series whose statistical properties, including mean and variance, remain constant over time. This characteristic is crucial for econometric analysis, as it allows for more reliable forecasting and modeling. The constancy of th"}, {"font": {"color": "black"}, "group": "EVENT", "id": "BOX-JENKINS METHODOLOGY", "label": "BOX-JENKINS METHODOLOGY", "shape": "dot", "size": 10, "title": "\u003cb\u003eBOX-JENKINS METHODOLOGY\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe Box-Jenkins methodology is a comprehensive statistical approach specifically designed for time series analysis and forecasting, with a particular emphasis on Autoregressive Integrated Moving Average (ARIMA) models. This methodology provides a structured framework for identifying, estimating, and"}, {"font": {"color": "black"}, "group": "EVENT", "id": "ARCH AND GARCH TECHNIQUES", "label": "ARCH AND GARCH TECHNIQUES", "shape": "dot", "size": 10, "title": "\u003cb\u003eARCH AND GARCH TECHNIQUES\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eARCH (Autoregressive Conditional Heteroskedasticity) and GARCH (Generalized Autoregressive Conditional Heteroskedasticity) are techniques used to model and forecast time series data with changing variances.)\u003c|COMPLETE|\u003e"}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "UNIVERSITY OF WESTERN AUSTRALIA", "label": "UNIVERSITY OF WESTERN AUSTRALIA", "shape": "dot", "size": 10, "title": "\u003cb\u003eUNIVERSITY OF WESTERN AUSTRALIA\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe University of Western Australia (UWA) is a prominent educational institution located in Australia, known for its commitment to research and academic excellence. It is particularly notable for its affiliation with Michael McAleer, a distinguished scholar and contributor to various academic works,"}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "SIMON FRAZER UNIVERSITY", "label": "SIMON FRAZER UNIVERSITY", "shape": "dot", "size": 10, "title": "\u003cb\u003eSIMON FRAZER UNIVERSITY\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eSimon Frazer University is an educational institution in Canada where Peter Kennedy, a contributor to the book, is affiliated."}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "UNIVERSITY OF BRITISH COLUMBIA", "label": "UNIVERSITY OF BRITISH COLUMBIA", "shape": "dot", "size": 10, "title": "\u003cb\u003eUNIVERSITY OF BRITISH COLUMBIA\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe University of British Columbia is an educational institution where Kenneth White, a contributor to the book, is affiliated."}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "CHRISTOPHER NEWPORT UNIVERSITY", "label": "CHRISTOPHER NEWPORT UNIVERSITY", "shape": "dot", "size": 10, "title": "\u003cb\u003eCHRISTOPHER NEWPORT UNIVERSITY\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Christopher Newport University**\n\nChristopher Newport University (CNU) is a public educational institution located in Virginia. It is known for its commitment to providing a comprehensive liberal arts education and fostering a vibrant campus community. The university is affiliated with George K. Z"}]);
+                  edges = new vis.DataSet([{"from": "DAMODAR N. GUJARATI", "to": "U.S. MILITARY ACADEMY", "width": 1}, {"from": "DAMODAR N. GUJARATI", "to": "CITY UNIVERSITY OF NEW YORK", "width": 1}, {"from": "DAMODAR N. GUJARATI", "to": "UNIVERSITY OF BOMBAY", "width": 1}, {"from": "DAMODAR N. GUJARATI", "to": "UNIVERSITY OF CHICAGO", "width": 1}, {"from": "DAMODAR N. GUJARATI", "to": "NATIONAL UNIVERSITY OF SINGAPORE", "width": 1}, {"from": "DAMODAR N. GUJARATI", "to": "UNIVERSITY OF NEW SOUTH WALES", "width": 1}, {"from": "DAMODAR N. GUJARATI", "to": "AUSTRALIA", "width": 1}, {"from": "DAMODAR N. GUJARATI", "to": "CANADA", "width": 1}, {"from": "DAMODAR N. GUJARATI", "to": "MEXICO", "width": 1}, {"from": "DAMODAR N. GUJARATI", "to": "MCGRAW-HILL HIGHER EDUCATION", "width": 1}, {"from": "DAMODAR N. GUJARATI", "to": "MCDRAW-HILL", "width": 1}, {"from": "DAMODAR N. GUJARATI", "to": "ECONOMETRICS", "width": 1}, {"from": "CANADA", "to": "EFFECTSMODEL", "width": 1}, {"from": "ECONOMETRICS", "to": "REGRESSION ANALYSIS", "width": 1}, {"from": "ECONOMETRICS", "to": "MATHEMATICAL MODEL", "width": 1}, {"from": "ECONOMETRICS", "to": "METHODOLOGY OF ECONOMETRICS", "width": 1}, {"from": "ECONOMETRICS", "to": "STATISTICAL PREREQUISITES", "width": 1}, {"from": "ECONOMETRICS", "to": "MCGRAW-HILL", "width": 1}, {"from": "ECONOMETRICS", "to": "HYPOTHESIS TESTING", "width": 1}, {"from": "ECONOMETRICS", "to": "FORECASTING", "width": 1}, {"from": "REGRESSION ANALYSIS", "to": "ORDINARY LEAST SQUARES", "width": 1}, {"from": "REGRESSION ANALYSIS", "to": "HYPOTHESIS TESTING", "width": 1}, {"from": "REGRESSION ANALYSIS", "to": "TWO-VARIABLE REGRESSION", "width": 1}, {"from": "REGRESSION ANALYSIS", "to": "SINGLE-EQUATION REGRESSION MODELS", "width": 1}, {"from": "REGRESSION ANALYSIS", "to": "ANALYSIS", "width": 1}, {"from": "REGRESSION ANALYSIS", "to": "CHILD MORTALITY", "width": 1}, {"from": "REGRESSION ANALYSIS", "to": "VARIANCE", "width": 1}, {"from": "REGRESSION ANALYSIS", "to": "MAXIMUM LIKELIHOOD ESTIMATION", "width": 1}, {"from": "REGRESSION ANALYSIS", "to": "SAS OUTPUT", "width": 1}, {"from": "REGRESSION ANALYSIS", "to": "MULTIPLE COEFFICIENT OF DETERMINATION", "width": 1}, {"from": "REGRESSION ANALYSIS", "to": "PARTIAL REGRESSION COEFFICIENTS", "width": 1}, {"from": "REGRESSION ANALYSIS", "to": "MCGRAW-HILL", "width": 1}, {"from": "REGRESSION ANALYSIS", "to": "GUJARATI", "width": 1}, {"from": "ORDINARY LEAST SQUARES", "to": "CLASSICAL NORMAL LINEAR REGRESSION MODEL", "width": 1}, {"from": "ORDINARY LEAST SQUARES", "to": "MAXIMUM LIKELIHOOD", "width": 1}, {"from": "HYPOTHESIS TESTING", "to": "FORECASTING", "width": 1}, {"from": "DATA", "to": "ECONOMIC ANALYSIS", "width": 1}, {"from": "FORECASTING", "to": "CONSUMPTION", "width": 1}, {"from": "SINGLE-EQUATION REGRESSION MODELS", "to": "GUJARATI", "width": 1}, {"from": "PROBABILITY DISTRIBUTIONS", "to": "NORMAL DISTRIBUTION", "width": 1}, {"from": "COBB-DOUGLAS PRODUCTION FUNCTION", "to": "MULTIPLE REGRESSION", "width": 1}, {"from": "MULTIPLE REGRESSION", "to": "DUMMY VARIABLE", "width": 1}, {"from": "DUMMY VARIABLES", "to": "ANOVA MODELS", "width": 1}, {"from": "DUMMY VARIABLES", "to": "REGRESSION", "width": 1}, {"from": "DUMMY VARIABLES", "to": "INTERACTION EFFECTS", "width": 1}, {"from": "DUMMY VARIABLES", "to": "SEASONAL ANALYSIS", "width": 1}, {"from": "REGRESSION", "to": "CONSUMPTION EXPENDITURE", "width": 1}, {"from": "MULTICOLLINEARITY", "to": "OLS", "width": 1}, {"from": "MULTICOLLINEARITY", "to": "LONGLEY DATA", "width": 1}, {"from": "MULTICOLLINEARITY", "to": "PANEL DATA REGRESSION MODELS", "width": 1}, {"from": "HETEROSCEDASTICITY", "to": "OLS", "width": 1}, {"from": "HETEROSCEDASTICITY", "to": "GLS", "width": 1}, {"from": "AUTOCORRELATION", "to": "OLS", "width": 1}, {"from": "AUTOCORRELATION", "to": "GLS", "width": 1}, {"from": "AUTOCORRELATION", "to": "TIME SERIES ECONOMETRICS", "width": 1}, {"from": "PANEL DATA REGRESSION MODELS", "to": "QUALITATIVE RESPONSE REGRESSION MODELS", "width": 1}, {"from": "PANEL DATA REGRESSION MODELS", "to": "DYNAMIC ECONOMETRIC MODELS", "width": 1}, {"from": "ECONOMETRIC MODELING", "to": "MODEL SELECTION CRITERIA", "width": 1}, {"from": "ERROR TERM", "to": "SPECIFICATION ERRORS", "width": 1}, {"from": "SPECIFICATION ERRORS", "to": "OUTLIERS", "width": 1}, {"from": "CHOW\u0027S PREDICTION FAILURE TEST", "to": "NESTED MODELS", "width": 1}, {"from": "DYNAMIC ECONOMETRIC MODELS", "to": "EFFECTSMODEL", "width": 1}, {"from": "DYNAMIC ECONOMETRIC MODELS", "to": "AUTOREGRESSIVE MODELS", "width": 1}, {"from": "DYNAMIC ECONOMETRIC MODELS", "to": "DISTRIBUTED-LAG MODELS", "width": 1}, {"from": "APPENDIX 13A", "to": "APPENDIX 12A", "width": 1}, {"from": "APPENDIX 14A", "to": "APPENDIX 15A", "width": 1}, {"from": "PART III TOPICS IN ECONOMETRICS", "to": "PART I", "width": 1}, {"from": "PART I", "to": "PART II", "width": 1}, {"from": "EFFECTSMODEL", "to": "TIME SERIES ECONOMETRICS", "width": 1}, {"from": "DISTRIBUTED-LAG MODELS", "to": "GRANGER CAUSALITY TEST", "width": 1}, {"from": "SIMULTANEOUS-EQUATION MODELS", "to": "IDENTIFICATION PROBLEM", "width": 1}, {"from": "SIMULTANEOUS-EQUATION MODELS", "to": "INSTRUMENTAL VARIABLES", "width": 1}, {"from": "COINTEGRATION", "to": "TIME SERIES ECONOMETRICS", "width": 1}, {"from": "BASIC ECONOMETRICS", "to": "GUJARATI", "width": 1}, {"from": "BASIC ECONOMETRICS", "to": "EVIWS", "width": 1}, {"from": "BASIC ECONOMETRICS", "to": "LIMDEP", "width": 1}, {"from": "BASIC ECONOMETRICS", "to": "MICROFIT", "width": 1}, {"from": "BASIC ECONOMETRICS", "to": "MINITAB", "width": 1}, {"from": "BASIC ECONOMETRICS", "to": "PCGIVE", "width": 1}, {"from": "BASIC ECONOMETRICS", "to": "SAS", "width": 1}, {"from": "BASIC ECONOMETRICS", "to": "SHAZAM", "width": 1}, {"from": "BASIC ECONOMETRICS", "to": "STATA", "width": 1}, {"from": "BASIC ECONOMETRICS", "to": "ECONOMICS", "width": 1}, {"from": "BASIC ECONOMETRICS", "to": "POLITICS", "width": 1}, {"from": "BASIC ECONOMETRICS", "to": "INTERNATIONAL RELATIONS", "width": 1}, {"from": "BASIC ECONOMETRICS", "to": "AGRICULTURE", "width": 1}, {"from": "BASIC ECONOMETRICS", "to": "HEALTH SCIENCES", "width": 1}, {"from": "GUJARATI", "to": "MCGRAW-HILL", "width": 1}, {"from": "GUJARATI", "to": "EVIEWS", "width": 1}, {"from": "GUJARATI", "to": "STUDENT SOLUTIONS MANUAL", "width": 1}, {"from": "GUJARATI", "to": "DATA CD", "width": 1}, {"from": "GUJARATI", "to": "ECONOMICS", "width": 1}, {"from": "MCGRAW-HILL", "to": "EVIEWS", "width": 1}, {"from": "MCGRAW-HILL", "to": "STUDENT SOLUTIONS MANUAL", "width": 1}, {"from": "MCGRAW-HILL", "to": "DATA CD", "width": 1}, {"from": "EVIEWS", "to": "MCDRAW-HILL", "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"nodes": {"borderWidth": 2, "font": {"size": 16, "face": "Arial"}, "size": 25, "shadow": {"enabled": true, "size": 10}}, "edges": {"color": {"color": "rgba(200,200,200,0.5)"}, "smooth": true, "width": 1}, "physics": {"enabled": true, "stabilization": {"iterations": 200}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+                    network.on("selectNode", neighbourhoodHighlight);
+                  
+
+                  
+
+
+                  
+                      network.on("stabilizationProgress", function(params) {
+                          document.getElementById('loadingBar').removeAttribute("style");
+                          var maxWidth = 496;
+                          var minWidth = 20;
+                          var widthFactor = params.iterations/params.total;
+                          var width = Math.max(minWidth,maxWidth * widthFactor);
+                          document.getElementById('bar').style.width = width + 'px';
+                          document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+                      });
+                      network.once("stabilizationIterationsDone", function() {
+                          document.getElementById('text').innerHTML = '100%';
+                          document.getElementById('bar').style.width = '496px';
+                          document.getElementById('loadingBar').style.opacity = 0;
+                          // really clean the dom element
+                          setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+                      });
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

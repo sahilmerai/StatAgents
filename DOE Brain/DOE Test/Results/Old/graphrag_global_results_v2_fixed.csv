@@ -1,0 +1,36 @@
+﻿question_id,question,ground_truth_answer,question_type,complexity,topic,retrieved_context,generated_answer,timestamp,method
+DOE_001,What is a factorial design?,"A factorial design is an experimental design where all possible combinations of factor levels are tested. In a full factorial design with k factors each at n levels, there are n^k treatment combinations. This allows estimation of main effects and interactions between factors.",factual,simple,Factorial Designs - Basics,"🌐 **GraphRAG GLOBAL Results**
+
+## Understanding Factorial Design
+
+Factorial design is a systematic experimental methodology that allows researchers to evaluate the effects of two or more factors simultaneously on a response variable. This design is particularly valuable in various fields such as agriculture, manufacturing, pharmaceuticals, and social sciences, where multiple variables can influence outcomes.
+
+### Key Features of Factorial Design
+
+1. **Simultaneous Evaluation of Factors**: Factorial design enables the assessment of both the main effects of each factor and the interactions between them. This comprehensive approach provides insights into how different variables influence the outcome of interest.
+
+2. **Structure of the Design**: In factorial designs, each factor is tested at different levels, and all possible combinations of these levels are included in the experiment. This structure allows for efficient exploration of the effects of each factor and their interactions, making it a powerful tool for optimizing processes and improving product quality [Data: Reports (1, 52, 341, 421, 204)].
+
+3. **Types of Factorial Designs**: Factorial designs can be classified into full factorial designs, which examine all possible combinations of factors and their levels, and fractional factorial designs, which study a subset of combinations to reduce the number of experimental runs while still providing valuable insights. This flexibility allows researchers to optimize experimental conditions while managing resource constraints [Data: Reports (434, 349)].
+
+4. **Mathematical Formulation**: The mathematical formulation of factorial design can be expressed as:
+   \[
+   Y = μ + Σ(α_i X_i) + Σ(β_ij X_i X_j) + ε
+   \]
+   where \(μ\) is the overall mean, \(α_i\) represents the main effects, \(β_ij\) represents the interaction effects, and \(ε\) is the random error term. This formulation is essential for analyzing experimental data and making informed decisions based on the results [Data: Reports (6)].
+
+### Applications of Factorial Design
+
+Factorial designs are widely applied across various fields. For instance, in agriculture, they can be used to study the effects of different fertilizers and irrigation levels on crop yield. In manufacturing, these designs help optimize production processes by evaluating the effects of machine settings and materials. The versatility of factorial designs makes them valuable tools for researchers and practitioners seeking to improve processes and outcomes across diverse applications [Data: Reports (1, 52, 341, 421, 204)].
+
+### Conclusion
+
+In summary, factorial design is a robust experimental methodology that allows for the simultaneous evaluation of multiple factors and their interactions. By systematically varying the levels of each factor, researchers can gain a comprehensive understanding of how these factors influence outcomes, leading to more informed decision-making and optimized processes in various fields [Data: Reports (434, 349, 266)].","A factorial design is a systematic experimental methodology that allows researchers to evaluate the effects of two or more factors simultaneously on a response variable. It is particularly useful for assessing both the main effects of each factor and the interactions between them.
+
+In factorial designs, each factor is tested at different levels, and all possible combinations of these levels are included in the experiment. This structure enables efficient exploration of the effects of each factor and their interactions. Factorial designs can be classified into full factorial designs, which examine all combinations, and fractional factorial designs, which study a subset of combinations to reduce the number of experimental runs.
+
+The mathematical formulation of factorial design can be expressed as:
+\[
+Y = μ + Σ(α_i X_i) + Σ(β_{ij} X_i X_j) + ε
+\]
+where \(μ\) is the overall mean, \(α_i\) represents the main effects, \(β_{ij}\) represents the interaction effects, and \(ε\) is the random error term. This formulation is essential for analyzing experimental data and making informed decisions based on the results.",2026-01-19 16:12:01,GraphRAG_Global

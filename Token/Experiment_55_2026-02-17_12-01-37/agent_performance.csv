@@ -1,0 +1,6 @@
+agent_name,call_count,system_prompt_loads,system_prompt_tokens,conversation_input_tokens,conversation_output_tokens,total_input_tokens,total_output_tokens,total_tokens,tool_call_tokens,handoff_tokens,total_execution_time,system_prompt_cost_inr,conversation_cost_inr,total_cost_inr,tools_used,handoffs_made,success_count,error_count,success_rate
+User,5,0,0,0,77,0,77,77,0,0,0.0,0.0,0.0041571376,0.0041571376,,,5,0,100.0
+Head_of_the_Department,12,5,20455,18419,468,38874,468,39342,29,3,43.29275918006897,0.27608502144999997,0.27387150101,0.5499565224599999,"retrieve_workflow, transfer_to_eda_agent, transfer_to_visualizer_agent, retrieve_business_story, transfer_to_econometric_agent","EDA_Agent, visualizer_Agent, Econometric_Agent",12,0,100.0
+EDA_Agent,3,1,3179,4164,60,7343,60,7403,15,1,5.634010076522827,0.042907567009999995,0.05944162716,0.10234919417,"analyze_csv_data, transfer_to_head_of_the_department",Head_of_the_Department,3,0,100.0
+visualizer_Agent,3,1,597,4694,14,5291,14,5305,218,1,9.79483962059021,0.008057822429999998,0.06411165306,0.07216947549,"execute_python_code, transfer_to_head_of_the_department",Head_of_the_Department,3,0,100.0
+Econometric_Agent,7,3,1848,8097,399,9945,399,10344,140,1,24.264430284500122,0.024942807119999997,0.13082827863,0.15577108574999998,"execute_python_code, transfer_to_head_of_the_department",Head_of_the_Department,7,0,100.0

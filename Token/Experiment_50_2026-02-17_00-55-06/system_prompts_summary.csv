@@ -1,0 +1,5 @@
+agent_name,prompt_tokens,times_loaded,total_tokens,total_cost_inr
+Head_of_the_Department,4091,4,16364,0.22086801715999999
+EDA_Agent,3179,1,3179,0.042907567009999995
+visualizer_Agent,597,3,1791,0.024173467289999993
+CodeExecutor,3549,2,7098,0.09580305462

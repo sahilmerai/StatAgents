@@ -1,0 +1,11 @@
+tool_name,agent_name,call_count,total_tokens,total_execution_time,total_cost_inr,success_count,error_count,success_rate,avg_tokens_per_call,avg_time_per_call
+retrieve_workflow,Head_of_the_Department,1,6,2.190427303314209,8.098314e-05,1,0,100.0,6.0,2.190427303314209
+transfer_to_eda_agent,Head_of_the_Department,1,1,1.1250112056732178,1.349719e-05,1,0,100.0,1.0,1.1250112056732178
+analyze_csv_data,EDA_Agent,1,14,0.7050409317016602,0.00018896066,1,0,100.0,14.0,0.7050409317016602
+transfer_to_head_of_the_department,EDA_Agent,1,1,0.8828072547912598,1.349719e-05,1,0,100.0,1.0,0.8828072547912598
+transfer_to_visualizer_agent,Head_of_the_Department,1,1,0.7554216384887695,1.349719e-05,1,0,100.0,1.0,0.7554216384887695
+execute_python_code,visualizer_Agent,3,341,8.530572175979614,0.004602541789999999,3,0,100.0,113.66666666666667,2.8435240586598716
+transfer_to_head_of_the_department,visualizer_Agent,1,1,0.6678063869476318,1.349719e-05,1,0,100.0,1.0,0.6678063869476318
+transfer_to_codeexecutor,Head_of_the_Department,1,1,0.8178462982177734,1.349719e-05,1,0,100.0,1.0,0.8178462982177734
+execute_python_code,CodeExecutor,1,44,2.886347770690918,0.0005938763599999999,1,0,100.0,44.0,2.886347770690918
+transfer_to_head_of_the_department,CodeExecutor,1,1,1.3454389572143555,1.349719e-05,1,0,100.0,1.0,1.3454389572143555

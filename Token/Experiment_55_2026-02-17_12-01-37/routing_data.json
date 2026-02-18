@@ -1,0 +1,57 @@
+{
+  "handoffs": [
+    {
+      "from_agent": "Head_of_the_Department",
+      "to_agent": "EDA_Agent",
+      "handoff_count": 1,
+      "total_tokens": 1,
+      "avg_tokens": 1.0,
+      "total_cost_inr": 1.349719e-05
+    },
+    {
+      "from_agent": "EDA_Agent",
+      "to_agent": "Head_of_the_Department",
+      "handoff_count": 1,
+      "total_tokens": 1,
+      "avg_tokens": 1.0,
+      "total_cost_inr": 1.349719e-05
+    },
+    {
+      "from_agent": "Head_of_the_Department",
+      "to_agent": "visualizer_Agent",
+      "handoff_count": 1,
+      "total_tokens": 1,
+      "avg_tokens": 1.0,
+      "total_cost_inr": 1.349719e-05
+    },
+    {
+      "from_agent": "visualizer_Agent",
+      "to_agent": "Head_of_the_Department",
+      "handoff_count": 1,
+      "total_tokens": 1,
+      "avg_tokens": 1.0,
+      "total_cost_inr": 1.349719e-05
+    },
+    {
+      "from_agent": "Head_of_the_Department",
+      "to_agent": "Econometric_Agent",
+      "handoff_count": 1,
+      "total_tokens": 1,
+      "avg_tokens": 1.0,
+      "total_cost_inr": 1.349719e-05
+    },
+    {
+      "from_agent": "Econometric_Agent",
+      "to_agent": "Head_of_the_Department",
+      "handoff_count": 1,
+      "total_tokens": 1,
+      "avg_tokens": 1.0,
+      "total_cost_inr": 1.349719e-05
+    }
+  ],
+  "routing_summary": {
+    "total_handoffs": 6,
+    "unique_routes": 6,
+    "most_common_handoff": "Head_of_the_Department -> EDA_Agent (1 times)"
+  }
+}

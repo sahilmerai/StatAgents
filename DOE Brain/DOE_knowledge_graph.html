@@ -1,0 +1,555 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+                <link href="lib/tom-select/tom-select.css" rel="stylesheet">
+                <script src="lib/tom-select/tom-select.complete.min.js"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 950px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+             #loadingBar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width: 100%;
+                 height: 950px;
+                 background-color:rgba(200,200,200,0.8);
+                 -webkit-transition: all 0.5s ease;
+                 -moz-transition: all 0.5s ease;
+                 -ms-transition: all 0.5s ease;
+                 -o-transition: all 0.5s ease;
+                 transition: all 0.5s ease;
+                 opacity:1;
+             }
+
+             #bar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width:20px;
+                 height:20px;
+                 margin:auto auto auto auto;
+                 border-radius:11px;
+                 border:2px solid rgba(30,30,30,0.05);
+                 background: rgb(0, 173, 246); /* Old browsers */
+                 box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+             }
+
+             #border {
+                 position:absolute;
+                 top:10px;
+                 left:10px;
+                 width:500px;
+                 height:23px;
+                 margin:auto auto auto auto;
+                 box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+                 border-radius:10px;
+             }
+
+             #text {
+                 position:absolute;
+                 top:8px;
+                 left:530px;
+                 width:30px;
+                 height:50px;
+                 margin:auto auto auto auto;
+                 font-size:22px;
+                 color: #000000;
+             }
+
+             div.outerBorder {
+                 position:relative;
+                 top:400px;
+                 width:600px;
+                 height:44px;
+                 margin:auto auto auto auto;
+                 border:8px solid rgba(0,0,0,0.1);
+                 background: rgb(252,252,252); /* Old browsers */
+                 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+                 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+                 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+                 background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+                 background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+                 background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+                 border-radius:72px;
+                 box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+             }
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+                <div id="select-menu" class="card-header">
+                    <div class="row no-gutters">
+                        <div class="col-10 pb-2">
+                            <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="selectNode([value]);"
+                            id="select-node"
+                            placeholder="Select node..."
+                            >
+                                <option selected>Select a Node by ID</option>
+                                
+                                    <option value="SHALABH">SHALABH</option>
+                                
+                                    <option value="IIT KANPUR">IIT KANPUR</option>
+                                
+                                    <option value="ANALYSIS OF VARIANCE">ANALYSIS OF VARIANCE</option>
+                                
+                                    <option value="ANOVA">ANOVA</option>
+                                
+                                    <option value="LINEAR ALGEBRA">LINEAR ALGEBRA</option>
+                                
+                                    <option value="MATRIX THEORY">MATRIX THEORY</option>
+                                
+                                    <option value="MATRIX">MATRIX</option>
+                                
+                                    <option value="LINEAR MODEL">LINEAR MODEL</option>
+                                
+                                    <option value="FISHER-COCHRAN THEOREM">FISHER-COCHRAN THEOREM</option>
+                                
+                                    <option value="PARTIAL CONFOUNDING">PARTIAL CONFOUNDING</option>
+                                
+                                    <option value="BALANCED PARTIALLY CONFOUNDED DESIGN">BALANCED PARTIALLY CONFOUNDED DESIGN</option>
+                                
+                                    <option value="UNBALANCED PARTIALLY CONFOUNDED DESIGN">UNBALANCED PARTIALLY CONFOUNDED DESIGN</option>
+                                
+                                    <option value="FACTOR A">FACTOR A</option>
+                                
+                                    <option value="FACTOR B">FACTOR B</option>
+                                
+                                    <option value="FACTOR C">FACTOR C</option>
+                                
+                                    <option value="VARIANCE">VARIANCE</option>
+                                
+                                    <option value="CONFOUNDED FACTOR C">CONFOUNDED FACTOR C</option>
+                                
+                                    <option value="REPLICATES">REPLICATES</option>
+                                
+                                    <option value="SUM OF SQUARES">SUM OF SQUARES</option>
+                                
+                                    <option value="EFFECTS">EFFECTS</option>
+                                
+                                    <option value="ARITHMETIC MEAN">ARITHMETIC MEAN</option>
+                                
+                                    <option value="FRACTIONAL FACTORIAL EXPERIMENT">FRACTIONAL FACTORIAL EXPERIMENT</option>
+                                
+                                    <option value="DEGREES OF FREEDOM">DEGREES OF FREEDOM</option>
+                                
+                                    <option value="FACTORIAL EXPERIMENT">FACTORIAL EXPERIMENT</option>
+                                
+                                    <option value="FRACTIONAL REPLICATIONS">FRACTIONAL REPLICATIONS</option>
+                                
+                                    <option value="ANALYSIS OF COVARIANCE">ANALYSIS OF COVARIANCE</option>
+                                
+                                    <option value="TREATMENT EFFECT">TREATMENT EFFECT</option>
+                                
+                                    <option value="E">E</option>
+                                
+                                    <option value="Y">Y</option>
+                                
+                                    <option value="T">T</option>
+                                
+                                    <option value="H">H</option>
+                                
+                                    <option value="GENERAL LINEAR HYPOTHESIS">GENERAL LINEAR HYPOTHESIS</option>
+                                
+                                    <option value="COVARIATES">COVARIATES</option>
+                                
+                                    <option value="DESIGN MATRIX">DESIGN MATRIX</option>
+                                
+                                    <option value="NULL HYPOTHESIS">NULL HYPOTHESIS</option>
+                                
+                                    <option value="F-DISTRIBUTION">F-DISTRIBUTION</option>
+                                
+                                    <option value="ALTERNATIVE HYPOTHESIS">ALTERNATIVE HYPOTHESIS</option>
+                                
+                                    <option value="ERROR">ERROR</option>
+                                
+                                    <option value="TSS">TSS</option>
+                                
+                                    <option value="SSA">SSA</option>
+                                
+                                    <option value="SSB">SSB</option>
+                                
+                                    <option value="SSE">SSE</option>
+                                
+                                    <option value="NULL VECTOR">NULL VECTOR</option>
+                                
+                                    <option value="VECTOR">VECTOR</option>
+                                
+                                    <option value="LINEAR COMBINATION">LINEAR COMBINATION</option>
+                                
+                                    <option value="LINEAR INDEPENDENCE">LINEAR INDEPENDENCE</option>
+                                
+                                    <option value="LINEAR FUNCTION">LINEAR FUNCTION</option>
+                                
+                                    <option value="CONTRAST">CONTRAST</option>
+                                
+                                    <option value="RANDOM VARIABLE">RANDOM VARIABLE</option>
+                                
+                                    <option value="SQUARE MATRIX">SQUARE MATRIX</option>
+                                
+                                    <option value="DIAGONAL MATRIX">DIAGONAL MATRIX</option>
+                                
+                                    <option value="UPPER TRIANGULAR MATRIX">UPPER TRIANGULAR MATRIX</option>
+                                
+                                    <option value="LOWER TRIANGULAR MATRIX">LOWER TRIANGULAR MATRIX</option>
+                                
+                                    <option value="TRANSPOSE">TRANSPOSE</option>
+                                
+                                    <option value="SYMMETRIC MATRIX">SYMMETRIC MATRIX</option>
+                                
+                                    <option value="NULL MATRIX">NULL MATRIX</option>
+                                
+                                    <option value="IDENTITY MATRIX">IDENTITY MATRIX</option>
+                                
+                                    <option value="TRACE">TRACE</option>
+                                
+                                    <option value="RANK">RANK</option>
+                                
+                                    <option value="INVERSE">INVERSE</option>
+                                
+                                    <option value="IDEMPOTENT MATRIX">IDEMPOTENT MATRIX</option>
+                                
+                                    <option value="QUADRATIC FORM">QUADRATIC FORM</option>
+                                
+                                    <option value="POSITIVE DEFINITE MATRIX">POSITIVE DEFINITE MATRIX</option>
+                                
+                                    <option value="POSITIVE SEMIDEFINITE MATRIX">POSITIVE SEMIDEFINITE MATRIX</option>
+                                
+                                    <option value="NEGATIVE DEFINITE MATRIX">NEGATIVE DEFINITE MATRIX</option>
+                                
+                                    <option value="NEGATIVE SEMIDEFINITE MATRIX">NEGATIVE SEMIDEFINITE MATRIX</option>
+                                
+                                    <option value="PARAMETRIC SPACE">PARAMETRIC SPACE</option>
+                                
+                                    <option value="RANDOM VECTOR">RANDOM VECTOR</option>
+                                
+                                    <option value="COVARIANCE MATRIX">COVARIANCE MATRIX</option>
+                                
+                                    <option value="DISPERSION MATRIX">DISPERSION MATRIX</option>
+                                
+                                    <option value="MULTIVARIATE NORMAL DISTRIBUTION">MULTIVARIATE NORMAL DISTRIBUTION</option>
+                                
+                                    <option value="CHI-SQUARE DISTRIBUTION">CHI-SQUARE DISTRIBUTION</option>
+                                
+                                    <option value="PROBABILITY DENSITY FUNCTION">PROBABILITY DENSITY FUNCTION</option>
+                                
+                                    <option value="QUADRATIC FORMS">QUADRATIC FORMS</option>
+                                
+                                    <option value="T-DISTRIBUTION">T-DISTRIBUTION</option>
+                                
+                                    <option value="NORMAL DISTRIBUTION">NORMAL DISTRIBUTION</option>
+                                
+                                    <option value="REGRESSION COEFFICIENTS">REGRESSION COEFFICIENTS</option>
+                                
+                                    <option value="ESTIMABLE FUNCTIONS">ESTIMABLE FUNCTIONS</option>
+                                
+                                    <option value="X">X</option>
+                                
+                                    <option value="Β">Β</option>
+                                
+                                    <option value="Q">Q</option>
+                                
+                                    <option value="P">P</option>
+                                
+                                    <option value="Γ">Γ</option>
+                                
+                                    <option value="Σ²">Σ²</option>
+                                
+                                    <option value="Ε">Ε</option>
+                                
+                                    <option value="Σ">Σ</option>
+                                
+                                    <option value="N">N</option>
+                                
+                                    <option value="Z">Z</option>
+                                
+                                    <option value="Μ">Μ</option>
+                                
+                                    <option value="REPLICATE 2">REPLICATE 2</option>
+                                
+                                    <option value="BLOCK 1">BLOCK 1</option>
+                                
+                                    <option value="BLOCK 2">BLOCK 2</option>
+                                
+                                    <option value="REPLICATE 3">REPLICATE 3</option>
+                                
+                                    <option value="REPLICATE 1">REPLICATE 1</option>
+                                
+                                    <option value="TREATMENTS">TREATMENTS</option>
+                                
+                                    <option value="REPLICATE 4">REPLICATE 4</option>
+                                
+                                    <option value="B">B</option>
+                                
+                                    <option value="AB">AB</option>
+                                
+                                    <option value="BC">BC</option>
+                                
+                                    <option value="ABC">ABC</option>
+                                
+                                    <option value="BLOCK">BLOCK</option>
+                                
+                                    <option value="REPLICATE">REPLICATE</option>
+                                
+                                    <option value="FACTOR AB">FACTOR AB</option>
+                                
+                                    <option value="FACTOR AC">FACTOR AC</option>
+                                
+                                    <option value="FACTOR BC">FACTOR BC</option>
+                                
+                                    <option value="FACTOR ABC">FACTOR ABC</option>
+                                
+                                    <option value="REPLICATION">REPLICATION</option>
+                                
+                                    <option value="RESOLUTION">RESOLUTION</option>
+                                
+                                    <option value="SUMS OF SQUARES">SUMS OF SQUARES</option>
+                                
+                                    <option value="TREATMENT COMBINATIONS">TREATMENT COMBINATIONS</option>
+                                
+                                    <option value="FACTOR">FACTOR</option>
+                                
+                                    <option value="INTERACTION EFFECT">INTERACTION EFFECT</option>
+                                
+                                    <option value="PLOTS">PLOTS</option>
+                                
+                                    <option value="COST">COST</option>
+                                
+                                    <option value="MATERIAL">MATERIAL</option>
+                                
+                                    <option value="DEFINING RELATION">DEFINING RELATION</option>
+                                
+                                    <option value="ESTIMATES">ESTIMATES</option>
+                                
+                                    <option value="A">A</option>
+                                
+                                    <option value="AC">AC</option>
+                                
+                                    <option value="C">C</option>
+                                
+                                    <option value="BLOCK 3">BLOCK 3</option>
+                                
+                                    <option value="BLOCK 4">BLOCK 4</option>
+                                
+                                    <option value="J">J</option>
+                                
+                                    <option value="I">I</option>
+                                
+                                    <option value="F-STATISTIC">F-STATISTIC</option>
+                                
+                                    <option value="ANCOVA">ANCOVA</option>
+                                
+                                    <option value="EXPERIMENTAL DESIGN">EXPERIMENTAL DESIGN</option>
+                                
+                                    <option value="Χ²">Χ²</option>
+                                
+                                    <option value="F">F</option>
+                                
+                                    <option value="SAMPLE SPACE">SAMPLE SPACE</option>
+                                
+                                    <option value="REGRESSION MODEL">REGRESSION MODEL</option>
+                                
+                                    <option value="ERROR COMPONENT">ERROR COMPONENT</option>
+                                
+                                    <option value="AGRICULTURAL YIELD">AGRICULTURAL YIELD</option>
+                                
+                                    <option value="FERTILIZER">FERTILIZER</option>
+                                
+                                    <option value="SCALE">SCALE</option>
+                                
+                                    <option value="COEFFICIENT MATRIX">COEFFICIENT MATRIX</option>
+                                
+                                    <option value="CONFOUNDING">CONFOUNDING</option>
+                                
+                                    <option value="Λ">Λ</option>
+                                
+                                    <option value="A*">A*</option>
+                                
+                                    <option value="B*">B*</option>
+                                
+                                    <option value="SS">SS</option>
+                                
+                                    <option value="COVARIATE">COVARIATE</option>
+                                
+                                    <option value="MINIMUM VALUE">MINIMUM VALUE</option>
+                                
+                                    <option value="LEAST SQUARES ESTIMATES">LEAST SQUARES ESTIMATES</option>
+                                
+                                    <option value="MAXIMUM LIKELIHOOD ESTIMATES">MAXIMUM LIKELIHOOD ESTIMATES</option>
+                                
+                                    <option value="MIXED MODEL">MIXED MODEL</option>
+                                
+                                    <option value="MODEL I">MODEL I</option>
+                                
+                                    <option value="MODEL II">MODEL II</option>
+                                
+                                    <option value="MODEL III">MODEL III</option>
+                                
+                                    <option value="LEAST SQUARES">LEAST SQUARES</option>
+                                
+                            </select>
+                        </div>
+                        <div class="col-2 pb-2">
+                            <button type="button" class="btn btn-primary btn-block" onclick="neighbourhoodHighlight({nodes: []});">Reset Selection</button>
+                        </div>
+                    </div>
+                </div>
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+            <div id="loadingBar">
+              <div class="outerBorder">
+                <div id="text">0%</div>
+                <div id="border">
+                  <div id="bar"></div>
+                </div>
+              </div>
+            </div>
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+                  new TomSelect("#select-node",{
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      }
+                  });
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"font": {"color": "black"}, "group": "PERSON", "id": "SHALABH", "label": "SHALABH", "shape": "dot", "size": 10, "title": "\u003cb\u003eSHALABH\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Summary of Shalabh\u0027s Contributions to Analysis of Variance and Experimental Design**\n\nShalabh is a prominent researcher and academic affiliated with the Indian Institute of Technology (IIT) Kanpur, specializing in the fields of Analysis of Variance (ANOVA) and various experimental design methodolo"}, {"font": {"color": "black"}, "group": "ORGANIZATION", "id": "IIT KANPUR", "label": "IIT KANPUR", "shape": "dot", "size": 10, "title": "\u003cb\u003eIIT KANPUR\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**IIT Kanpur: Comprehensive Summary**\n\n**Definition and Purpose:**\nIndian Institute of Technology Kanpur (IIT Kanpur) is a premier engineering institution in India, recognized for its excellence in education and research across various fields, including engineering, technology, and statistics. The i"}, {"font": {"color": "black"}, "group": "EVENT", "id": "ANALYSIS OF VARIANCE", "label": "ANALYSIS OF VARIANCE", "shape": "dot", "size": 10, "title": "\u003cb\u003eANALYSIS OF VARIANCE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Analysis of Variance (ANOVA)**\n\n**Definition and Purpose**:  \nAnalysis of Variance (ANOVA) is a statistical method used to compare means among different groups to determine if at least one group mean is significantly different from the others. It is particularly useful in experimental design to an"}, {"font": {"color": "black"}, "group": "EVENT", "id": "ANOVA", "label": "ANOVA", "shape": "dot", "size": 10, "title": "\u003cb\u003eANOVA\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**ANOVA (Analysis of Variance) Summary**\n\n**Definition and Purpose:**\nANOVA, or Analysis of Variance, is a statistical method employed to analyze the differences among group means in a sample. Its primary purpose is to determine whether there are statistically significant differences between the mea"}, {"font": {"color": "black"}, "group": "EVENT", "id": "LINEAR ALGEBRA", "label": "LINEAR ALGEBRA", "shape": "dot", "size": 10, "title": "\u003cb\u003eLINEAR ALGEBRA\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Comprehensive Summary of Linear Algebra\n\n**Definition and Purpose**  \nLinear Algebra is a branch of mathematics that focuses on the study of linear equations, linear functions, and their representations through matrices and vector spaces. It serves as a foundational tool in various fields, inclu"}, {"font": {"color": "black"}, "group": "EVENT", "id": "MATRIX THEORY", "label": "MATRIX THEORY", "shape": "dot", "size": 10, "title": "\u003cb\u003eMATRIX THEORY\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Comprehensive Summary of Matrix Theory**\n\nMatrix Theory is a fundamental field of mathematics that focuses on the study of matrices, which are rectangular arrays of numbers, symbols, or expressions, arranged in rows and columns. The primary purpose of Matrix Theory is to explore the properties, op"}, {"font": {"color": "black"}, "group": "EVENT", "id": "MATRIX", "label": "MATRIX", "shape": "dot", "size": 10, "title": "\u003cb\u003eMATRIX\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Comprehensive Summary of MATRIX\n\n**Definition and Purpose:**\nA matrix is defined as a rectangular array of numbers, symbols, or expressions, arranged in rows and columns. It serves as a fundamental structure in various mathematical computations, including linear algebra, statistics, and data ana"}, {"font": {"color": "black"}, "group": "EVENT", "id": "LINEAR MODEL", "label": "LINEAR MODEL", "shape": "dot", "size": 10, "title": "\u003cb\u003eLINEAR MODEL\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Comprehensive Summary of Linear Model\n\n**Definition and Purpose**  \nA linear model is a mathematical representation that describes the relationship between a dependent variable (often referred to as the response variable) and one or more independent variables (also known as predictor or explanat"}, {"font": {"color": "black"}, "group": "EVENT", "id": "FISHER-COCHRAN THEOREM", "label": "FISHER-COCHRAN THEOREM", "shape": "dot", "size": 10, "title": "\u003cb\u003eFISHER-COCHRAN THEOREM\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe Fisher-Cochran Theorem is a fundamental statistical principle in the field of Design of Experiments (DOE) and Analysis of Variance (ANOVA). It serves to elucidate the relationship between the total sum of squares, the sum of squares for treatments, and the sum of squares for error, thereby provi"}, {"font": {"color": "black"}, "group": "EVENT", "id": "PARTIAL CONFOUNDING", "label": "PARTIAL CONFOUNDING", "shape": "dot", "size": 10, "title": "\u003cb\u003ePARTIAL CONFOUNDING\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Partial Confounding**\n\n**Definition and Purpose**: Partial confounding is a statistical phenomenon that occurs in experimental design and analysis when a factor is not completely confounded across all replicates. This allows for the estimation of effects from multiple sources, even when some level"}, {"font": {"color": "black"}, "group": "EVENT", "id": "BALANCED PARTIALLY CONFOUNDED DESIGN", "label": "BALANCED PARTIALLY CONFOUNDED DESIGN", "shape": "dot", "size": 10, "title": "\u003cb\u003eBALANCED PARTIALLY CONFOUNDED DESIGN\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eA balanced partially confounded design is an experimental design where all effects of a certain order are confounded with block differences in equal numbers of replicates."}, {"font": {"color": "black"}, "group": "EVENT", "id": "UNBALANCED PARTIALLY CONFOUNDED DESIGN", "label": "UNBALANCED PARTIALLY CONFOUNDED DESIGN", "shape": "dot", "size": 10, "title": "\u003cb\u003eUNBALANCED PARTIALLY CONFOUNDED DESIGN\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eAn unbalanced partially confounded design is an experimental design where effects of a certain order are confounded an unequal number of times in a design."}, {"font": {"color": "black"}, "group": "EVENT", "id": "FACTOR A", "label": "FACTOR A", "shape": "dot", "size": 10, "title": "\u003cb\u003eFACTOR A\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Summary of Factor A in Experimental Design**\n\n**Definition and Purpose:**\nFactor A is defined as one of the independent variables in an experimental design, particularly in the context of factorial experiments. Its primary purpose is to assess its effects on a dependent variable or response variab"}, {"font": {"color": "black"}, "group": "EVENT", "id": "FACTOR B", "label": "FACTOR B", "shape": "dot", "size": 10, "title": "\u003cb\u003eFACTOR B\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Factor B: Comprehensive Summary**\n\n**Definition and Purpose:**\nFactor B is a categorical variable in experimental designs, particularly in factorial experiments, that is utilized to evaluate its impact on a response variable alongside another factor, commonly referred to as Factor A. It serves as "}, {"font": {"color": "black"}, "group": "EVENT", "id": "FACTOR C", "label": "FACTOR C", "shape": "dot", "size": 10, "title": "\u003cb\u003eFACTOR C\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Factor C: Comprehensive Summary**\n\n**Definition and Purpose:**\nFactor C is a quantitative variable included in experimental designs, particularly in factorial experiments, to assess its impact on the outcomes of interest. It serves as an independent variable that can influence the response variabl"}, {"font": {"color": "black"}, "group": "EVENT", "id": "VARIANCE", "label": "VARIANCE", "shape": "dot", "size": 10, "title": "\u003cb\u003eVARIANCE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Comprehensive Summary of Variance\n\n**Definition and Purpose**  \nVariance is a statistical measure that quantifies the degree of dispersion or variability within a set of values. It is essential in statistical analysis as it provides insights into how much individual data points differ from the m"}, {"font": {"color": "black"}, "group": "EVENT", "id": "CONFOUNDED FACTOR C", "label": "CONFOUNDED FACTOR C", "shape": "dot", "size": 10, "title": "\u003cb\u003eCONFOUNDED FACTOR C\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eConfounded Factor C is a statistical term referring to a variable that is not accounted for in an analysis, which can affect the results."}, {"font": {"color": "black"}, "group": "EVENT", "id": "REPLICATES", "label": "REPLICATES", "shape": "dot", "size": 10, "title": "\u003cb\u003eREPLICATES\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Comprehensive Summary of Replicates in Experimental Design\n\n**Definition and Purpose**  \nReplicates are defined as repeated measurements or observations conducted in an experiment under the same conditions. Their primary purpose is to ensure the reliability and accuracy of results by providing a"}, {"font": {"color": "black"}, "group": "EVENT", "id": "SUM OF SQUARES", "label": "SUM OF SQUARES", "shape": "dot", "size": 10, "title": "\u003cb\u003eSUM OF SQUARES\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Comprehensive Summary of Sum of Squares (SS)**\n\n**Definition and Purpose:**\nSum of Squares (SS) is a fundamental statistical measure used in the context of Analysis of Variance (ANOVA) to quantify the variation within and between treatment groups. It serves to partition the total variability in a "}, {"font": {"color": "black"}, "group": "EVENT", "id": "EFFECTS", "label": "EFFECTS", "shape": "dot", "size": 10, "title": "\u003cb\u003eEFFECTS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Comprehensive Summary of Effects in Design of Experiments**\n\n**Definition and Purpose:**\nEffects in the context of Design of Experiments (DOE) refer to the impact or influence of independent variables (factors) on the dependent variable (response) being measured. They are crucial for understanding"}, {"font": {"color": "black"}, "group": "EVENT", "id": "ARITHMETIC MEAN", "label": "ARITHMETIC MEAN", "shape": "dot", "size": 10, "title": "\u003cb\u003eARITHMETIC MEAN\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eArithmetic Mean is a measure of central tendency calculated by summing a set of values and dividing by the number of values."}, {"font": {"color": "black"}, "group": "EVENT", "id": "FRACTIONAL FACTORIAL EXPERIMENT", "label": "FRACTIONAL FACTORIAL EXPERIMENT", "shape": "dot", "size": 10, "title": "\u003cb\u003eFRACTIONAL FACTORIAL EXPERIMENT\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Comprehensive Summary of Fractional Factorial Experiment\n\n**Definition and Purpose**  \nA fractional factorial experiment is a type of experimental design that enables researchers to investigate the effects of multiple factors on a response variable while utilizing a reduced number of experimenta"}, {"font": {"color": "black"}, "group": "EVENT", "id": "DEGREES OF FREEDOM", "label": "DEGREES OF FREEDOM", "shape": "dot", "size": 10, "title": "\u003cb\u003eDEGREES OF FREEDOM\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Degrees of Freedom**\n\n**Definition and Purpose**  \nDegrees of freedom (df) is a fundamental concept in statistics that refers to the number of independent values or quantities that can vary in an analysis. It plays a crucial role in various statistical methods, particularly in the context of hypot"}, {"font": {"color": "black"}, "group": "EVENT", "id": "FACTORIAL EXPERIMENT", "label": "FACTORIAL EXPERIMENT", "shape": "dot", "size": 10, "title": "\u003cb\u003eFACTORIAL EXPERIMENT\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Comprehensive Summary of Factorial Experiment\n\n**Definition and Purpose**  \nA Factorial Experiment is a type of experimental design that investigates the effects of two or more factors on a response variable by varying these factors simultaneously. The primary purpose of a factorial experiment i"}, {"font": {"color": "black"}, "group": "EVENT", "id": "FRACTIONAL REPLICATIONS", "label": "FRACTIONAL REPLICATIONS", "shape": "dot", "size": 10, "title": "\u003cb\u003eFRACTIONAL REPLICATIONS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Comprehensive Summary of Fractional Replications**\n\n**Definition and Purpose**  \nFractional replications are a type of experimental design used in the field of Design of Experiments (DOE) that enables researchers to investigate a fraction of the full factorial experiment. This approach is particul"}, {"font": {"color": "black"}, "group": "EVENT", "id": "ANALYSIS OF COVARIANCE", "label": "ANALYSIS OF COVARIANCE", "shape": "dot", "size": 10, "title": "\u003cb\u003eANALYSIS OF COVARIANCE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Analysis of Covariance (ANCOVA)**\n\n**Definition and Purpose**:  \nAnalysis of Covariance (ANCOVA) is a statistical method that integrates the principles of Analysis of Variance (ANOVA) and regression analysis. Its primary purpose is to compare the means of different groups while controlling for the"}, {"font": {"color": "black"}, "group": "EVENT", "id": "TREATMENT EFFECT", "label": "TREATMENT EFFECT", "shape": "dot", "size": 10, "title": "\u003cb\u003eTREATMENT EFFECT\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Treatment Effect\n\n**Definition and Purpose**  \nThe treatment effect refers to the difference in outcomes between treatment groups in an experiment, serving as a critical measure to assess the impact of specific treatments on a response variable. It quantifies how much a particular treatment infl"}, {"font": {"color": "black"}, "group": "EVENT", "id": "E", "label": "E", "shape": "dot", "size": 10, "title": "\u003cb\u003eE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: E**\n\n**Definition and Purpose:**\nE is a multifaceted entity in the context of experimental design and statistical analysis. It can represent various components, including factors in an experiment, expected values in statistical models, error terms in regression analysis, and elements in th"}, {"font": {"color": "black"}, "group": "", "id": "Y", "label": "Y", "shape": "dot", "size": 10, "title": "\u003cb\u003eY\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e"}, {"font": {"color": "black"}, "group": "EVENT", "id": "T", "label": "T", "shape": "dot", "size": 10, "title": "\u003cb\u003eT\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Comprehensive Summary of the Entity \"T\" in Statistical Analysis\n\n**Definition and Purpose:**\nThe entity \"T\" encompasses various roles in statistical analysis, primarily representing variables and measurements. It can denote a total measurement, an independent variable, or specific statistical te"}, {"font": {"color": "black"}, "group": "EVENT", "id": "H", "label": "H", "shape": "dot", "size": 10, "title": "\u003cb\u003eH\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: H (Null Hypothesis)**\n\n**Definition and Purpose:**\nH, commonly referred to as the null hypothesis, is a fundamental concept in statistical testing. It serves as a statement that there is no effect or no difference in the context of the population being studied. The purpose of H is to provi"}, {"font": {"color": "black"}, "group": "", "id": "GENERAL LINEAR HYPOTHESIS", "label": "GENERAL LINEAR HYPOTHESIS", "shape": "dot", "size": 10, "title": "\u003cb\u003eGENERAL LINEAR HYPOTHESIS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e"}, {"font": {"color": "black"}, "group": "PERSON", "id": "COVARIATES", "label": "COVARIATES", "shape": "dot", "size": 10, "title": "\u003cb\u003eCOVARIATES\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eCovariates are independent variables that are included in a regression model to control for their effects on the dependent variable."}, {"font": {"color": "black"}, "group": "EVENT", "id": "DESIGN MATRIX", "label": "DESIGN MATRIX", "shape": "dot", "size": 10, "title": "\u003cb\u003eDESIGN MATRIX\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Comprehensive Summary of DESIGN MATRIX\n\n**Definition and Purpose**  \nA design matrix is a structured matrix that encapsulates the values of the independent variables (or factors) for each experimental run in a design of experiments (DOE). It serves as a foundational tool in statistical modeling,"}, {"font": {"color": "black"}, "group": "EVENT", "id": "NULL HYPOTHESIS", "label": "NULL HYPOTHESIS", "shape": "dot", "size": 10, "title": "\u003cb\u003eNULL HYPOTHESIS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Comprehensive Summary of the Null Hypothesis\n\n**Definition and Purpose**  \nThe Null Hypothesis (H) is a fundamental concept in statistical hypothesis testing that posits there is no effect, no difference, or no relationship between the phenomena being studied. It serves as a baseline or default"}, {"font": {"color": "black"}, "group": "EVENT", "id": "F-DISTRIBUTION", "label": "F-DISTRIBUTION", "shape": "dot", "size": 10, "title": "\u003cb\u003eF-DISTRIBUTION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### F-Distribution: Comprehensive Summary\n\n**Definition and Purpose**  \nThe F-distribution is a continuous probability distribution that is primarily utilized in the context of Analysis of Variance (ANOVA) and variance analysis. Its main purpose is to determine the significance of results by compari"}, {"font": {"color": "black"}, "group": "EVENT", "id": "ALTERNATIVE HYPOTHESIS", "label": "ALTERNATIVE HYPOTHESIS", "shape": "dot", "size": 10, "title": "\u003cb\u003eALTERNATIVE HYPOTHESIS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Alternative Hypothesis\n\nThe alternative hypothesis is a fundamental concept in statistical hypothesis testing, particularly within the context of Design of Experiments (DOE) and Analysis of Variance (ANOVA). It serves as a statement that contradicts the null hypothesis, which posits that there i"}, {"font": {"color": "black"}, "group": "EVENT", "id": "ERROR", "label": "ERROR", "shape": "dot", "size": 10, "title": "\u003cb\u003eERROR\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Comprehensive Summary of \"ERROR\" in Statistical Analysis**\n\n**Definition and Purpose:**\nError in statistical analysis refers to the discrepancy between observed values and true values, or between observed values and values predicted by a statistical model. It serves as a critical measure for asses"}, {"font": {"color": "black"}, "group": "", "id": "TSS", "label": "TSS", "shape": "dot", "size": 10, "title": "\u003cb\u003eTSS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e"}, {"font": {"color": "black"}, "group": "EVENT", "id": "SSA", "label": "SSA", "shape": "dot", "size": 10, "title": "\u003cb\u003eSSA\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: Sum of Squares for Factor A (SSA)**\n\n**Definition and Purpose:**\nThe Sum of Squares for Factor A (SSA) is a statistical measure used in the context of Analysis of Variance (ANOVA) to quantify the variation in the response variable that can be attributed to the first factor (or treatment) i"}, {"font": {"color": "black"}, "group": "EVENT", "id": "SSB", "label": "SSB", "shape": "dot", "size": 10, "title": "\u003cb\u003eSSB\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Sum of Squares for Blocks (SSB)**\n\n**Definition and Purpose**: The Sum of Squares for Blocks (SSB) is a statistical measure used in Analysis of Variance (ANOVA) to quantify the variation attributable to blocking factors in an experimental design. Blocking is a technique employed to reduce the impa"}, {"font": {"color": "black"}, "group": "EVENT", "id": "SSE", "label": "SSE", "shape": "dot", "size": 10, "title": "\u003cb\u003eSSE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Sum of Squares Error (SSE)**\n\n**Definition and Purpose**:  \nSum of Squares Error (SSE) is a statistical measure that quantifies the amount of variation in a dataset that is not explained by the estimation model. It serves as a critical component in the analysis of variance (ANOVA), providing insig"}, {"font": {"color": "black"}, "group": "EVENT", "id": "NULL VECTOR", "label": "NULL VECTOR", "shape": "dot", "size": 10, "title": "\u003cb\u003eNULL VECTOR\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe null vector is a vector where all components are zero, and it is orthogonal to every vector."}, {"font": {"color": "black"}, "group": "", "id": "VECTOR", "label": "VECTOR", "shape": "dot", "size": 10, "title": "\u003cb\u003eVECTOR\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e"}, {"font": {"color": "black"}, "group": "EVENT", "id": "LINEAR COMBINATION", "label": "LINEAR COMBINATION", "shape": "dot", "size": 10, "title": "\u003cb\u003eLINEAR COMBINATION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eA linear combination is an expression formed by multiplying vectors by scalars and adding the results."}, {"font": {"color": "black"}, "group": "EVENT", "id": "LINEAR INDEPENDENCE", "label": "LINEAR INDEPENDENCE", "shape": "dot", "size": 10, "title": "\u003cb\u003eLINEAR INDEPENDENCE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eLinear independence refers to a set of vectors that do not linearly depend on each other, meaning no vector can be expressed as a linear combination of the others."}, {"font": {"color": "black"}, "group": "EVENT", "id": "LINEAR FUNCTION", "label": "LINEAR FUNCTION", "shape": "dot", "size": 10, "title": "\u003cb\u003eLINEAR FUNCTION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Comprehensive Summary of Linear Function\n\n**Definition and Purpose**  \nA linear function is a mathematical function that can be graphically represented as a straight line on a Cartesian plane. It is defined by a linear equation of the form \\( y = mx + b \\), where \\( m \\) represents the slope of "}, {"font": {"color": "black"}, "group": "EVENT", "id": "CONTRAST", "label": "CONTRAST", "shape": "dot", "size": 10, "title": "\u003cb\u003eCONTRAST\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: CONTRAST**\n\nA contrast is a statistical tool used in the analysis of variance (ANOVA) and other statistical methods to test specific hypotheses regarding group means. It is defined as a linear combination of group means or parameters, allowing researchers to make comparisons between differ"}, {"font": {"color": "black"}, "group": "EVENT", "id": "RANDOM VARIABLE", "label": "RANDOM VARIABLE", "shape": "dot", "size": 10, "title": "\u003cb\u003eRANDOM VARIABLE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Comprehensive Summary of Random Variable\n\nA **random variable** is a fundamental concept in probability and statistics, defined as a variable whose possible values are numerical outcomes resulting from a random phenomenon. It serves as a bridge between the theoretical framework of probability an"}, {"font": {"color": "black"}, "group": "EVENT", "id": "SQUARE MATRIX", "label": "SQUARE MATRIX", "shape": "dot", "size": 10, "title": "\u003cb\u003eSQUARE MATRIX\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eA square matrix is a matrix with the same number of rows and columns, often used in various mathematical applications."}, {"font": {"color": "black"}, "group": "EVENT", "id": "DIAGONAL MATRIX", "label": "DIAGONAL MATRIX", "shape": "dot", "size": 10, "title": "\u003cb\u003eDIAGONAL MATRIX\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eA diagonal matrix is a square matrix where all elements outside the main diagonal are zero."}, {"font": {"color": "black"}, "group": "EVENT", "id": "UPPER TRIANGULAR MATRIX", "label": "UPPER TRIANGULAR MATRIX", "shape": "dot", "size": 10, "title": "\u003cb\u003eUPPER TRIANGULAR MATRIX\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eAn upper triangular matrix is a square matrix where all elements below the main diagonal are zero."}, {"font": {"color": "black"}, "group": "EVENT", "id": "LOWER TRIANGULAR MATRIX", "label": "LOWER TRIANGULAR MATRIX", "shape": "dot", "size": 10, "title": "\u003cb\u003eLOWER TRIANGULAR MATRIX\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eA lower triangular matrix is a square matrix where all elements above the main diagonal are zero."}, {"font": {"color": "black"}, "group": "EVENT", "id": "TRANSPOSE", "label": "TRANSPOSE", "shape": "dot", "size": 10, "title": "\u003cb\u003eTRANSPOSE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe transpose of a matrix is obtained by swapping its rows and columns."}, {"font": {"color": "black"}, "group": "EVENT", "id": "SYMMETRIC MATRIX", "label": "SYMMETRIC MATRIX", "shape": "dot", "size": 10, "title": "\u003cb\u003eSYMMETRIC MATRIX\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eA symmetric matrix is a square matrix that is equal to its transpose."}, {"font": {"color": "black"}, "group": "EVENT", "id": "NULL MATRIX", "label": "NULL MATRIX", "shape": "dot", "size": 10, "title": "\u003cb\u003eNULL MATRIX\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eA null matrix is a matrix in which all elements are zero."}, {"font": {"color": "black"}, "group": "EVENT", "id": "IDENTITY MATRIX", "label": "IDENTITY MATRIX", "shape": "dot", "size": 10, "title": "\u003cb\u003eIDENTITY MATRIX\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eAn identity matrix is a square matrix with ones on the diagonal and zeros elsewhere."}, {"font": {"color": "black"}, "group": "EVENT", "id": "TRACE", "label": "TRACE", "shape": "dot", "size": 10, "title": "\u003cb\u003eTRACE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe trace of a matrix is the sum of its diagonal elements."}, {"font": {"color": "black"}, "group": "EVENT", "id": "RANK", "label": "RANK", "shape": "dot", "size": 10, "title": "\u003cb\u003eRANK\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: RANK**\n\n**Definition and Purpose:**\nRank is a fundamental concept in linear algebra and statistics that denotes the dimension of the vector space generated by the rows or columns of a matrix. It serves as a critical measure of the linear independence of the matrix\u0027s rows or columns, which "}, {"font": {"color": "black"}, "group": "EVENT", "id": "INVERSE", "label": "INVERSE", "shape": "dot", "size": 10, "title": "\u003cb\u003eINVERSE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe inverse of a matrix is a matrix that, when multiplied with the original matrix, yields the identity matrix."}, {"font": {"color": "black"}, "group": "EVENT", "id": "IDEMPOTENT MATRIX", "label": "IDEMPOTENT MATRIX", "shape": "dot", "size": 10, "title": "\u003cb\u003eIDEMPOTENT MATRIX\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eAn idempotent matrix is a matrix that, when multiplied by itself, yields the same matrix."}, {"font": {"color": "black"}, "group": "EVENT", "id": "QUADRATIC FORM", "label": "QUADRATIC FORM", "shape": "dot", "size": 10, "title": "\u003cb\u003eQUADRATIC FORM\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eA quadratic form is a polynomial of degree two in a number of variables, often represented in matrix form."}, {"font": {"color": "black"}, "group": "EVENT", "id": "POSITIVE DEFINITE MATRIX", "label": "POSITIVE DEFINITE MATRIX", "shape": "dot", "size": 10, "title": "\u003cb\u003ePOSITIVE DEFINITE MATRIX\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eA positive definite matrix is a symmetric matrix where all its eigenvalues are positive, indicating that it defines a positive quadratic form."}, {"font": {"color": "black"}, "group": "EVENT", "id": "POSITIVE SEMIDEFINITE MATRIX", "label": "POSITIVE SEMIDEFINITE MATRIX", "shape": "dot", "size": 10, "title": "\u003cb\u003ePOSITIVE SEMIDEFINITE MATRIX\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eA positive semidefinite matrix is a symmetric matrix where all its eigenvalues are non-negative, indicating that it defines a non-negative quadratic form."}, {"font": {"color": "black"}, "group": "EVENT", "id": "NEGATIVE DEFINITE MATRIX", "label": "NEGATIVE DEFINITE MATRIX", "shape": "dot", "size": 10, "title": "\u003cb\u003eNEGATIVE DEFINITE MATRIX\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eA negative definite matrix is a symmetric matrix where all its eigenvalues are negative, indicating that it defines a negative quadratic form."}, {"font": {"color": "black"}, "group": "EVENT", "id": "NEGATIVE SEMIDEFINITE MATRIX", "label": "NEGATIVE SEMIDEFINITE MATRIX", "shape": "dot", "size": 10, "title": "\u003cb\u003eNEGATIVE SEMIDEFINITE MATRIX\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eA negative semidefinite matrix is a symmetric matrix where all its eigenvalues are non-positive, indicating that it defines a non-positive quadratic form."}, {"font": {"color": "black"}, "group": "EVENT", "id": "PARAMETRIC SPACE", "label": "PARAMETRIC SPACE", "shape": "dot", "size": 10, "title": "\u003cb\u003ePARAMETRIC SPACE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Comprehensive Summary of Parametric Space**\n\n**Definition and Purpose**  \nParametric space refers to the set of all possible values of parameters in a statistical model. It serves as a foundational concept in statistical inference, particularly in the context of hypothesis testing and estimation. "}, {"font": {"color": "black"}, "group": "EVENT", "id": "RANDOM VECTOR", "label": "RANDOM VECTOR", "shape": "dot", "size": 10, "title": "\u003cb\u003eRANDOM VECTOR\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eA random vector is a vector whose components are random variables, often used in statistics to represent multivariate distributions."}, {"font": {"color": "black"}, "group": "EVENT", "id": "COVARIANCE MATRIX", "label": "COVARIANCE MATRIX", "shape": "dot", "size": 10, "title": "\u003cb\u003eCOVARIANCE MATRIX\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Covariance Matrix\n\nA covariance matrix is a square matrix that encapsulates the covariances between pairs of random variables, serving as a fundamental tool in statistics to analyze the relationships and dependencies among multiple variables. It is particularly useful in various statistical mode"}, {"font": {"color": "black"}, "group": "EVENT", "id": "DISPERSION MATRIX", "label": "DISPERSION MATRIX", "shape": "dot", "size": 10, "title": "\u003cb\u003eDISPERSION MATRIX\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe dispersion matrix is a matrix that represents the spread of a set of data points in multiple dimensions."}, {"font": {"color": "black"}, "group": "EVENT", "id": "MULTIVARIATE NORMAL DISTRIBUTION", "label": "MULTIVARIATE NORMAL DISTRIBUTION", "shape": "dot", "size": 10, "title": "\u003cb\u003eMULTIVARIATE NORMAL DISTRIBUTION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe multivariate normal distribution is a statistical distribution that describes multiple correlated random variables."}, {"font": {"color": "black"}, "group": "EVENT", "id": "CHI-SQUARE DISTRIBUTION", "label": "CHI-SQUARE DISTRIBUTION", "shape": "dot", "size": 10, "title": "\u003cb\u003eCHI-SQUARE DISTRIBUTION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Comprehensive Summary of Chi-Square Distribution\n\nThe **Chi-Square Distribution** is a fundamental statistical distribution widely utilized in hypothesis testing and estimation of variance components. It plays a crucial role in various statistical analyses, particularly in the context of Analysi"}, {"font": {"color": "black"}, "group": "EVENT", "id": "PROBABILITY DENSITY FUNCTION", "label": "PROBABILITY DENSITY FUNCTION", "shape": "dot", "size": 10, "title": "\u003cb\u003ePROBABILITY DENSITY FUNCTION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe probability density function describes the likelihood of a continuous random variable taking on a particular value."}, {"font": {"color": "black"}, "group": "EVENT", "id": "QUADRATIC FORMS", "label": "QUADRATIC FORMS", "shape": "dot", "size": 10, "title": "\u003cb\u003eQUADRATIC FORMS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eQuadratic forms are expressions involving a vector and a symmetric matrix, often used in statistics to describe certain types of distributions."}, {"font": {"color": "black"}, "group": "EVENT", "id": "T-DISTRIBUTION", "label": "T-DISTRIBUTION", "shape": "dot", "size": 10, "title": "\u003cb\u003eT-DISTRIBUTION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### T-Distribution: Comprehensive Summary\n\n**Definition and Purpose**  \nThe t-distribution, also known as Student\u0027s t-distribution, is a type of probability distribution that is symmetric and bell-shaped. It is primarily utilized in statistics for hypothesis testing and the construction of confidenc"}, {"font": {"color": "black"}, "group": "", "id": "NORMAL DISTRIBUTION", "label": "NORMAL DISTRIBUTION", "shape": "dot", "size": 10, "title": "\u003cb\u003eNORMAL DISTRIBUTION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e"}, {"font": {"color": "black"}, "group": "EVENT", "id": "REGRESSION COEFFICIENTS", "label": "REGRESSION COEFFICIENTS", "shape": "dot", "size": 10, "title": "\u003cb\u003eREGRESSION COEFFICIENTS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Regression Coefficients: Comprehensive Summary**\n\n**Definition and Purpose:**\nRegression coefficients are parameters in a regression model that quantify the relationship between independent variables (predictors) and a dependent variable (outcome). They serve to indicate how much the dependent var"}, {"font": {"color": "black"}, "group": "EVENT", "id": "ESTIMABLE FUNCTIONS", "label": "ESTIMABLE FUNCTIONS", "shape": "dot", "size": 10, "title": "\u003cb\u003eESTIMABLE FUNCTIONS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Comprehensive Summary of Estimable Functions**\n\n**Definition and Purpose:**\nEstimable functions are specific linear combinations of parameters within a statistical model that can be accurately estimated from the available data. They play a crucial role in the context of linear models, particularly"}, {"font": {"color": "black"}, "group": "EVENT", "id": "X", "label": "X", "shape": "dot", "size": 10, "title": "\u003cb\u003eX\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: X (Design Matrix in Linear Models)**\n\n**Definition and Purpose:**\nX is a design matrix utilized in linear models to represent the independent variables that influence the response variable Y. It serves as a foundational component in various statistical analyses, particularly in regression "}, {"font": {"color": "black"}, "group": "EVENT", "id": "\u0392", "label": "\u0392", "shape": "dot", "size": 10, "title": "\u003cb\u003e\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Summary of the Entity \"\" in Statistical Models\n\n**Definition and Purpose:**\nThe symbol \"\" represents a set of parameters in statistical models, particularly in linear regression and Analysis of Variance (ANOVA). It is used to quantify the relationship between independent variables (predictors)"}, {"font": {"color": "black"}, "group": "EVENT", "id": "Q", "label": "Q", "shape": "dot", "size": 10, "title": "\u003cb\u003eQ\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Summary of the Entity \"Q\" in Statistical Analysis and Experimental Design**\n\n**Definition and Purpose:**\nThe entity \"Q\" serves multiple roles in statistical analysis and experimental design. It can represent a specific quantity or measurement in statistical formulas, a treatment total in the conte"}, {"font": {"color": "black"}, "group": "EVENT", "id": "P", "label": "P", "shape": "dot", "size": 10, "title": "\u003cb\u003eP\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: P**\n\n**Definition and Purpose:**\nP is a multifaceted variable in the context of statistical modeling and experimental design, primarily representing the number of parameters or predictors in a statistical model. It plays a crucial role in determining the structure of the model, influencing"}, {"font": {"color": "black"}, "group": "EVENT", "id": "\u0393", "label": "\u0393", "shape": "dot", "size": 10, "title": "\u003cb\u003e\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e is a symbol representing the slope in a regression model."}, {"font": {"color": "black"}, "group": "EVENT", "id": "\u03a3\u00b2", "label": "\u03a3\u00b2", "shape": "dot", "size": 10, "title": "\u003cb\u003e\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Summary of Variance () in Statistical Analysis\n\n**Definition and Purpose**  \nVariance, denoted as , is a fundamental statistical measure that quantifies the degree of dispersion or variability in a set of data points. In the context of statistical analysis, particularly in Analysis of Varian"}, {"font": {"color": "black"}, "group": "EVENT", "id": "\u0395", "label": "\u0395", "shape": "dot", "size": 10, "title": "\u003cb\u003e\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Summary of the Error Term () in Statistical Models\n\nThe error term, denoted as , is a fundamental component in statistical modeling, particularly within the context of linear models and experimental designs such as the Latin square experiment. It serves to capture the random errors in observat"}, {"font": {"color": "black"}, "group": "EVENT", "id": "\u03a3", "label": "\u03a3", "shape": "dot", "size": 10, "title": "\u003cb\u003e\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Summary of the Covariance Matrix () in Multivariate Normal Distribution\n\n**Definition and Purpose:**\n (Sigma) represents the positive definite covariance matrix in the context of a multivariate normal distribution. It encapsulates the variances and covariances of multiple correlated random var"}, {"font": {"color": "black"}, "group": "EVENT", "id": "N", "label": "N", "shape": "dot", "size": 10, "title": "\u003cb\u003eN\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: N (Sample Size in Statistical Analysis)**\n\n**Definition and Purpose:**\nN denotes the sample size in statistical tests, which is a critical parameter influencing the distribution of test statistics and the power of statistical analyses. It represents the total number of observations or samp"}, {"font": {"color": "black"}, "group": "EVENT", "id": "Z", "label": "Z", "shape": "dot", "size": 10, "title": "\u003cb\u003eZ\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Comprehensive Summary of Entity \"Z\" in Statistical Analysis and Experimental Design**\n\n**Definition and Purpose:**\nEntity \"Z\" serves multiple roles within the context of statistical analysis and experimental design. Primarily, it is defined as a linear function of another variable, \"Y,\" which adhe"}, {"font": {"color": "black"}, "group": "EVENT", "id": "\u039c", "label": "\u039c", "shape": "dot", "size": 10, "title": "\u003cb\u003e\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Comprehensive Summary of the Entity \"\"\n\n**Definition and Purpose:**\nThe symbol \"\" represents the mean in various statistical contexts, particularly within linear models and multivariate normal distributions. In the context of experimental designs, such as the Latin square experiment, \"\" denot"}, {"font": {"color": "black"}, "group": "EVENT", "id": "REPLICATE 2", "label": "REPLICATE 2", "shape": "dot", "size": 10, "title": "\u003cb\u003eREPLICATE 2\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: REPLICATE 2**\n\n**Definition and Purpose:**\nReplicate 2 refers to a specific setup within experimental designs, particularly in the context of analysis of variance (ANOVA) and split-plot designs. Its primary purpose is to provide additional observations for the same treatments, thereby enha"}, {"font": {"color": "black"}, "group": "EVENT", "id": "BLOCK 1", "label": "BLOCK 1", "shape": "dot", "size": 10, "title": "\u003cb\u003eBLOCK 1\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Summary of BLOCK 1 in Experimental Design**\n\n**Definition and Purpose:**\nBlock 1 is a designated group within an experimental design framework, specifically utilized to manage and control variability in the analysis of variance (ANOVA). It serves as a foundational component in various experimental"}, {"font": {"color": "black"}, "group": "EVENT", "id": "BLOCK 2", "label": "BLOCK 2", "shape": "dot", "size": 10, "title": "\u003cb\u003eBLOCK 2\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Summary of BLOCK 2 in Experimental Design**\n\n**Definition and Purpose:**\nBlock 2 is a specific grouping within an experimental design framework, often utilized in the context of factorial experiments and analysis of variance (ANOVA). Its primary purpose is to control for variability and enhance th"}, {"font": {"color": "black"}, "group": "EVENT", "id": "REPLICATE 3", "label": "REPLICATE 3", "shape": "dot", "size": 10, "title": "\u003cb\u003eREPLICATE 3\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: REPLICATE 3**\n\n**Definition and Purpose:**\nReplicate 3 refers to a specific aspect of experimental design within the context of analysis of variance (ANOVA). It is utilized to evaluate the consistency and reliability of experimental results by conducting multiple runs of the same treatment"}, {"font": {"color": "black"}, "group": "", "id": "REPLICATE 1", "label": "REPLICATE 1", "shape": "dot", "size": 10, "title": "\u003cb\u003eREPLICATE 1\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e"}, {"font": {"color": "black"}, "group": "EVENT", "id": "TREATMENTS", "label": "TREATMENTS", "shape": "dot", "size": 10, "title": "\u003cb\u003eTREATMENTS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: Treatments**\n\n**Definition and Purpose:**\nTreatments are the various conditions, interventions, or combinations applied in an experimental design to evaluate their effects on a response variable. They serve as the primary means through which researchers manipulate independent variables to "}, {"font": {"color": "black"}, "group": "EVENT", "id": "REPLICATE 4", "label": "REPLICATE 4", "shape": "dot", "size": 10, "title": "\u003cb\u003eREPLICATE 4\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eReplicate 4 is the final part of the experimental setup in the analysis of variance, contributing to the overall analysis."}, {"font": {"color": "black"}, "group": "EVENT", "id": "B", "label": "B", "shape": "dot", "size": 10, "title": "\u003cb\u003eB\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Comprehensive Summary of Factor B in Experimental Design and Analysis of Variance**\n\n**Definition and Purpose:**\nFactor B is a critical variable in experimental designs and statistical analyses, representing a specific treatment combination or independent variable that influences the outcome of an"}, {"font": {"color": "black"}, "group": "EVENT", "id": "AB", "label": "AB", "shape": "dot", "size": 10, "title": "\u003cb\u003eAB\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Summary of the Interaction Term \"AB\" in Factorial Designs**\n\n**Definition and Purpose:**\nThe interaction term \"AB\" represents the combined effect of two factors, A and B, in the context of factorial designs and analysis of variance (ANOVA). It is crucial for understanding how the simultaneous vari"}, {"font": {"color": "black"}, "group": "EVENT", "id": "BC", "label": "BC", "shape": "dot", "size": 10, "title": "\u003cb\u003eBC\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: BC (Two-Factor Interaction)**\n\n**Definition and Purpose:**\nBC refers to the interaction effect between two factors, B and C, in the context of experimental designs, particularly in factorial experiments and Analysis of Variance (ANOVA). The purpose of examining the BC interaction is to und"}, {"font": {"color": "black"}, "group": "EVENT", "id": "ABC", "label": "ABC", "shape": "dot", "size": 10, "title": "\u003cb\u003eABC\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: ABC (Three-Factor Interaction Term)**\n\n**Definition and Purpose:**\nABC is a three-factor interaction term utilized in factorial designs, particularly in the context of analyzing the combined effects of three factors (A, B, and C) on a response variable. It is essential for understanding ho"}, {"font": {"color": "black"}, "group": "EVENT", "id": "BLOCK", "label": "BLOCK", "shape": "dot", "size": 10, "title": "\u003cb\u003eBLOCK\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: BLOCK**\n\n**Definition and Purpose:**\nA block in experimental design is defined as a group of experimental units that share similar characteristics, which are expected to influence the response to the treatments applied. The primary purpose of blocking is to reduce variability in the experi"}, {"font": {"color": "black"}, "group": "EVENT", "id": "REPLICATE", "label": "REPLICATE", "shape": "dot", "size": 10, "title": "\u003cb\u003eREPLICATE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: REPLICATE**\n\n**Definition and Purpose:**  \nA replicate in the context of experimental design refers to the repeated trials or measurements of an experimental condition. The primary purpose of replicates is to ensure the reliability and validity of the results obtained from an experiment. B"}, {"font": {"color": "black"}, "group": "EVENT", "id": "FACTOR AB", "label": "FACTOR AB", "shape": "dot", "size": 10, "title": "\u003cb\u003eFACTOR AB\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eFactor AB represents the interaction between Factor A and Factor B in the factorial experiment."}, {"font": {"color": "black"}, "group": "EVENT", "id": "FACTOR AC", "label": "FACTOR AC", "shape": "dot", "size": 10, "title": "\u003cb\u003eFACTOR AC\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eFactor AC represents the interaction between Factor A and Factor C in the factorial experiment."}, {"font": {"color": "black"}, "group": "EVENT", "id": "FACTOR BC", "label": "FACTOR BC", "shape": "dot", "size": 10, "title": "\u003cb\u003eFACTOR BC\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eFactor BC represents the interaction between Factor B and Factor C in the factorial experiment."}, {"font": {"color": "black"}, "group": "EVENT", "id": "FACTOR ABC", "label": "FACTOR ABC", "shape": "dot", "size": 10, "title": "\u003cb\u003eFACTOR ABC\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eFactor ABC represents the interaction among Factors A, B, and C in the factorial experiment."}, {"font": {"color": "black"}, "group": "EVENT", "id": "REPLICATION", "label": "REPLICATION", "shape": "dot", "size": 10, "title": "\u003cb\u003eREPLICATION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Replication in Experimental Design**\n\n**Definition and Purpose**  \nReplication in experiments is the process of repeating an experiment or treatment to obtain more reliable estimates of the effect. It serves to confirm results, enhance the reliability and validity of findings, and provide a more p"}, {"font": {"color": "black"}, "group": "EVENT", "id": "RESOLUTION", "label": "RESOLUTION", "shape": "dot", "size": 10, "title": "\u003cb\u003eRESOLUTION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Comprehensive Summary of Resolution in Design of Experiments**\n\n**Definition and Purpose**  \nResolution in the context of Design of Experiments (DOE) refers to the level of detail and accuracy that a design framework can achieve, particularly in terms of distinguishing between different effects an"}, {"font": {"color": "black"}, "group": "EVENT", "id": "SUMS OF SQUARES", "label": "SUMS OF SQUARES", "shape": "dot", "size": 10, "title": "\u003cb\u003eSUMS OF SQUARES\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Sums of Squares**\n\n**Definition and Purpose**  \nSums of squares (SS) are calculated values utilized in the analysis of variance (ANOVA) to measure the variability in data. They serve as a fundamental component in assessing the differences between group means and the overall variability within a da"}, {"font": {"color": "black"}, "group": "EVENT", "id": "TREATMENT COMBINATIONS", "label": "TREATMENT COMBINATIONS", "shape": "dot", "size": 10, "title": "\u003cb\u003eTREATMENT COMBINATIONS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Comprehensive Summary of Treatment Combinations**\n\n**Definition and Purpose:**\nTreatment combinations refer to the various configurations of factor levels used in an experimental design to assess their effects on a response variable. They are integral to the experimental design process, particular"}, {"font": {"color": "black"}, "group": "", "id": "FACTOR", "label": "FACTOR", "shape": "dot", "size": 10, "title": "\u003cb\u003eFACTOR\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e"}, {"font": {"color": "black"}, "group": "EVENT", "id": "INTERACTION EFFECT", "label": "INTERACTION EFFECT", "shape": "dot", "size": 10, "title": "\u003cb\u003eINTERACTION EFFECT\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Interaction Effect**\n\n**Definition and Purpose**: An interaction effect occurs when the effect of one independent variable (factor) on the response variable is influenced by the level of another independent variable. This concept is crucial in the analysis of experimental designs, as it helps to u"}, {"font": {"color": "black"}, "group": "EVENT", "id": "PLOTS", "label": "PLOTS", "shape": "dot", "size": 10, "title": "\u003cb\u003ePLOTS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Comprehensive Summary of PLOTS in Experimental Design**\n\n**Definition and Purpose:**\nPLOTS are defined as the experimental units or areas within a design framework where specific treatments are applied and subsequently measured. They serve as the fundamental building blocks of experimental designs"}, {"font": {"color": "black"}, "group": "EVENT", "id": "COST", "label": "COST", "shape": "dot", "size": 10, "title": "\u003cb\u003eCOST\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: COST**\n\n**Definition and Purpose:**\nCost is a critical factor in the Design of Experiments (DOE) and Analysis of Variance (ANOVA) that pertains to the financial resources required to conduct experiments. It plays a significant role in the optimization process, where the objective is to min"}, {"font": {"color": "black"}, "group": "EVENT", "id": "MATERIAL", "label": "MATERIAL", "shape": "dot", "size": 10, "title": "\u003cb\u003eMATERIAL\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: MATERIAL**\n\n**Definition and Purpose:**\nMaterial in the context of Design of Experiments (DOE) refers to the raw substances or resources utilized in experimental setups. It encompasses the various inputs that are analyzed to understand their effects on the outcomes of the experiments. The "}, {"font": {"color": "black"}, "group": "EVENT", "id": "DEFINING RELATION", "label": "DEFINING RELATION", "shape": "dot", "size": 10, "title": "\u003cb\u003eDEFINING RELATION\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Comprehensive Summary of Defining Relation in Factorial Experiments\n\n**Definition and Purpose**  \nA defining relation in factorial experiments is a mathematical expression that articulates the relationships between factors and their interactions within the experimental design framework. It serve"}, {"font": {"color": "black"}, "group": "EVENT", "id": "ESTIMATES", "label": "ESTIMATES", "shape": "dot", "size": 10, "title": "\u003cb\u003eESTIMATES\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Comprehensive Summary of Estimates in Design of Experiments\n\n**Definition and Purpose**  \nEstimates are calculated values that approximate a population parameter based on sample data. In the context of factorial experiments, estimates specifically refer to the calculated effects of factors and t"}, {"font": {"color": "black"}, "group": "EVENT", "id": "A", "label": "A", "shape": "dot", "size": 10, "title": "\u003cb\u003eA\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Comprehensive Summary of Factor A in Experimental Design and Analysis of Variance**\n\n**Definition and Purpose:**\nFactor A is a critical variable in experimental designs that influences various outcomes, such as etch rate, filtration rate, and other response variables. It serves as a factor in the "}, {"font": {"color": "black"}, "group": "EVENT", "id": "AC", "label": "AC", "shape": "dot", "size": 10, "title": "\u003cb\u003eAC\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: AC (Two-Factor Interaction)**\n\n**Definition and Purpose:**\nAC refers to the interaction effect between two factors, A and C, in the context of experimental designs, particularly in factorial experiments and Analysis of Variance (ANOVA). The purpose of examining the AC interaction is to und"}, {"font": {"color": "black"}, "group": "EVENT", "id": "C", "label": "C", "shape": "dot", "size": 10, "title": "\u003cb\u003eC\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Comprehensive Summary of Factor C in Experimental Design and Analysis of Variance**\n\n**Definition and Purpose:**\nFactor C is a variable in experimental designs and analysis of variance (ANOVA) that represents a specific treatment combination or independent variable being tested. It is often denote"}, {"font": {"color": "black"}, "group": "EVENT", "id": "BLOCK 3", "label": "BLOCK 3", "shape": "dot", "size": 10, "title": "\u003cb\u003eBLOCK 3\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Entity: BLOCK 3**\n\n**Definition and Purpose:**\nBlock 3 refers to a specific grouping within an experimental design framework, particularly in the context of factorial and fractional factorial experiments. Its primary purpose is to control for variability among experimental units by grouping simila"}, {"font": {"color": "black"}, "group": "EVENT", "id": "BLOCK 4", "label": "BLOCK 4", "shape": "dot", "size": 10, "title": "\u003cb\u003eBLOCK 4\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Comprehensive Summary of BLOCK 4 in Experimental Design**\n\n**Definition and Purpose:**\nBlock 4 refers to a specific subset of treatment combinations derived from a fractional factorial experiment. In the context of experimental design, particularly factorial experiments, blocks are utilized to gro"}, {"font": {"color": "black"}, "group": "EVENT", "id": "J", "label": "J", "shape": "dot", "size": 10, "title": "\u003cb\u003eJ\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Summary of Entity \"J\" in Statistical Analysis and Experimental Design**\n\n**Definition and Purpose:**\n\"J\" is a variable commonly utilized in statistical formulas and methodologies, particularly in the context of experimental design and analysis of variance (ANOVA). It serves multiple roles, includi"}, {"font": {"color": "black"}, "group": "EVENT", "id": "I", "label": "I", "shape": "dot", "size": 10, "title": "\u003cb\u003eI\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Comprehensive Summary of the Entity \"I\" in Statistical Analysis and Design of Experiments\n\n**Definition and Purpose:**\nThe entity \"I\" serves as a placeholder or variable within mathematical contexts, particularly in statistical analysis and design methodologies. It is often utilized to represent"}, {"font": {"color": "black"}, "group": "EVENT", "id": "F-STATISTIC", "label": "F-STATISTIC", "shape": "dot", "size": 10, "title": "\u003cb\u003eF-STATISTIC\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### F-Statistic: Comprehensive Summary\n\n**Definition and Purpose**  \nThe F-statistic is a critical component in the analysis of variance (ANOVA), serving as a ratio that compares the variance between group means to the variance within groups. Its primary purpose is to determine whether there are sta"}, {"font": {"color": "black"}, "group": "EVENT", "id": "ANCOVA", "label": "ANCOVA", "shape": "dot", "size": 10, "title": "\u003cb\u003eANCOVA\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eAnalysis of Covariance (ANCOVA) is a statistical technique that adjusts the means of dependent variables based on the influence of covariates."}, {"font": {"color": "black"}, "group": "EVENT", "id": "EXPERIMENTAL DESIGN", "label": "EXPERIMENTAL DESIGN", "shape": "dot", "size": 10, "title": "\u003cb\u003eEXPERIMENTAL DESIGN\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Experimental Design: Comprehensive Summary**\n\n**Definition and Purpose**  \nExperimental design is a systematic approach to planning experiments that ensures valid and reliable results. It involves structuring the experiment to effectively test hypotheses and analyze the effects of various paramete"}, {"font": {"color": "black"}, "group": "EVENT", "id": "\u03a7\u00b2", "label": "\u03a7\u00b2", "shape": "dot", "size": 10, "title": "\u003cb\u003e\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e represents the chi-square distribution, which is used in statistical hypothesis testing."}, {"font": {"color": "black"}, "group": "EVENT", "id": "F", "label": "F", "shape": "dot", "size": 10, "title": "\u003cb\u003eF\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Comprehensive Summary of the F-Statistic in the Context of ANOVA and Experimental Design**\n\nThe F-statistic, denoted as \"F,\" is a crucial statistical measure used in the context of Analysis of Variance (ANOVA) and experimental design. It serves multiple purposes, primarily to assess the significan"}, {"font": {"color": "black"}, "group": "EVENT", "id": "SAMPLE SPACE", "label": "SAMPLE SPACE", "shape": "dot", "size": 10, "title": "\u003cb\u003eSAMPLE SPACE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Comprehensive Summary of Sample Space**\n\n**Definition and Purpose**:  \nThe sample space is defined as the set of all possible outcomes in a statistical experiment. It serves as the foundational concept in probability theory and statistics, providing a complete overview of all potential results tha"}, {"font": {"color": "black"}, "group": "EVENT", "id": "REGRESSION MODEL", "label": "REGRESSION MODEL", "shape": "dot", "size": 10, "title": "\u003cb\u003eREGRESSION MODEL\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Comprehensive Summary of the Regression Model\n\n**Definition and Purpose**  \nA regression model is a statistical method used to analyze and predict the relationships between a dependent variable and one or more independent variables. It serves to estimate how changes in the independent variables "}, {"font": {"color": "black"}, "group": "EVENT", "id": "ERROR COMPONENT", "label": "ERROR COMPONENT", "shape": "dot", "size": 10, "title": "\u003cb\u003eERROR COMPONENT\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eThe Error Component refers to the random error in a regression model that accounts for the variability in the dependent variable not explained by the independent variables."}, {"font": {"color": "black"}, "group": "EVENT", "id": "AGRICULTURAL YIELD", "label": "AGRICULTURAL YIELD", "shape": "dot", "size": 10, "title": "\u003cb\u003eAGRICULTURAL YIELD\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eAgricultural yield is the output of agricultural products, which can be influenced by various factors such as fertilizer and irrigation."}, {"font": {"color": "black"}, "group": "EVENT", "id": "FERTILIZER", "label": "FERTILIZER", "shape": "dot", "size": 10, "title": "\u003cb\u003eFERTILIZER\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eFertilizer is a substance used to enhance the growth of plants, which is a key variable in agricultural yield studies."}, {"font": {"color": "black"}, "group": "EVENT", "id": "SCALE", "label": "SCALE", "shape": "dot", "size": 10, "title": "\u003cb\u003eSCALE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eA scalar is a single number used to multiply a vector, affecting its magnitude but not its direction."}, {"font": {"color": "black"}, "group": "EVENT", "id": "COEFFICIENT MATRIX", "label": "COEFFICIENT MATRIX", "shape": "dot", "size": 10, "title": "\u003cb\u003eCOEFFICIENT MATRIX\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eA coefficient matrix is a matrix consisting of the coefficients of the variables in a system of linear equations."}, {"font": {"color": "black"}, "group": "EVENT", "id": "CONFOUNDING", "label": "CONFOUNDING", "shape": "dot", "size": 10, "title": "\u003cb\u003eCONFOUNDING\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Confounding: A Comprehensive Summary**\n\n**Definition and Purpose**  \nConfounding occurs when the effects of two or more factors are mixed together, making it difficult to determine their individual impacts on the response variable. This situation complicates the interpretation of results in both e"}, {"font": {"color": "black"}, "group": "EVENT", "id": "\u039b", "label": "\u039b", "shape": "dot", "size": 10, "title": "\u003cb\u003e\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e represents the coefficients or weights applied to the variables in the statistical model being discussed."}, {"font": {"color": "black"}, "group": "EVENT", "id": "A*", "label": "A*", "shape": "dot", "size": 10, "title": "\u003cb\u003eA*\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eA* is an estimator of variable A that is derived from multiple replicates in the analysis of variance context."}, {"font": {"color": "black"}, "group": "EVENT", "id": "B*", "label": "B*", "shape": "dot", "size": 10, "title": "\u003cb\u003eB*\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eB* is an estimator of variable B that is derived from multiple replicates in the analysis of variance context."}, {"font": {"color": "black"}, "group": "EVENT", "id": "SS", "label": "SS", "shape": "dot", "size": 10, "title": "\u003cb\u003eSS\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Sum of Squares (SS)**\n\n**Definition and Purpose:**\nThe Sum of Squares (SS) is a fundamental statistical measure used to quantify the variability within a dataset. It serves as a critical component in various statistical analyses, particularly in the context of Analysis of Variance (ANOVA) and regr"}, {"font": {"color": "black"}, "group": "EVENT", "id": "COVARIATE", "label": "COVARIATE", "shape": "dot", "size": 10, "title": "\u003cb\u003eCOVARIATE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Covariate\n\nA covariate is defined as a variable that is potentially predictive of the outcome being studied. It is commonly utilized in statistical analyses, particularly in Analysis of Covariance (ANCOVA), to control for its effect on the dependent variable. The primary purpose of including cov"}, {"font": {"color": "black"}, "group": "EVENT", "id": "MINIMUM VALUE", "label": "MINIMUM VALUE", "shape": "dot", "size": 10, "title": "\u003cb\u003eMINIMUM VALUE\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eMinimum value refers to the lowest point in a set of data, often sought in optimization problems in statistics."}, {"font": {"color": "black"}, "group": "EVENT", "id": "LEAST SQUARES ESTIMATES", "label": "LEAST SQUARES ESTIMATES", "shape": "dot", "size": 10, "title": "\u003cb\u003eLEAST SQUARES ESTIMATES\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Comprehensive Summary of Least Squares Estimates**\n\n**Definition and Purpose:**\nLeast squares estimates are statistical methods employed to determine the parameters of a model by minimizing the sum of the squares of the differences (residuals) between observed values and the values predicted by th"}, {"font": {"color": "black"}, "group": "EVENT", "id": "MAXIMUM LIKELIHOOD ESTIMATES", "label": "MAXIMUM LIKELIHOOD ESTIMATES", "shape": "dot", "size": 10, "title": "\u003cb\u003eMAXIMUM LIKELIHOOD ESTIMATES\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Maximum Likelihood Estimates (MLE)**\n\n**Definition and Purpose:**  \nMaximum likelihood estimates (MLE) are statistical estimates that aim to determine the parameter values of a statistical model that maximize the likelihood function, which quantifies how likely it is to observe the given data unde"}, {"font": {"color": "black"}, "group": "EVENT", "id": "MIXED MODEL", "label": "MIXED MODEL", "shape": "dot", "size": 10, "title": "\u003cb\u003eMIXED MODEL\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e### Mixed Model\n\nA mixed model is a statistical model that integrates both fixed and random effects, making it a versatile tool in the analysis of complex data structures. The primary purpose of a mixed model is to account for variability at different levels of data, which is particularly useful in "}, {"font": {"color": "black"}, "group": "EVENT", "id": "MODEL I", "label": "MODEL I", "shape": "dot", "size": 10, "title": "\u003cb\u003eMODEL I\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eModel I is a fixed effect model where all \u0027s are unknown constants."}, {"font": {"color": "black"}, "group": "EVENT", "id": "MODEL II", "label": "MODEL II", "shape": "dot", "size": 10, "title": "\u003cb\u003eMODEL II\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eModel II is a random effect model where all \u0027s are observable random variables except the additive constant."}, {"font": {"color": "black"}, "group": "EVENT", "id": "MODEL III", "label": "MODEL III", "shape": "dot", "size": 10, "title": "\u003cb\u003eMODEL III\u003c/b\u003e\u003cbr\u003e\u003cbr\u003eModel III is a mixed effect model where at least one  is constant and at least one  is a random variable."}, {"font": {"color": "black"}, "group": "EVENT", "id": "LEAST SQUARES", "label": "LEAST SQUARES", "shape": "dot", "size": 10, "title": "\u003cb\u003eLEAST SQUARES\u003c/b\u003e\u003cbr\u003e\u003cbr\u003e**Least Squares: Comprehensive Summary**\n\n**Definition and Purpose**  \nLeast Squares is a mathematical method employed in statistical modeling to estimate the parameters of a regression model. Its primary purpose is to minimize the sum of the squares of the differences (residuals) between observed v"}]);
+                  edges = new vis.DataSet([{"from": "SHALABH", "to": "IIT KANPUR", "width": 1}, {"from": "SHALABH", "to": "ANALYSIS OF VARIANCE", "width": 1}, {"from": "SHALABH", "to": "ANOVA", "width": 1}, {"from": "IIT KANPUR", "to": "ANALYSIS OF VARIANCE", "width": 1}, {"from": "IIT KANPUR", "to": "ANOVA", "width": 1}, {"from": "LINEAR ALGEBRA", "to": "MATRIX THEORY", "width": 1}, {"from": "LINEAR ALGEBRA", "to": "ANALYSIS OF VARIANCE", "width": 1}, {"from": "MATRIX THEORY", "to": "ANALYSIS OF VARIANCE", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "MATRIX", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "LINEAR MODEL", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "FISHER-COCHRAN THEOREM", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "PARTIAL CONFOUNDING", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "BALANCED PARTIALLY CONFOUNDED DESIGN", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "UNBALANCED PARTIALLY CONFOUNDED DESIGN", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "FACTOR A", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "FACTOR B", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "FACTOR C", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "VARIANCE", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "CONFOUNDED FACTOR C", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "REPLICATES", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "SUM OF SQUARES", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "EFFECTS", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "ARITHMETIC MEAN", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "FRACTIONAL FACTORIAL EXPERIMENT", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "DEGREES OF FREEDOM", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "FACTORIAL EXPERIMENT", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "FRACTIONAL REPLICATIONS", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "ANALYSIS OF COVARIANCE", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "TREATMENT EFFECT", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "E", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "Y", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "T", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "H", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "GENERAL LINEAR HYPOTHESIS", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "COVARIATES", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "DESIGN MATRIX", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "NULL HYPOTHESIS", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "F-DISTRIBUTION", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "ALTERNATIVE HYPOTHESIS", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "ERROR", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "TSS", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "SSA", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "SSB", "width": 1}, {"from": "ANALYSIS OF VARIANCE", "to": "SSE", "width": 1}, {"from": "NULL VECTOR", "to": "VECTOR", "width": 1}, {"from": "LINEAR COMBINATION", "to": "LINEAR INDEPENDENCE", "width": 1}, {"from": "LINEAR FUNCTION", "to": "CONTRAST", "width": 1}, {"from": "LINEAR FUNCTION", "to": "MATRIX", "width": 1}, {"from": "LINEAR FUNCTION", "to": "RANDOM VARIABLE", "width": 1}, {"from": "MATRIX", "to": "SQUARE MATRIX", "width": 1}, {"from": "MATRIX", "to": "DIAGONAL MATRIX", "width": 1}, {"from": "MATRIX", "to": "UPPER TRIANGULAR MATRIX", "width": 1}, {"from": "MATRIX", "to": "LOWER TRIANGULAR MATRIX", "width": 1}, {"from": "MATRIX", "to": "TRANSPOSE", "width": 1}, {"from": "MATRIX", "to": "SYMMETRIC MATRIX", "width": 1}, {"from": "MATRIX", "to": "NULL MATRIX", "width": 1}, {"from": "MATRIX", "to": "IDENTITY MATRIX", "width": 1}, {"from": "MATRIX", "to": "TRACE", "width": 1}, {"from": "MATRIX", "to": "RANK", "width": 1}, {"from": "MATRIX", "to": "INVERSE", "width": 1}, {"from": "MATRIX", "to": "IDEMPOTENT MATRIX", "width": 1}, {"from": "MATRIX", "to": "QUADRATIC FORM", "width": 1}, {"from": "SQUARE MATRIX", "to": "POSITIVE DEFINITE MATRIX", "width": 1}, {"from": "SQUARE MATRIX", "to": "POSITIVE SEMIDEFINITE MATRIX", "width": 1}, {"from": "SQUARE MATRIX", "to": "NEGATIVE DEFINITE MATRIX", "width": 1}, {"from": "SQUARE MATRIX", "to": "NEGATIVE SEMIDEFINITE MATRIX", "width": 1}, {"from": "RANK", "to": "PARAMETRIC SPACE", "width": 1}, {"from": "RANDOM VECTOR", "to": "COVARIANCE MATRIX", "width": 1}, {"from": "COVARIANCE MATRIX", "to": "DISPERSION MATRIX", "width": 1}, {"from": "COVARIANCE MATRIX", "to": "MULTIVARIATE NORMAL DISTRIBUTION", "width": 1}, {"from": "MULTIVARIATE NORMAL DISTRIBUTION", "to": "CHI-SQUARE DISTRIBUTION", "width": 1}, {"from": "MULTIVARIATE NORMAL DISTRIBUTION", "to": "PROBABILITY DENSITY FUNCTION", "width": 1}, {"from": "MULTIVARIATE NORMAL DISTRIBUTION", "to": "QUADRATIC FORMS", "width": 1}, {"from": "CHI-SQUARE DISTRIBUTION", "to": "T-DISTRIBUTION", "width": 1}, {"from": "CHI-SQUARE DISTRIBUTION", "to": "F-DISTRIBUTION", "width": 1}, {"from": "T-DISTRIBUTION", "to": "F-DISTRIBUTION", "width": 1}, {"from": "T-DISTRIBUTION", "to": "NORMAL DISTRIBUTION", "width": 1}, {"from": "F-DISTRIBUTION", "to": "ANOVA", "width": 1}, {"from": "LINEAR MODEL", "to": "REGRESSION COEFFICIENTS", "width": 1}, {"from": "LINEAR MODEL", "to": "ESTIMABLE FUNCTIONS", "width": 1}, {"from": "LINEAR MODEL", "to": "ALTERNATIVE HYPOTHESIS", "width": 1}, {"from": "LINEAR MODEL", "to": "NULL HYPOTHESIS", "width": 1}, {"from": "LINEAR MODEL", "to": "ANOVA", "width": 1}, {"from": "X", "to": "Y", "width": 1}, {"from": "X", "to": "\u0392", "width": 1}, {"from": "X", "to": "Q", "width": 1}, {"from": "X", "to": "P", "width": 1}, {"from": "\u0392", "to": "\u0393", "width": 1}, {"from": "\u0392", "to": "\u03a3\u00b2", "width": 1}, {"from": "\u0395", "to": "Y", "width": 1}, {"from": "\u0395", "to": "\u03a3", "width": 1}, {"from": "\u03a3", "to": "Y", "width": 1}, {"from": "P", "to": "Y", "width": 1}, {"from": "P", "to": "H", "width": 1}, {"from": "P", "to": "N", "width": 1}, {"from": "Q", "to": "Z", "width": 1}, {"from": "Y", "to": "\u039c", "width": 1}, {"from": "Y", "to": "T", "width": 1}, {"from": "Y", "to": "Z", "width": 1}, {"from": "Y", "to": "N", "width": 1}, {"from": "REPLICATE 2", "to": "BLOCK 1", "width": 1}, {"from": "REPLICATE 2", "to": "BLOCK 2", "width": 1}, {"from": "REPLICATE 3", "to": "BLOCK 1", "width": 1}, {"from": "REPLICATE 3", "to": "BLOCK 2", "width": 1}, {"from": "BLOCK 1", "to": "REPLICATE 1", "width": 1}, {"from": "BLOCK 1", "to": "BLOCK 2", "width": 1}, {"from": "BLOCK 1", "to": "TREATMENTS", "width": 1}, {"from": "BLOCK 2", "to": "REPLICATE 1", "width": 1}, {"from": "BLOCK 2", "to": "REPLICATE 4", "width": 1}, {"from": "BLOCK 2", "to": "TREATMENTS", "width": 1}, {"from": "B", "to": "AB", "width": 1}, {"from": "B", "to": "BC", "width": 1}, {"from": "B", "to": "ABC", "width": 1}, {"from": "REPLICATES", "to": "BLOCK", "width": 1}, {"from": "\u03a3\u00b2", "to": "N", "width": 1}, {"from": "FACTOR A", "to": "BLOCK", "width": 1}, {"from": "FACTOR B", "to": "BLOCK", "width": 1}, {"from": "FACTOR C", "to": "BLOCK", "width": 1}, {"from": "BLOCK", "to": "REPLICATE", "width": 1}, {"from": "BLOCK", "to": "FACTOR AB", "width": 1}, {"from": "BLOCK", "to": "FACTOR AC", "width": 1}, {"from": "BLOCK", "to": "FACTOR BC", "width": 1}, {"from": "BLOCK", "to": "FACTOR ABC", "width": 1}, {"from": "BLOCK", "to": "REPLICATION", "width": 1}, {"from": "FRACTIONAL FACTORIAL EXPERIMENT", "to": "RESOLUTION", "width": 1}, {"from": "DEGREES OF FREEDOM", "to": "SUMS OF SQUARES", "width": 1}, {"from": "FACTORIAL EXPERIMENT", "to": "TREATMENT COMBINATIONS", "width": 1}, {"from": "FACTORIAL EXPERIMENT", "to": "FACTOR", "width": 1}, {"from": "FACTORIAL EXPERIMENT", "to": "INTERACTION EFFECT", "width": 1}, {"from": "FACTORIAL EXPERIMENT", "to": "PLOTS", "width": 1}, {"from": "FACTORIAL EXPERIMENT", "to": "COST", "width": 1}, {"from": "FACTORIAL EXPERIMENT", "to": "MATERIAL", "width": 1}, {"from": "FACTORIAL EXPERIMENT", "to": "FRACTIONAL REPLICATIONS", "width": 1}, {"from": "FACTORIAL EXPERIMENT", "to": "DEFINING RELATION", "width": 1}, {"from": "FACTORIAL EXPERIMENT", "to": "ESTIMATES", "width": 1}, {"from": "A", "to": "AB", "width": 1}, {"from": "A", "to": "AC", "width": 1}, {"from": "A", "to": "ABC", "width": 1}, {"from": "C", "to": "AC", "width": 1}, {"from": "C", "to": "BC", "width": 1}, {"from": "C", "to": "ABC", "width": 1}, {"from": "AB", "to": "ABC", "width": 1}, {"from": "AC", "to": "ABC", "width": 1}, {"from": "BC", "to": "ABC", "width": 1}, {"from": "BLOCK 3", "to": "TREATMENTS", "width": 1}, {"from": "BLOCK 3", "to": "BLOCK 4", "width": 1}, {"from": "BLOCK 4", "to": "TREATMENTS", "width": 1}, {"from": "ANALYSIS OF COVARIANCE", "to": "E", "width": 1}, {"from": "ANALYSIS OF COVARIANCE", "to": "H", "width": 1}, {"from": "ANALYSIS OF COVARIANCE", "to": "J", "width": 1}, {"from": "ANALYSIS OF COVARIANCE", "to": "I", "width": 1}, {"from": "SSA", "to": "TSS", "width": 1}, {"from": "SSA", "to": "SSE", "width": 1}, {"from": "SSB", "to": "TSS", "width": 1}, {"from": "SSB", "to": "SSE", "width": 1}, {"from": "SSE", "to": "TSS", "width": 1}, {"from": "SSE", "to": "F-STATISTIC", "width": 1}, {"from": "ANCOVA", "to": "EXPERIMENTAL DESIGN", "width": 1}, {"from": "\u03a7\u00b2", "to": "F", "width": 1}, {"from": "F", "to": "H", "width": 1}, {"from": "T", "to": "E", "width": 1}, {"from": "NULL HYPOTHESIS", "to": "ALTERNATIVE HYPOTHESIS", "width": 1}, {"from": "PARAMETRIC SPACE", "to": "SAMPLE SPACE", "width": 1}, {"from": "REGRESSION MODEL", "to": "GENERAL LINEAR HYPOTHESIS", "width": 1}, {"from": "REGRESSION MODEL", "to": "COVARIATES", "width": 1}, {"from": "REGRESSION MODEL", "to": "ERROR COMPONENT", "width": 1}, {"from": "AGRICULTURAL YIELD", "to": "FERTILIZER", "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"nodes": {"borderWidth": 2, "font": {"size": 16, "face": "Arial"}, "size": 25, "shadow": {"enabled": true, "size": 10}}, "edges": {"color": {"color": "rgba(200,200,200,0.5)"}, "smooth": true, "width": 1}, "physics": {"enabled": true, "stabilization": {"iterations": 200}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+                    network.on("selectNode", neighbourhoodHighlight);
+                  
+
+                  
+
+
+                  
+                      network.on("stabilizationProgress", function(params) {
+                          document.getElementById('loadingBar').removeAttribute("style");
+                          var maxWidth = 496;
+                          var minWidth = 20;
+                          var widthFactor = params.iterations/params.total;
+                          var width = Math.max(minWidth,maxWidth * widthFactor);
+                          document.getElementById('bar').style.width = width + 'px';
+                          document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+                      });
+                      network.once("stabilizationIterationsDone", function() {
+                          document.getElementById('text').innerHTML = '100%';
+                          document.getElementById('bar').style.width = '496px';
+                          document.getElementById('loadingBar').style.opacity = 0;
+                          // really clean the dom element
+                          setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+                      });
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

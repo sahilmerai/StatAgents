@@ -1,0 +1,21 @@
+GLOBAL_FILE_PATHS:
+├─ INPUT_RAW: ./data/Raw_data/{filename}.csv
+├─ INPUT_PROCESSED: ./data/Processed_data/{filename}_processed.csv
+├─ OUTPUT_PLOTS: ./data/Output/Plots/{plot_name}.png
+├─ OUTPUT_DATA: ./data/Processed_data/{filename}_transformed.csv
+├─ OUTPUT_Report: ./data/Output/Report/{filename}_analysis.json
+└─ LOGS: ./coding/logs/execution.log
+
+FILE NAMING CONVENTIONS:
+├─ Raw CSV: {filename}.csv
+├─ Processed CSV: {filename}_processed.csv
+├─ Transformed CSV: {filename}_processed_transformed.csv
+├─ Analysis JSON: {filename}_analysis.json
+├─ Processing Report: {filename}_processing_report.txt
+└─ Plots: {descriptive_name}_{timestamp}.png
+
+DEFAULT_RULES:
+- Use processed data by default
+- Use raw only if user explicitly says "raw data"
+- NEVER paths like: pd.read_csv('filename.csv')
+- ALWAYS paths like: pd.read_csv('/data/filename.csv')

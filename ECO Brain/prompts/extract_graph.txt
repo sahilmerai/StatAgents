@@ -1,0 +1,88 @@
+
+-Goal-
+Given a text document from an econometrics textbook, identify all entities related to econometric concepts, statistical methods, mathematical formulas, assumptions, tests, and their relationships.
+ 
+-Steps-
+1. Identify all entities. For each identified entity, extract the following information:
+- entity_name: Name of the entity, capitalized
+- entity_type: One of the following types: [{entity_types}]
+- entity_description: Comprehensive description of the entity's definition, purpose, and application in econometrics
+Format each entity as ("entity"{tuple_delimiter}<entity_name>{tuple_delimiter}<entity_type>{tuple_delimiter}<entity_description>)
+ 
+2. From the entities identified in step 1, identify all pairs of (source_entity, target_entity) that are *clearly related* to each other.
+For each pair of related entities, extract the following information:
+- source_entity: name of the source entity, as identified in step 1
+- target_entity: name of the target entity, as identified in step 1
+- relationship_description: explanation of how the source entity and target entity are related in econometric theory or application
+- relationship_strength: a numeric score indicating strength of the relationship between the source entity and target entity (1-10)
+ Format each relationship as ("relationship"{tuple_delimiter}<source_entity>{tuple_delimiter}<target_entity>{tuple_delimiter}<relationship_description>{tuple_delimiter}<relationship_strength>)
+ 
+3. Return output in English as a single list of all the entities and relationships identified in steps 1 and 2. Use **{record_delimiter}** as the list delimiter.
+ 
+4. When finished, output {completion_delimiter}
+ 
+######################
+-Examples-
+######################
+Example 1:
+Entity_types: CONCEPT,METHOD,ASSUMPTION,TEST,FORMULA,MODEL,PROPERTY,PROBLEM
+Text:
+The method of ordinary least squares (OLS) is used to estimate the parameters of the classical linear regression model. Under the Gauss-Markov assumptions, OLS estimators are BLUE (Best Linear Unbiased Estimators). The key assumptions include homoscedasticity, no autocorrelation, and no multicollinearity among regressors.
+######################
+Output:
+("entity"{tuple_delimiter}ORDINARY LEAST SQUARES{tuple_delimiter}METHOD{tuple_delimiter}OLS is a method used to estimate the parameters of regression models by minimizing the sum of squared residuals)
+{record_delimiter}
+("entity"{tuple_delimiter}CLASSICAL LINEAR REGRESSION MODEL{tuple_delimiter}MODEL{tuple_delimiter}A regression model that satisfies the classical assumptions including linearity, fixed regressors, zero mean errors, homoscedasticity, no autocorrelation, and normality)
+{record_delimiter}
+("entity"{tuple_delimiter}GAUSS-MARKOV THEOREM{tuple_delimiter}PROPERTY{tuple_delimiter}States that under classical assumptions, OLS estimators are the Best Linear Unbiased Estimators with minimum variance)
+{record_delimiter}
+("entity"{tuple_delimiter}BLUE{tuple_delimiter}PROPERTY{tuple_delimiter}Best Linear Unbiased Estimator - an estimator that is linear, unbiased, and has minimum variance among all linear unbiased estimators)
+{record_delimiter}
+("entity"{tuple_delimiter}HOMOSCEDASTICITY{tuple_delimiter}ASSUMPTION{tuple_delimiter}The assumption that the variance of the error term is constant across all observations)
+{record_delimiter}
+("entity"{tuple_delimiter}AUTOCORRELATION{tuple_delimiter}PROBLEM{tuple_delimiter}The correlation between error terms in different time periods, violating the assumption of independent errors)
+{record_delimiter}
+("entity"{tuple_delimiter}MULTICOLLINEARITY{tuple_delimiter}PROBLEM{tuple_delimiter}High correlation among explanatory variables that can inflate variance of coefficient estimates)
+{record_delimiter}
+("relationship"{tuple_delimiter}ORDINARY LEAST SQUARES{tuple_delimiter}CLASSICAL LINEAR REGRESSION MODEL{tuple_delimiter}OLS is the primary estimation method for the classical linear regression model{tuple_delimiter}10)
+{record_delimiter}
+("relationship"{tuple_delimiter}GAUSS-MARKOV THEOREM{tuple_delimiter}BLUE{tuple_delimiter}The Gauss-Markov theorem proves that OLS estimators have the BLUE property{tuple_delimiter}10)
+{record_delimiter}
+("relationship"{tuple_delimiter}HOMOSCEDASTICITY{tuple_delimiter}ORDINARY LEAST SQUARES{tuple_delimiter}Homoscedasticity is a key assumption required for OLS to be BLUE{tuple_delimiter}9)
+{record_delimiter}
+("relationship"{tuple_delimiter}AUTOCORRELATION{tuple_delimiter}ORDINARY LEAST SQUARES{tuple_delimiter}Presence of autocorrelation violates OLS assumptions and affects inference{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}MULTICOLLINEARITY{tuple_delimiter}ORDINARY LEAST SQUARES{tuple_delimiter}Multicollinearity inflates the variance of OLS estimators{tuple_delimiter}8)
+{completion_delimiter}
+
+######################
+Example 2:
+Entity_types: CONCEPT,METHOD,ASSUMPTION,TEST,FORMULA,MODEL,PROPERTY,PROBLEM
+Text:
+The coefficient of determination R-squared measures the proportion of variance in the dependent variable explained by the independent variables. The F-test is used to test the overall significance of the regression, while t-tests are used to test individual coefficients. When heteroscedasticity is present, White's robust standard errors can be used.
+######################
+Output:
+("entity"{tuple_delimiter}R-SQUARED{tuple_delimiter}CONCEPT{tuple_delimiter}The coefficient of determination measuring the proportion of variance in the dependent variable explained by the regression model, ranging from 0 to 1)
+{record_delimiter}
+("entity"{tuple_delimiter}F-TEST{tuple_delimiter}TEST{tuple_delimiter}A statistical test used to test the joint significance of all slope coefficients in a regression model)
+{record_delimiter}
+("entity"{tuple_delimiter}T-TEST{tuple_delimiter}TEST{tuple_delimiter}A statistical test used to test the significance of individual regression coefficients)
+{record_delimiter}
+("entity"{tuple_delimiter}HETEROSCEDASTICITY{tuple_delimiter}PROBLEM{tuple_delimiter}The condition where the variance of the error term varies across observations, violating the homoscedasticity assumption)
+{record_delimiter}
+("entity"{tuple_delimiter}WHITE'S ROBUST STANDARD ERRORS{tuple_delimiter}METHOD{tuple_delimiter}A method to compute heteroscedasticity-consistent standard errors that remain valid when heteroscedasticity is present)
+{record_delimiter}
+("relationship"{tuple_delimiter}R-SQUARED{tuple_delimiter}F-TEST{tuple_delimiter}The F-test statistic can be computed directly from R-squared to test overall regression significance{tuple_delimiter}9)
+{record_delimiter}
+("relationship"{tuple_delimiter}WHITE'S ROBUST STANDARD ERRORS{tuple_delimiter}HETEROSCEDASTICITY{tuple_delimiter}White's robust standard errors are a remedy for heteroscedasticity in hypothesis testing{tuple_delimiter}9)
+{record_delimiter}
+("relationship"{tuple_delimiter}T-TEST{tuple_delimiter}HETEROSCEDASTICITY{tuple_delimiter}Standard t-tests become invalid when heteroscedasticity is present{tuple_delimiter}7)
+{completion_delimiter}
+
+######################
+-Real Data-
+######################
+Entity_types: {entity_types}
+Text: {input_text}
+######################
+Output:

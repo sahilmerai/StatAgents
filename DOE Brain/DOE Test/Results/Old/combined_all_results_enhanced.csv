@@ -1,0 +1,153 @@
+﻿question_id,question,ground_truth_answer,question_type,complexity,expected_best_method,topic,local_context,local_answer,local_retrieval_latency_sec,local_generation_latency_sec,local_total_latency_sec,local_context_tokens,local_answer_tokens,local_input_tokens,local_output_tokens,local_total_tokens,local_cost_inr,global_context,global_answer,global_retrieval_latency_sec,global_generation_latency_sec,global_total_latency_sec,global_context_tokens,global_answer_tokens,global_input_tokens,global_output_tokens,global_total_tokens,global_cost_inr,faiss_context,faiss_answer,faiss_retrieval_latency_sec,faiss_generation_latency_sec,faiss_total_latency_sec,faiss_context_tokens,faiss_answer_tokens,faiss_input_tokens,faiss_output_tokens,faiss_total_tokens,faiss_cost_inr,timestamp
+DOE_001,What is a factorial design?,"A factorial design is an experimental design where all possible combinations of factor levels are tested. In a full factorial design with k factors each at n levels, there are n^k treatment combinations. This allows estimation of main effects and interactions between factors.",factual,simple,local,Factorial Designs - Basics,"📚 **GraphRAG LOCAL Results**
+
+## Understanding Factorial Design
+
+Factorial design is a systematic approach used in experimental research to evaluate the effects of two or more factors simultaneously. This design allows researchers to investigate not only the individual effects of each factor but also the interactions between them. By conducting experiments at all possible combinations of factor levels, factorial designs provide a comprehensive understanding of how different factors influence a response variable.
+
+### Key Features of Factorial Design
+
+1. **Multiple Factors**: Factorial designs involve multiple independent variables (factors), each of which can have two or more levels. For example, in a study examining the effects of temperature and pressure on a chemical reaction, both temperature and pressure would be considered factors.
+
+2. **Comprehensive Analysis**: The primary purpose of factorial designs is to assess the interaction effects between factors. This means that researchers can determine how the effect of one factor may change depending on the level of another factor, which is crucial for understanding complex systems.
+
+3. **Mathematical Representation**: The mathematical model for a full factorial design can be expressed as:
+   \[
+   Y = \mu + \sum_{i=1}^{k} \beta_i X_i + \sum_{i<j} \beta_{ij} X_i X_j + \epsilon
+   \]
+   where \(Y\) is the response variable, \(\mu\) is the overall mean, \(\beta_i\) are the main effects, \(\beta_{ij}\) are the interaction effects, \(X_i\) are the factor levels, and \(\epsilon\) is the error term [Data: Sources (2928)].
+
+### Types of Factorial Designs
+
+Factorial designs can be categorized into two main types:
+
+- **Full Factorial Design**: This design tests all possible combinations of factor levels. For instance, a 2^k factorial design involves k factors, each at two levels (e.g., low and high). This approach is comprehensive but can become impractical with a large number of factors due to the exponential increase in the number of experimental runs required.
+
+- **Fractional Factorial Design**: To address the limitations of full factorial designs, fractional factorial designs use a subset of the full factorial combinations. This method allows researchers to evaluate multiple factors while significantly reducing the number of experimental runs needed. It is particularly useful when the number of factors is large, making a full factorial experiment impractical [Data: Reports (2); Entities (1817, 1293, 1402)].
+
+### Applications of Factorial Design
+
+Factorial designs are widely used across various fields, including agriculture, manufacturing, and pharmaceuticals. They are particularly valuable in exploratory studies where understanding the interactions between multiple factors is essential for optimizing processes and outcomes. For example, in agricultural research, factorial designs can help determine the best combination of fertilizers and irrigation levels to maximize crop yield [Data: Reports (2)].
+
+### Conclusion
+
+In summary, factorial design is a powerful experimental methodology that enables researchers to explore the effects of multiple factors and their interactions on a response variable. By employing either full or fractional factorial designs, researchers can efficiently gather valuable insights that inform decision-making and optimize processes across various domains [Data: Reports (2); Entities (1293, 1817)].","A factorial design is a systematic experimental approach used to evaluate the effects of two or more independent variables (factors) simultaneously. It allows researchers to investigate not only the individual effects of each factor but also the interactions between them. By testing all possible combinations of factor levels, factorial designs provide a comprehensive understanding of how different factors influence a response variable. Factorial designs can be categorized into full factorial designs, which assess all combinations, and fractional factorial designs, which evaluate a subset of combinations to reduce the number of experimental runs needed.",70.30212163925171,2.7633984088897705,73.06552004814148,665,105,745,105,1515,0.01572423055,"🌐 **GraphRAG GLOBAL Results**
+
+## Understanding Factorial Design
+
+Factorial design is a systematic experimental approach that allows researchers to evaluate the effects of two or more factors simultaneously. This methodology is particularly valuable in various fields, including agriculture, pharmaceuticals, engineering, and social sciences, where multiple variables may influence outcomes.
+
+### Key Features of Factorial Design
+
+1. **Simultaneous Evaluation of Factors**: Factorial designs enable the assessment of both main effects (the individual impact of each factor) and interaction effects (how factors influence each other). This comprehensive analysis provides insights into complex relationships that may not be apparent when factors are studied in isolation [Data: Reports (434, 349, 266)].
+
+2. **Mathematical Formulation**: The mathematical representation of factorial design can be expressed as:
+   \[
+   Y = μ + Σ(α_i X_i) + Σ(β_ij X_i X_j) + ε
+   \]
+   where \(μ\) is the overall mean, \(α_i\) represents the main effects, \(β_ij\) represents the interaction effects, and \(ε\) is the random error term. This formulation is essential for modeling the response variable as a function of the factors and their interactions [Data: Reports (617); Relationships (2470)].
+
+3. **Types of Factorial Designs**: Factorial designs can be classified into:
+   - **Full Factorial Designs**: All possible combinations of factors and their levels are tested. This approach is comprehensive but can be resource-intensive.
+   - **Fractional Factorial Designs**: Only a subset of combinations is tested, which is particularly useful when resources are limited. This allows researchers to estimate main effects and some interactions without conducting exhaustive experiments [Data: Reports (259, 150)].
+
+4. **Statistical Analysis**: The analysis of factorial designs often involves statistical methods such as Analysis of Variance (ANOVA). This method helps determine the significance of the effects and interactions observed in the experiments, ensuring that the conclusions drawn are statistically valid [Data: Reports (54, 74, 343, 0, 9)].
+
+### Applications of Factorial Design
+
+Factorial designs are widely applicable across various domains:
+- **Agriculture**: They can be used to study the effects of different fertilizers and irrigation levels on crop yield, helping optimize agricultural practices [Data: Reports (261, 1250, 3005, +more)].
+- **Manufacturing**: In this field, factorial designs assist in optimizing production processes by evaluating the effects of machine settings and materials on product quality [Data: Reports (99, 5)].
+- **Pharmaceuticals**: Researchers utilize factorial designs to assess drug efficacy by examining how different dosages and treatment combinations affect patient outcomes [Data: Reports (290, 63)].
+
+### Conclusion
+
+In summary, factorial design is a powerful experimental methodology that allows for the simultaneous evaluation of multiple factors and their interactions. By employing this approach, researchers can gain a comprehensive understanding of how different variables influence outcomes, leading to more informed decision-making and optimized processes across various fields [Data: Reports (434, 349, 266)].","A factorial design is a systematic experimental approach that enables the simultaneous evaluation of two or more factors and their interaction effects. It allows researchers to assess both main effects (the individual impact of each factor) and interaction effects (how factors influence each other), providing comprehensive insights into complex relationships. Factorial designs can be classified into full factorial designs, which test all possible combinations of factors and levels, and fractional factorial designs, which test only a subset of combinations to estimate main effects and some interactions. The mathematical formulation of factorial design is represented as:
+\[
+Y = μ + Σ(α_i X_i) + Σ(β_ij X_i X_j) + ε
+\]
+where \(μ\) is the overall mean, \(α_i\) represents main effects, \(β_ij\) denotes interaction effects, and \(ε\) is the random error term. Statistical analysis, often using methods like Analysis of Variance (ANOVA), is employed to determine the significance of observed effects and interactions. Factorial designs have applications across various fields, including agriculture, manufacturing, and pharmaceuticals.",235.18103551864624,2.657130479812622,237.83816599845886,645,217,725,217,1587,0.02150103235,"📚 **DOE Textbook Context (FAISS RAG)**
+
+
+**Chunk 1:**
+220 Chapter 5 ■ Introduction to Factorial Designs
+Consider a factorial experiment with two factors (AandB) and nreplicates. The linear
+statistical model for this design is
+(cid:2)
+i(cid:5)1, 2,..., a
+y (cid:5)(cid:5)(cid:6)(cid:15) (cid:6)(cid:3) (cid:6)((cid:15)(cid:3)) (cid:6)(cid:8) j(cid:5)1, 2,..., b (5.36)
+ijk i j ij ijk
+k(cid:5)1, 2,..., n
+where(cid:15),(cid:3),and ((cid:15)(cid:3)) represent the effects of factors A,B,and the ABinteraction,respective-
+i j ij
+ly. Now suppose that to run this experiment a particular raw material is required. This raw
+material is available in batches that are not large enough to allow all abntreatment combina-
+tions to be run from the same batch. However, if a batch contains enough material for ab
+observations,then an alternative design is to run each of the nreplicates using a separate batch
+of raw material. Consequently,the batches of raw material represent a randomization restric-
+
+
+**Chunk 2:**
+sions that are valid over a range of experimental conditions.
+5.3 The Two-Factor Factorial Design
+5.3.1 An Example
+The simplest types of factorial designs involve only two factors or sets of treatments. There
+arealevels of factor Aandblevels of factor B,and these are arranged in a factorial design;
+that is, each replicate of the experiment contains all ab treatment combinations. In general,
+there are nreplicates.
+As an example of a factorial design involving two factors,an engineer is designing a bat-
+tery for use in a device that will be subjected to some extreme variations in temperature. The
+only design parameter that he can select at this point is the plate material for the battery,and he
+has three possible choices. When the device is manufactured and is shipped to the field,the engi-
+neer has no control over the temperature extremes that the device will encounter,and he knows
+from experience that temperature will probably affect the effective battery life. However,tem-
+
+
+**Chunk 3:**
+useful variations and special cases.
+To illustrate how a factorial experiment is conducted,consider the golf experiment and
+suppose that only two factors,type of driver and type of ball,are of interest. Figure 1.4 shows
+a two-factor factorial experiment for studying the joint effects of these two factors on my golf
+score. Notice that this factorial experiment has both factors at two levels and that all possible
+combinations of the two factors across their levels are used in the design. Geometrically,the
+four runs form the corners of a square. This particular type of factorial experiment is called a
+22factorial design(two factors,each at two levels). Because I can reasonably expect to play
+eight rounds of golf to investigate these factors, a reasonable plan would be to play two
+rounds of golf at each combination of factor levels shown in Figure 1.4. An experimental
+designer would say that we have replicatedthe design twice. This experimental design would
+
+
+**Chunk 4:**
+189
+5.3 The Two-Factor Factorial Design
+■ TABLE 5.2
+General Arrangement for a Two-Factor Factorial Design
+Factor B
+1 2 . . . b
+y ,y , y ,y , y ,y ,
+1 111 112 121 122 1b1 1b2
+...,y ...,y ...,y
+11n 12n 1bn
+y ,y , y ,y , y ,y ,
+211 212 221 222 2b1 2b2
+2 ...,y ...,y ...,y
+Factor A 21n 22n 2bn
+o
+y ,y , y ,y , y ,y ,
+a a11 a12 a21 a22 ab1 ab2
+...,y ...,y ...,y
+a1n a2n abn
+Another possible model for a factorial experiment is the means model
+(cid:2)
+i(cid:5)1, 2,..., a
+y (cid:5)(cid:5) (cid:6)(cid:8) j(cid:5)1, 2,..., b
+ijk ij ijk
+k(cid:5)1, 2,..., n
+where the mean of the ijth cell is
+(cid:5) (cid:5)(cid:5)(cid:6)(cid:15) (cid:6)(cid:3) (cid:6)((cid:15)(cid:3))
+ij i j ij
+We could also use a regression modelas in Section 5.1. Regression models are particularly
+useful when one or more of the factors in the experiment are quantitative. Throughout most
+of this chapter we will use the effects model (Equation 5.1) with an illustration of the regres-
+sion model in Section 5.5.
+","A factorial design is a type of experimental design used to evaluate the effects of two or more factors on a response variable. In a factorial experiment, each factor is tested at multiple levels, and all possible combinations of these levels are included in the design. For example, in a two-factor factorial design, there are 'a' levels of factor A and 'b' levels of factor B, leading to a total of 'ab' treatment combinations. The experiments are typically replicated 'n' times to enhance the reliability of the results. The design allows for the assessment of the main effects of each factor as well as the interaction effects between the factors.",2.608128309249878,2.2354259490966797,4.843554258346558,1115,129,1194,129,2438,0.023080200059999997,2026-01-19 21:15:58

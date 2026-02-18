@@ -1,0 +1,137 @@
+[
+  {
+    "question_id": "DOE_001",
+    "question": "What is an experimental design?",
+    "ground_truth_answer": "Any person has often total or partial ignorance about certain factors or treatments underlying a phenomenon and is desirous to confirm it by way of certain experimentation or trial. The effect of factors or treatments can be ascertained or compared only if they are set completely free to show their effects on the subjects while all other factors which are likely to affect the treatments or factors under study, are kept under control.\n\nThus, the plan in which an experiment has to be conducted so that all situations, except that of treatments or factors, are kept under control as much as possible, is known as experimental design. These designs may be for engineering, chemical industry, crop experiments, etc. For instance, an experiment may be conducted to see the effect of different fertilisers. In this situation, the field has to be divided into a number of plots of equal size and same shape, homogeneous in respect of soil fertility, irrigation, crop, seed, plant protection umbrella, crop management, etc., and each plot receives the fertilizer treatment randomly. The variability in crop yield or any other criterion measure can enable the investigator to distinguish between fertilizers. Such a plan of experiment is known as design of experiment.",
+    "question_type": "factual",
+    "complexity": "simple",
+    "retrieval_method": "local",
+    "topic": "Experimental Design"
+  },
+  {
+    "question_id": "DOE_002",
+    "question": "How do you define an experimental unit?",
+    "ground_truth_answer": "A subject or a group of objects or the total material to which a treatment is applied in a trial in a single replication is known as an experimental unit. For instance, a plot in field trial in agricultural experiments, a rat or a rabbit in a biological experiments, a cow or a horse in an experiment in animal sciences, a group of insects in entomological experiment, etc.",
+    "question_type": "factual",
+    "complexity": "simple",
+    "retrieval_method": "local",
+    "topic": "Experimental Unit"
+  },
+  {
+    "question_id": "DOE_003",
+    "question": "What factors are responsible for determining the number of replications?",
+    "ground_truth_answer": "There are mainly nine factors which are responsible for determining the number of replications.\n\n(i) Extent of precision required.\n(ii) Heterogeneity of experimental material.\n(iii) Availability of resources.\n(iv) Size of experimental units.\n(v) Required degrees of freedom of experimental error.\n(vi) The relative cost of experimental units.\n(vii) The extent and nature of competition among experimental units.\n(viii) The number and nature of the treatments.\n(ix) The fraction to be sampled.",
+    "question_type": "factual",
+    "complexity": "simple",
+    "retrieval_method": "local",
+    "topic": "Replication"
+  },
+  {
+    "question_id": "DOE_004",
+    "question": "What is meant by analysis of variance of experimental data?",
+    "ground_truth_answer": "The measurements are taken on each experimental unit pertaining to character of interest and its variance is calculated. This total variance is due to various factors involved in the experiment. The purpose of analysis of variance is to split the total variance into component variances and to test the hypothesis about these component factors. The main interest lies in estimating and comparing pairwise treatment or testing contrasts (comparisons) among treatments.\n\nThe component variance are always displayed and tested in analysis of variance table abbreviated as ANOVA table. An analysis of variance table contains five columns as depicted below.\n\nThe sources of variance are various components A, B, C, … and also the experimental error which are responsible for total variation.\n\nThe skeleton ANOVA table is as given below:\n\nSource of variation | Degrees of freedom | Sum of squares | Mean sum of squares | F-value\n\nOR\n\nSource of variation | d.f. | S.S. | M.S. | F-value\n\nA\nB\nC\n…\nError\n\nThe analysis of variance enables one to know whether the variance due to a component factor is significantly more than the variance due to experimental error or not. Here it should be kept in mind that mean sum of square due to component is nothing but the variance due to that component. Also the ratio of two component variances is distributed as F with corresponding d.f. Also often the interest lies in particular comparisons (contrasts) of treatments and to test their significance. This can also be tested by analysis of variance. For comparing pairwise treatments, further tests have to be carried out.",
+    "question_type": "factual",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "ANOVA"
+  },
+  {
+    "question_id": "DOE_005",
+    "question": "Discuss Contrasts.",
+    "ground_truth_answer": "A researcher is not only interested in comparing pairwise treatment means but is often interested in certain specific functions of treatments known as contrasts. Here it is to point out that the term comparison is equally and frequently used for contrasts.\n\nIf there are k treatment totals, T1, T2, …, Tk, where the treatment Ti is replicated ri times for i = 1, 2, …, k, then a linear combination Zu of k treatment totals defined as\n\nZu = w1T1 + w2T2 + … + wkTk\n\nis said to be a contrast iff,\n\nr1w1 + r2w2 + … + rkwk = 0\n\nor\n\n∑(i=1 to k) riwi = 0\n\nSince most of the theory of contrasts has been developed by taking equi-replicate treatments, we also consider that each treatment is replicated r times. Hence, the linear combination zu among k treatment totals is said to be a contrast iff\n\nw1 + w2 + … + wk = 0\n\nor\n\n∑(i=1 to k) wi = 0\n\nFor instance, linear combinations among three quantities T1, T2, and T3 like, T1 − 2T2 + T3; T1 − T3; T3 − T1; T1 − T2 are contrasts. Similarly for treatments T1, T2, T3 and T4, the linear combinations like, T1 + T2 − T3 − T4; −T2 + T3 + 3T4; T1 − T2 − T3 + T4, etc., are contrasts. In the same way, for quantities T1, T2, T3, T4 and T5, the linear combinations like, −2T1 − T2 + T4 + 2T5; T1 − T3; T1 − 2T2 + T5, etc., are contrasts. An arbitrary contrast does not reveal anything worth-while to the researcher. Hence, the interest lies in a particular set of contrasts known as orthogonal contrasts or a contrast depicting a specially known effect of treatment combination.",
+    "question_type": "theoretical",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Contrasts"
+  },
+  {
+    "question_id": "DOE_006",
+    "question": "In what way are contrasts helpful in the analysis of experimental data?",
+    "ground_truth_answer": "Contrasts have great utility in the analysis of experimental data as given below:\n\n(i) A researcher can see the effect of a specified combination of treatments conceived prior to analysis of the data.\n(ii) We can calculate the linear, quadratic, cubic effects, etc., of treatments through contrasts.\n(iii) All main effects and interactions in a 2^n factorial experiment can be represented by a set of orthogonal contrasts.\n(iv) The treatment sum of square can be partitioned into component sum of squares each having one degree of freedom through orthogonal contrasts.\n(v) Contrasts provide much more information about treatments than a simple F-test of equality of treatment means.",
+    "question_type": "theoretical",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Contrasts"
+  },
+  {
+    "question_id": "DOE_007",
+    "question": "What are systematic designs? What are their disadvantages and advantages?",
+    "ground_truth_answer": "Experimental plans, which are devoid of randomization process, are categorised as systematic designs. In these type of designs all the treatments, being repeated a fixed number of times, are assigned together on adjacent experimental units sequentially one after the other in any direction. For instance, if there are four treatments A, B, C, and D and each treatment is replicated three times, then a systematic design may be set in any of the following manner.\n\nPlan (i):\nA B C D\nA B C D\nA B C D\n\nPlan (ii):\nA A A\nB B B\nC C C\nD D D\n\nPlan (iii):\nABCD   ABCD   ABCD\n\nThe history of agricultural field research using systematic designs dates back to 1834.\n\nThe main disadvantages of systematic designs are:\n\n(i) One cannot rule out the possibility of personal biases.\n(ii) Systematic errors are introduced due to correlation among adjacent experimental plots.\n(iii) It is not possible to have valid estimates of variances as no probability is involved. This makes the analysis of experimental data meaningless.\n\nDue to the above disadvantages, systematic designs are out of context.\n\nThe advantages of systematic designs are delineated below:\n\n(i) There is an ease of operation particularly in crop experiments.\n(ii) It enables the experimenter to make an intelligible placement of various treatments to experimental units.\n(iii) Systematic designs make sampling of experimental area easier and better.\n(iv) The chances of drifting the influence of one treatment over the other are reduced.",
+    "question_type": "theoretical",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Systematic Design"
+  },
+  {
+    "question_id": "DOE_008",
+    "question": "Discuss a Latin square design.",
+    "ground_truth_answer": "A Latin square is a balanced two-way classification scheme. This arrangement was originally represented through Latin letters. So it is called Latin square. When these letters represent some treatments of an experiment it is known as Latin square design. A Latin square design of a 3 × 3 arrangement can be of the type as,\n\nArrangement (a):\nA  B  C\nC  A  B\nB  C  A\n\nArrangement (b):\nA  C  B\nB  A  C\nC  B  A\n\nA Latin square design of order four exhibits the following type of balance of the letters (treatments).\n\nArrangement (c):\nA  B  C  D\nB  C  D  A\nC  D  A  B\nD  A  B  C\n\nArrangement (d):\nC  D  A  B\nD  A  B  C\nA  B  C  D\nB  C  D  A\n\nIn the same way, Latin square arrangements of any order can be given.\n\n(ii) A Latin square for less than five treatments does not provide adequate degrees of freedom for experimental error.\n(iii) A Latin square design of order 2, 3, and 4 may not be as efficient as a C.R.D. or R.B.D. with same number of replications.",
+    "question_type": "theoretical",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Latin Square Design"
+  },
+  {
+    "question_id": "DOE_009",
+    "question": "Write the set of orthogonal contrasts for main effects and interaction in (i) 2^2 factorial, (ii) 2^3 factorial.",
+    "ground_truth_answer": "(i) Suppose A and B are two factors each at two levels 0 and 1. Let a1 and a0 denote the levels of factor A and similarly b1 and b0 the levels of factor B. For simplicity, we denote the higher level a1 of A by a, lower case letter and its lower level a0 by 1, i.e., its absence. In the same manner, b1 by b and b0 by 1, i.e., its absence. The contrasts can be specified for main effects and interaction as given below.\n\nA = (a1 − a0)(b1 + b0)\n= (a − 1)(b + 1)\n= ab − b + a − (1)\n\nSimilarly,\n\nB = (a1 + a0)(b1 − b0)\n= (a + 1)(b − 1)\n= ab + b − a − (1)\n\nand\n\nAB = (a1 − a0)(b1 − b0)\n= (a − 1)(b − 1)\n= ab − a − b + (1)\n\nIn a concise manner, the contrasts for main effects A, B and the interaction AB can be written as given below supposing that the factors with levels given in columns are attached with the signs for the corresponding factors.\n\nEffects | (1) | a | b | ab\nA       |  −  | + | − | +\nB       |  −  | − | + | +\nAB      |  +  | − | − | +\n\nHere it is worth pointing out that the coefficients for the contrasts AB can be easily obtained by multiplying the coefficients of A and B contrasts.\n\n(ii) In a manner similar to 2^2 factorials, the set of contrasts for main effects and interactions in 2^3 factorials can be given as follows:\n\nEffects | (1) | a | b | ab | c | ac | bc | abc\nA       |  −  | + | − | +  | − | +  | −  | +\nB       |  −  | − | + | +  | − | −  | +  | +\nAB      |  +  | − | − | +  | + | −  | −  | +\nC       |  −  | − | − | −  | + | +  | +  | +\nAC      |  +  | − | + | −  | − | +  | −  | +\nBC      |  +  | + | − | −  | − | −  | +  | +\nABC     |  −  | + | + | −  | + | −  | −  | +",
+    "question_type": "theoretical",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Orthogonal Contrasts"
+  },
+  {
+    "question_id": "DOE_010",
+    "question": "Explain simple effect in a 2^n factorial experiment.",
+    "ground_truth_answer": "Any factor at its lower level denoted by level 0 is called the first level of that factor and the higher level denoted by level 1 is called the second level of that factor.\n\n11, 12, 20, 21 and 22. The factor combinations for responses at three levels reduced to modulo 3 are:\n\n(A)0 = 00 + 01 + 02        i = 0 mod 3\n(A)1 = 10 + 11 + 12        i = 1 mod 3\n(A)2 = 20 + 21 + 22        i = 2 mod 3\n\n(B)0 = 00 + 10 + 20        j = 0 mod 3\n(B)1 = 01 + 11 + 21        j = 1 mod 3\n(B)2 = 02 + 12 + 22        j = 2 mod 3\n\n(AB)0 = 00 + 12 + 21       i + j = 0 mod 3\n(AB)1 = 01 + 10 + 22       i + j = 1 mod 3\n(AB)2 = 02 + 11 + 20       i + j = 2 mod 3\n\nThe sum of responses at factor levels so obtained can be summarized in a 3 × 3 table as follows:\n\n        b0     b1     b2     Total\n a0   X00    X01    X02     X0.\n a1   X10    X11    X12     X1.\n a2   X20    X21    X22     X2.\nTotal X.0    X.1    X.2     X..\n\nThe nine treatments represented by all possible combinations has 8 d.f. which has a break up as 2 d.f. for A, 2 d.f. for B and 4 d.f. for A × B. The main effects A and B may be linear or quadratic effects with 1 d.f. each and the interaction A × B can be split into two parts AB1 and AB2 with 2 d.f. each.\n\nNote: Here it should be noted that A^2B is same as AB^2 reduced to modulo 3, i.e., (A^2B)^2 = A^4B^2 = AB^2. Also A^2B^2 is equivalent to AB, i.e., (A^2B^2)^2 = A^4B^4 = AB.\n\nIt is known that for three treatments (3 levels), the linear contrast will be represented by −1, 0, 1 and quadratic contrast by 1, −2, 1.\n\nLet us assume that in the above two way table we have individual responses Xij (i, j = 0, 1, 2) is a total of r individual responses for nine treatment combination. The linear and quadratic effects for the factors A, B and their interaction effects can be calculated as explicated below.\n\nNote: One is not required to prepare both parts of the table given below. One may prepare only the right half or left half table.\n\nThe divisors for the estimates of the effect will be 3r. Moreover the divisors for the sum of squares will be as tabulated below:\n\nEffect | Divisors | S.S.\nA1     | 3r{(−1)^2 + 0^2 + 1^2} = 6r   | A1^2 / 6r\nB1     | 3r{(−1)^2 + 0^2 + 1^2} = 6r   | B1^2 / 6r\nA2     | 3r{1^2 + (−2)^2 + 1^2} = 18r  | A2^2 / 18r\nB2     | 3r{1^2 + (−2)^2 + 1^2} = 18r  | B2^2 / 18r\nA1B1   | r{(−1)^2 + 0^2 + 1^2}{(−1)^2 + 0^2 + 1^2} = 4r   | (A1B1)^2 / 4r\nA1B2   | r{(−1)^2 + 0^2 + 1^2}{1^2 + (−2)^2 + 1^2} = 12r | (A1B2)^2 / 12r\nA2B1   | r{1^2 + (−2)^2 + 1^2}{(−1)^2 + 0^2 + 1^2} = 12r | (A2B1)^2 / 12r\nA2B2   | r{1^2 + (−2)^2 + 1^2}{1^2 + (−2)^2 + 1^2} = 36r | (A2B2)^2 / 36r",
+    "question_type": "theoretical",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Simple Effects in Factorial Experiments"
+  },
+  {
+    "question_id": "DOE_011",
+    "question": "What do you understand by confounding?",
+    "ground_truth_answer": "We know that in randomized block design, a block should usually not contain more than 20 plots of medium size and a Latin square design of order more than 10 is not commendable. Factorial experiments are usually conducted in randomized block design and seldom in Latin square and other designs. In factorial experiments, the treatment combinations increase rapidly as the number of factors increases or levels of factors increase. Large number of treatment combinations in factorial experiments become incompatible to be accommodated in randomized blocks as their homogeneity is in jeopardy. Hence, there arises the need of a device which can retain the feature of factorial arrangement and reduce the block size so as to maintain their homogeneity. To fulfil these objectives, there is a device known as confounding. In confounding, each block is subdivided into two or more blocks of suitable size known as incomplete blocks by sacrificing the information about a factorial effect usually higher order interaction(s).\n\nThrough confounding some factors, which are not confounded, are estimated and tested with high precision, and some factor(s) which are confounded lose their identity as they are inextricably mixed with block differences. We know, second and higher order interactions are of little importance from their physical interpretation point of view, hence they are primarily chosen for confounding. Confounding is a device of reducing block size applicable only in factorial experiments.",
+    "question_type": "theoretical",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Confounding"
+  },
+  {
+    "question_id": "DOE_012",
+    "question": "When do you call the partial confounding as balanced and unbalanced confounding?",
+    "ground_truth_answer": "When all effects of the same order are confounded with incomplete blocks differences equal number of times, the confounding is said to be balanced confounding or more specially balanced partial confounding. For instance, AB, AC and BC are confounded in first, second and third replication respectively and there are three such sets of replications.\n\nOn the other hand if the effects of certain order are confounded an unequal number of times in the replications, this system of confounding is known as unbalanced partial confounding.",
+    "question_type": "theoretical",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Partial Confounding"
+  },
+  {
+    "question_id": "DOE_013",
+    "question": "How can we implement confounding in a 3^n factorial design?",
+    "ground_truth_answer": "In 3^n factorials, the effects can be confounded with the help of modulo technique. Here we have an additional advantage that the same interaction effect can be subdivided into components each with two degrees of freedom. So by confounding one component in one replication and the other in second replication, etc., the confounded effect can be estimated through its components from other replications barring its own replication.\n\nIn 3^n factorial, confounding can be carried through modulo technique easily. Supposing that in 3^2 factorial experiment in randomized block design, the interaction effect A × B is confounded to form blocks of size 3 units. Interaction A × B has 4 d.f. which can be subdivided into components AB and AB^2, each with 2 d.f.\n\nNine treatment combinations 00, 01, 02, 10, 11, 12, 20, 21, 22 can be sorted out to confound AB in one replication such that i + j = 0 mod 3, i + j = 1 mod 3 and i + j = 2 mod 3 where i represents the level of A and j the level of B. Similarly in the second replication, AB^2 is confounded where the blocks contain the treatment combinations satisfying the conditions i + 2j = 0 mod 3, i + 2j = 1 mod 3 and i + 2j = 2 mod 3. Following the technique, the design is as given below:\n\nReplication I:\nBlock 1: 00, 10, 20\nBlock 2: 12, 01, 20\nBlock 3: 21, 22, 11\n\nAB confounded\n\nReplication II:\nBlock 4: 11, 10, 20\nBlock 5: 00, 21, 12\nBlock 6: 22, 02, 01\n\nAB^2 confounded\n\nThis technique can be extended to 3^n (n ≥ 3) factorials in general.",
+    "question_type": "theoretical",
+    "complexity": "high",
+    "retrieval_method": "local",
+    "topic": "Confounding in Factorial Designs"
+  },
+  {
+    "question_id": "DOE_014",
+    "question": "What are the merits and demerits of a split plot design?",
+    "ground_truth_answer": "There are several merits of a split plot design which are delineated below:\n\n(i) Treatments requiring large experimental units are easily accommodated without hampering other treatments.\n(ii) Greater precision is attained on sub-plot treatment and interaction as compared to randomized complete block design.\n(iii) The precision of split plot design as a whole over randomized block design can be increased by taking whole plot treatment levels in a Latin square arrangement.\n(iv) The design is very convenient for agricultural experiments where treatments like ploughing, spacing, irrigation, etc., are involved.\n(v) It saves lot of area which would have otherwise been required in any other design.\n\nDemerits of a split plot design are mentioned below:\n\n(i) The precision of whole plot treatment is less as compared to their precision if they were tried in randomized block design.\n(ii) If there is any missing observation, the analysis becomes much more complex as compared to randomized complete block design.\n(iii) The calculation of standard errors for different pairs of treatment means is quite cumbersome. Moreover, there are too many standard errors.\n(iv) The increased accuracy obtained on the sub-plot treatment and interaction is attained at the cost of main plot treatment.\n(v) The degrees of freedom for error variance for the two sets of comparisons is less relative to a parallel randomized block design. Hence, randomized block design is superior for all sets of comparisons.",
+    "question_type": "theoretical",
+    "complexity": "medium",
+    "retrieval_method": "local",
+    "topic": "Split Plot Design"
+  },
+  {
+    "question_id": "DOE_015",
+    "question": "What is the classification made for experimental designs?",
+    "ground_truth_answer": "The experimental designs (plans) have been divided into two classes namely, (i) systematic designs (ii) randomized designs.",
+    "question_type": "factual",
+    "complexity": "simple",
+    "retrieval_method": "local",
+    "topic": "Classification of Experimental Designs"
+  }
+]

@@ -1,0 +1,4 @@
+question_id,method,faithfulness,answer_relevance,context_precision,context_recall,correctness,overall_score
+DOE_001,local,1.0,1.0,1.0,1.0,0.9278340292235469,0.9855668058447093
+DOE_001,global,1.0,1.0,1.0,1.0,0.9167372183178032,0.9833474436635606
+DOE_001,faiss,1.0,1.0,1.0,0.5,0.926168284668088,0.8852336569336176

@@ -1,0 +1,206 @@
+-Goal-
+Given a text document from Design of Experiments (DOE), Analysis of Variance (ANOVA), or related experimental design fields, identify all entities with high specificity and create hierarchical relationships among them.
+
+-Steps-
+1. Identify all entities with MAXIMUM SPECIFICITY. For each identified entity, extract the following information:
+- entity_name: Name of the entity, capitalized, BE SPECIFIC (e.g., "COMPLETELY RANDOMIZED DESIGN" not just "DESIGN")
+- entity_type: One of the following types: [{entity_types}]
+- entity_description: Comprehensive description including:
+  * Definition and purpose
+  * Mathematical formulation (if applicable)
+  * When to use / applicability
+  * Assumptions required
+  * Layout structure (for designs)
+  * Analysis method
+  * Advantages and limitations
+  * Related designs or alternatives
+  * Software implementation (if mentioned)
+
+Format each entity as ("entity"{tuple_delimiter}<entity_name>{tuple_delimiter}<entity_type>{tuple_delimiter}<entity_description>)
+
+ENTITY TYPES AND EXAMPLES:
+
+- EXPERIMENTAL_DESIGN: Completely Randomized Design (CRD), Randomized Complete Block Design (RCBD), Latin Square Design, Graeco-Latin Square, Split-Plot Design, Factorial Design, Fractional Factorial Design, Response Surface Design, Central Composite Design, Box-Behnken Design, Plackett-Burman Design, Taguchi Design, Nested Design, Crossover Design
+
+- ANALYSIS_METHOD: Analysis of Variance (ANOVA), Analysis of Covariance (ANCOVA), Multivariate Analysis of Variance (MANOVA), Mixed Model Analysis, Least Squares Analysis, Maximum Likelihood Estimation, REML Estimation, Regression Analysis
+
+- DESIGN_PROPERTY: Orthogonality, Balance, Replication, Blocking, Randomization, Confounding, Aliasing, Resolution, Rotatability, Uniform Precision, Efficiency, Power
+
+- STATISTICAL_TEST: F-Test, t-Test, Tukey's HSD Test, Dunnett's Test, Scheffé Test, Bonferroni Test, Duncan's Multiple Range Test, Newman-Keuls Test, Bartlett's Test, Levene's Test, Shapiro-Wilk Test, Lack of Fit Test, Pure Error Test
+
+- MODEL: Linear Model, Fixed Effects Model, Random Effects Model, Mixed Effects Model, Cell Means Model, Effects Model, Regression Model, Nested Model, Split-Plot Model, Factorial Model, Response Surface Model
+
+- FACTOR: Treatment Factor, Blocking Factor, Fixed Factor, Random Factor, Qualitative Factor, Quantitative Factor, Nested Factor, Crossed Factor, Nuisance Factor
+
+- EFFECT: Main Effect, Interaction Effect, Simple Effect, Two-Way Interaction, Three-Way Interaction, Higher-Order Interaction, Linear Effect, Quadratic Effect, Cubic Effect, Treatment Effect, Block Effect
+
+- ASSUMPTION: Normality Assumption, Homogeneity of Variance (Homoscedasticity), Independence of Errors, Additivity Assumption, Random Sampling, No Interaction (for blocking), IID Errors
+
+- CONTRAST: Orthogonal Contrast, Polynomial Contrast, Treatment vs Control Contrast, Helmert Contrast, Simple Contrast, Deviation Contrast
+
+- COMPARISON_PROCEDURE: Pairwise Comparison, Multiple Comparison, Simultaneous Confidence Intervals, Family-wise Error Rate Control, False Discovery Rate Control
+
+- OPTIMIZATION_METHOD: Steepest Ascent Method, Ridge Analysis, Canonical Analysis, Desirability Function, Multi-Response Optimization, Robust Parameter Design
+
+- SAMPLING_SCHEME: Simple Random Sampling, Stratified Sampling, Cluster Sampling, Systematic Sampling, Multi-Stage Sampling
+
+- EXPERIMENTAL_UNIT: Plot, Subject, Specimen, Animal, Plant, Machine Run, Batch, Sample Unit, Whole Plot Unit, Subplot Unit
+
+- RESPONSE_VARIABLE: Dependent Variable, Output Variable, Yield, Quality Characteristic, Performance Measure, Multiple Response
+
+- MEASURE: Sum of Squares, Mean Square, Expected Mean Square, Degrees of Freedom, F-Statistic, R-Squared, Adjusted R-Squared, Coefficient of Variation, Standard Error, Residual, Predicted Value, PRESS Statistic
+
+- DISTRIBUTION: Normal Distribution, F-Distribution, t-Distribution, Chi-Square Distribution, Binomial Distribution, Poisson Distribution
+
+- MATRIX: Design Matrix, Incidence Matrix, Information Matrix, Covariance Matrix, Variance-Covariance Matrix, Contrast Matrix, Projection Matrix
+
+- THEOREM: Gauss-Markov Theorem, Cochran's Theorem, Central Limit Theorem, Fisher's Theorem, Neyman-Pearson Lemma
+
+- FORMULA: ANOVA Decomposition, Sum of Squares Formula, Degrees of Freedom Formula, Expected Mean Square Formula, Contrast Formula, Orthogonal Polynomial Formula, Sample Size Formula
+
+- SOFTWARE: R (DoE.base, agricolae, car, lsmeans, emmeans), Python (statsmodels, scipy, pyDOE, scikit-learn), SAS (PROC GLM, PROC MIXED), SPSS, Minitab, Design-Expert, JMP, MATLAB
+
+- APPLICATION: Agricultural Experiment, Industrial Experiment, Clinical Trial, Manufacturing Process, Quality Control, Screening Experiment, Optimization Study, Robustness Testing, Process Improvement
+
+- CRITERION: Optimality Criterion, D-Optimality, A-Optimality, E-Optimality, G-Optimality, I-Optimality, V-Optimality, Minimax Criterion
+
+- ERROR_TERM: Experimental Error, Random Error, Residual Error, Pure Error, Lack of Fit Error, Within-Subject Error, Between-Subject Error, Whole-Plot Error, Subplot Error
+
+- TRANSFORMATION: Logarithmic Transformation, Square Root Transformation, Arcsine Transformation, Box-Cox Transformation, Logit Transformation, Reciprocal Transformation
+
+2. From the entities identified in step 1, identify all pairs of (source_entity, target_entity) that are *clearly related* to each other.
+
+For each pair of related entities, extract the following information:
+- source_entity: name of the source entity, as identified in step 1
+- target_entity: name of the target entity, as identified in step 1
+- relationship_description: detailed explanation of the relationship in experimental design context, including conditions
+- relationship_strength: a numeric score (1-10) indicating strength of the relationship
+- relationship_type: One of the following types:
+
+RELATIONSHIP TYPES:
+
+- REQUIRES: Design/method requires assumption/condition (e.g., "ANOVA REQUIRES normality assumption")
+- ASSUMES: Method assumes condition (e.g., "CRD ASSUMES homogeneity of variance")
+- TESTS_FOR: Test checks for violation/condition (e.g., "Levene's test TESTS_FOR homogeneity of variance")
+- CORRECTS: Method corrects for issue (e.g., "Blocking CORRECTS spatial variability")
+- EXTENDS: Advanced design extends basic design (e.g., "RCBD EXTENDS CRD")
+- IS_TYPE_OF: Hierarchical relationship (e.g., "2^k factorial IS_TYPE_OF Factorial Design")
+- SPECIAL_CASE_OF: Specific instance (e.g., "3x3 Latin Square SPECIAL_CASE_OF Latin Square")
+- USES: Design/method uses another method (e.g., "Mixed model USES REML estimation")
+- PRODUCES: Analysis produces output (e.g., "ANOVA PRODUCES F-statistic")
+- CONTROLS: Design feature controls source (e.g., "Blocking CONTROLS systematic variation")
+- ESTIMATES: Method estimates parameter (e.g., "ANOVA ESTIMATES treatment effects")
+- COMPARES: Test compares entities (e.g., "Tukey HSD COMPARES all pairwise means")
+- APPLIES_TO: Used for specific situation (e.g., "Split-plot APPLIES_TO hard-to-change factors")
+- DECOMPOSES_INTO: Breaks down into components (e.g., "Total SS DECOMPOSES_INTO Treatment SS + Error SS")
+- CONFOUNDED_WITH: Factors are confounded (e.g., "Main effect CONFOUNDED_WITH two-way interaction in fractional factorial")
+- ORTHOGONAL_TO: Design property relationship (e.g., "Contrast 1 ORTHOGONAL_TO Contrast 2")
+- BLOCKS: Factor blocks another factor (e.g., "Day BLOCKS treatment effect")
+- NESTS_WITHIN: Factor nested in another (e.g., "Technician NESTS_WITHIN Laboratory")
+- CROSSES_WITH: Factors are crossed (e.g., "Temperature CROSSES_WITH Pressure")
+- OPTIMIZES: Method optimizes criterion (e.g., "D-optimal design OPTIMIZES determinant of information matrix")
+- SCREENS: Design screens factors (e.g., "Plackett-Burman SCREENS many factors efficiently")
+- BALANCES: Design property (e.g., "Latin Square BALANCES row and column effects")
+- RANDOMIZES: Design randomizes units (e.g., "CRD RANDOMIZES treatments to units")
+- REPLICATES: Design replicates treatments (e.g., "RCBD REPLICATES treatments within blocks")
+- REDUCES: Property reduces issue (e.g., "Blocking REDUCES experimental error")
+- INCREASES: Property increases measure (e.g., "Replication INCREASES precision")
+- VIOLATES: Indicates violation (e.g., "Heteroscedasticity VIOLATES homogeneity assumption")
+- ALTERNATIVE_TO: Can replace another design/method (e.g., "Welch ANOVA ALTERNATIVE_TO standard ANOVA")
+- IMPLEMENTED_IN: Method implemented in software (e.g., "Response surface analysis IMPLEMENTED_IN Design-Expert")
+- RELATED_TO: General connection when no specific type applies
+
+3. HIERARCHICAL RELATIONSHIPS: Always create IS_TYPE_OF relationships when you identify:
+- Specific variants of general designs (e.g., "2x2 Factorial IS_TYPE_OF Factorial Design")
+- Subtypes of models (e.g., "Fixed Effects Model IS_TYPE_OF Linear Model")
+- Specialized tests (e.g., "One-Way ANOVA IS_TYPE_OF ANOVA")
+- Specific applications (e.g., "Agricultural Experiment IS_TYPE_OF Application")
+
+4. STRUCTURAL RELATIONSHIPS: Create DECOMPOSES_INTO relationships for:
+- Sum of squares decomposition (e.g., "Total SS DECOMPOSES_INTO Between SS + Within SS")
+- Degrees of freedom partition (e.g., "Total DF DECOMPOSES_INTO Treatment DF + Error DF")
+- Effect decomposition (e.g., "Three-way interaction DECOMPOSES_INTO component interactions")
+
+5. Return output in English as a single list of all the entities and relationships identified in steps 1-4. Use **{record_delimiter}** as the list delimiter.
+
+6. When finished, output {completion_delimiter}
+
+######################
+-Examples-
+######################
+Example 1:
+Entity_types: EXPERIMENTAL_DESIGN,ANALYSIS_METHOD,ASSUMPTION,FACTOR,EFFECT
+Text:
+The Completely Randomized Design (CRD) is the simplest experimental design where treatments are randomly assigned to experimental units. CRD assumes that all experimental units are homogeneous and that there are no systematic sources of variation. One-way ANOVA is used to analyze data from CRD. The treatment factor is the only factor considered, and the main effect of treatment is tested using the F-test. When the homogeneity of variance assumption is violated, Welch's ANOVA can be used as an alternative.
+######################
+Output:
+("entity"{tuple_delimiter}COMPLETELY RANDOMIZED DESIGN{tuple_delimiter}EXPERIMENTAL_DESIGN{tuple_delimiter}The simplest experimental design where treatments are randomly assigned to experimental units without any restriction. Each experimental unit has an equal probability of receiving any treatment. CRD is appropriate when experimental units are homogeneous and there is no need for blocking. The design is analyzed using one-way ANOVA. Advantage: Simple to implement and analyze. Limitation: Cannot control for known sources of variation. Used when there is no systematic variability among experimental units.)
+{record_delimiter}
+("entity"{tuple_delimiter}ONE-WAY ANOVA{tuple_delimiter}ANALYSIS_METHOD{tuple_delimiter}Analysis of Variance method for comparing means of three or more groups from a single factor. Tests the null hypothesis that all treatment means are equal. Partitions total variation into between-treatment and within-treatment (error) components. Uses F-test with F-statistic = MS_Treatment/MS_Error. Assumes: normality, independence, and homogeneity of variance. Implemented in all statistical software packages.)
+{record_delimiter}
+("entity"{tuple_delimiter}HOMOGENEITY OF VARIANCE{tuple_delimiter}ASSUMPTION{tuple_delimiter}The assumption that the variance of the response variable is the same across all treatment groups or levels of the factor. Also called homoscedasticity. This is a key assumption for ANOVA and most parametric tests. Can be tested using Levene's test or Bartlett's test. Violations can lead to incorrect p-values and confidence intervals. Remedies include: transformation of response variable, use of weighted analysis, or robust methods like Welch's ANOVA.)
+{record_delimiter}
+("entity"{tuple_delimiter}TREATMENT FACTOR{tuple_delimiter}FACTOR{tuple_delimiter}The experimental factor of primary interest whose levels are the different treatments being compared in the experiment. Represents the independent variable that is manipulated by the experimenter. In CRD, it is the only factor considered. Can be fixed (levels are specifically chosen) or random (levels are sampled from a population). The number of levels is denoted by 'a' or 'k' in ANOVA notation.)
+{record_delimiter}
+("entity"{tuple_delimiter}MAIN EFFECT{tuple_delimiter}EFFECT{tuple_delimiter}The effect of an individual factor on the response variable, averaged over all levels of other factors. In one-way ANOVA, the main effect is simply the treatment effect. Represents the change in mean response as the factor level changes. Estimated by comparing treatment means. Statistical significance is tested using F-test. Interpretation: difference between treatment means after accounting for random error.)
+{record_delimiter}
+("entity"{tuple_delimiter}F-TEST{tuple_delimiter}STATISTICAL_TEST{tuple_delimiter}A hypothesis test that compares two variances by taking their ratio. In ANOVA, F-test compares between-group variance to within-group variance. F-statistic = MS_Treatment/MS_Error follows F-distribution under null hypothesis. Large F-values provide evidence against null hypothesis of equal means. Critical value depends on numerator and denominator degrees of freedom. Requires normality and homogeneity of variance assumptions.)
+{record_delimiter}
+("entity"{tuple_delimiter}WELCH ANOVA{tuple_delimiter}ANALYSIS_METHOD{tuple_delimiter}A robust alternative to standard one-way ANOVA that does not require homogeneity of variance assumption. Uses adjusted degrees of freedom based on sample sizes and variances of each group. More reliable when variances are unequal across groups. Implemented in R (oneway.test with var.equal=FALSE) and other software. Also called Welch's F-test or heteroscedastic F-test. Post-hoc comparisons use Games-Howell test.)
+{record_delimiter}
+("relationship"{tuple_delimiter}COMPLETELY RANDOMIZED DESIGN{tuple_delimiter}ONE-WAY ANOVA{tuple_delimiter}CRD is analyzed using one-way ANOVA which partitions total variation into treatment and error components and tests for significant treatment effects{tuple_delimiter}10{tuple_delimiter}USES)
+{record_delimiter}
+("relationship"{tuple_delimiter}COMPLETELY RANDOMIZED DESIGN{tuple_delimiter}HOMOGENEITY OF VARIANCE{tuple_delimiter}CRD assumes that the variance is the same across all treatment groups, which is required for valid ANOVA F-test{tuple_delimiter}9{tuple_delimiter}ASSUMES)
+{record_delimiter}
+("relationship"{tuple_delimiter}ONE-WAY ANOVA{tuple_delimiter}HOMOGENEITY OF VARIANCE{tuple_delimiter}One-way ANOVA requires homogeneity of variance for valid statistical inference and accurate p-values{tuple_delimiter}9{tuple_delimiter}REQUIRES)
+{record_delimiter}
+("relationship"{tuple_delimiter}COMPLETELY RANDOMIZED DESIGN{tuple_delimiter}TREATMENT FACTOR{tuple_delimiter}In CRD, the treatment factor is the only factor considered and treatments are randomly assigned to units{tuple_delimiter}10{tuple_delimiter}USES)
+{record_delimiter}
+("relationship"{tuple_delimiter}ONE-WAY ANOVA{tuple_delimiter}MAIN EFFECT{tuple_delimiter}One-way ANOVA estimates and tests the main effect of the treatment factor on the response variable{tuple_delimiter}10{tuple_delimiter}ESTIMATES)
+{record_delimiter}
+("relationship"{tuple_delimiter}ONE-WAY ANOVA{tuple_delimiter}F-TEST{tuple_delimiter}One-way ANOVA uses F-test to determine if there are significant differences among treatment means{tuple_delimiter}10{tuple_delimiter}USES)
+{record_delimiter}
+("relationship"{tuple_delimiter}WELCH ANOVA{tuple_delimiter}ONE-WAY ANOVA{tuple_delimiter}Welch ANOVA is a robust alternative to standard one-way ANOVA when homogeneity of variance is violated{tuple_delimiter}8{tuple_delimiter}ALTERNATIVE_TO)
+{record_delimiter}
+("relationship"{tuple_delimiter}WELCH ANOVA{tuple_delimiter}HOMOGENEITY OF VARIANCE{tuple_delimiter}Welch ANOVA does not require the homogeneity of variance assumption, making it robust to variance heterogeneity{tuple_delimiter}9{tuple_delimiter}CORRECTS)
+{completion_delimiter}
+
+######################
+Example 2:
+Entity_types: EXPERIMENTAL_DESIGN,DESIGN_PROPERTY,FACTOR,EFFECT,ANALYSIS_METHOD
+Text:
+A 2x3 factorial design investigates two factors: Factor A with 2 levels and Factor B with 3 levels. This design allows estimation of main effects of both factors and their two-way interaction effect. Factorial designs are more efficient than one-factor-at-a-time experiments. Two-way ANOVA is used for analysis, partitioning variation into main effects, interaction, and error. Replication increases precision of estimates. When interaction is significant, main effects should be interpreted cautiously.
+######################
+Output:
+("entity"{tuple_delimiter}2X3 FACTORIAL DESIGN{tuple_delimiter}EXPERIMENTAL_DESIGN{tuple_delimiter}A factorial design with two factors where Factor A has 2 levels and Factor B has 3 levels, yielding 2×3=6 treatment combinations. Each combination represents a unique experimental condition. Allows simultaneous investigation of multiple factors. More efficient than one-factor-at-a-time approach as it requires fewer experimental runs. Can detect interaction effects that would be missed in separate experiments. Analyzed using two-way ANOVA.)
+{record_delimiter}
+("entity"{tuple_delimiter}FACTORIAL DESIGN{tuple_delimiter}EXPERIMENTAL_DESIGN{tuple_delimiter}An experimental design that investigates all possible combinations of levels of two or more factors. Allows estimation of main effects and all interaction effects. More efficient than one-factor-at-a-time experiments. Types include: 2^k (all factors at 2 levels), 3^k, mixed-level, fractional factorial. Advantages: efficiency, ability to study interactions, broader validity of conclusions. Requires more resources than single-factor designs but provides much more information.)
+{record_delimiter}
+("entity"{tuple_delimiter}TWO-WAY INTERACTION EFFECT{tuple_delimiter}EFFECT{tuple_delimiter}The effect of one factor depends on the level of another factor. Represents departure from additivity of main effects. Indicates that factors do not act independently. Graphically shown by non-parallel lines in interaction plot. Statistically tested using F-test in factorial ANOVA. Presence of significant interaction affects interpretation of main effects. Symbol: (αβ)ij in cell means model.)
+{record_delimiter}
+("entity"{tuple_delimiter}TWO-WAY ANOVA{tuple_delimiter}ANALYSIS_METHOD{tuple_delimiter}Analysis of Variance for factorial designs with two factors. Partitions total variation into: Factor A main effect, Factor B main effect, A×B interaction effect, and error. Tests three null hypotheses: no A effect, no B effect, no interaction. Uses three F-tests with appropriate mean squares. Model: Yijk = μ + αi + βj + (αβ)ij + εijk. Requires: normality, independence, homogeneity of variance assumptions.)
+{record_delimiter}
+("entity"{tuple_delimiter}REPLICATION{tuple_delimiter}DESIGN_PROPERTY{tuple_delimiter}The repetition of each treatment combination multiple times with independent experimental units. Provides estimate of experimental error (pure error). Increases precision of estimates by reducing standard errors. Allows assessment of treatment effect variability. Number of replicates denoted by 'n' or 'r'. More replication increases power to detect effects. Balanced replication (equal n) simplifies analysis and maximizes efficiency.)
+{record_delimiter}
+("entity"{tuple_delimiter}EFFICIENCY{tuple_delimiter}DESIGN_PROPERTY{tuple_delimiter}A measure of how well a design uses experimental resources. Factorial designs are more efficient than one-factor-at-a-time experiments because they estimate effects with fewer runs. Relative efficiency compares variance of estimates between designs. D-efficiency relates to determinant of information matrix. Higher efficiency means more precise estimates with same sample size or same precision with smaller sample size.)
+{record_delimiter}
+("relationship"{tuple_delimiter}2X3 FACTORIAL DESIGN{tuple_delimiter}FACTORIAL DESIGN{tuple_delimiter}A 2×3 factorial design is a specific instance of factorial design with two factors at 2 and 3 levels respectively{tuple_delimiter}10{tuple_delimiter}IS_TYPE_OF)
+{record_delimiter}
+("relationship"{tuple_delimiter}2X3 FACTORIAL DESIGN{tuple_delimiter}TWO-WAY INTERACTION EFFECT{tuple_delimiter}The 2×3 factorial design allows estimation of the two-way interaction between Factor A and Factor B{tuple_delimiter}10{tuple_delimiter}ESTIMATES)
+{record_delimiter}
+("relationship"{tuple_delimiter}2X3 FACTORIAL DESIGN{tuple_delimiter}TWO-WAY ANOVA{tuple_delimiter}Data from a 2×3 factorial design is analyzed using two-way ANOVA to test main effects and interaction{tuple_delimiter}10{tuple_delimiter}USES)
+{record_delimiter}
+("relationship"{tuple_delimiter}FACTORIAL DESIGN{tuple_delimiter}EFFICIENCY{tuple_delimiter}Factorial designs are more efficient than one-factor-at-a-time experiments, requiring fewer runs for the same information{tuple_delimiter}9{tuple_delimiter}INCREASES)
+{record_delimiter}
+("relationship"{tuple_delimiter}TWO-WAY ANOVA{tuple_delimiter}TWO-WAY INTERACTION EFFECT{tuple_delimiter}Two-way ANOVA tests for the presence of two-way interaction effect using F-test{tuple_delimiter}10{tuple_delimiter}TESTS_FOR)
+{record_delimiter}
+("relationship"{tuple_delimiter}REPLICATION{tuple_delimiter}EFFICIENCY{tuple_delimiter}Replication increases precision of estimates, thereby improving the efficiency of the design{tuple_delimiter}8{tuple_delimiter}INCREASES)
+{completion_delimiter}
+
+######################
+-Real Data-
+######################
+Entity_types: {entity_types}
+Text: {input_text}
+######################
+Output:
