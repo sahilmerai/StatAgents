@@ -41,7 +41,7 @@ The system is designed as a **plug-and-play framework** — you can create your 
 
 ## 🎬 Demo
 
-<video src="https://github.com/sahilmerai/StatAgents/raw/main/Screen%20Shot/App/Video/StatAgents.mp4" controls width="100%"></video>
+![StatAgents Demo](Screen%20Shot/App/Video/StatAgents.gif)
 
 ---
 
@@ -215,7 +215,7 @@ We conducted a rigorous evaluation to determine the optimal retrieval method for
 
 A dedicated **Streamlit dashboard** provides interactive visualization of all evaluation metrics, statistical test results, and comparative analysis.
 
-<video src="https://github.com/sahilmerai/StatAgents/raw/main/Screen%20Shot/Rag%20Dashboard/Video/Video%20Project.mp4" controls width="100%"></video>
+![RAG Evaluation Dashboard](Screen%20Shot/Rag%20Dashboard/Image/O1.png)
 
 > 📄 *Detailed evaluation methodology, statistical analysis, and findings: [Coming Soon]*
 
@@ -230,7 +230,7 @@ A comprehensive **Streamlit dashboard** for monitoring and evaluating the multi-
 
 This observability layer makes the system fully transparent and experimentally reproducible — essential for both development iteration and academic evaluation.
 
-<video src="https://github.com/sahilmerai/StatAgents/raw/main/Screen%20Shot/Token%20Tracker%20Dashboard/Video/Token%20Tracker.mp4" controls width="100%"></video>
+![Token Tracker Dashboard](Screen%20Shot/Token%20Tracker%20Dashboard/Image/O1.png)
 
 ---
 
