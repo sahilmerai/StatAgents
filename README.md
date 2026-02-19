@@ -218,7 +218,7 @@ A dedicated **Streamlit dashboard** provides interactive visualization of all ev
 
 ![RAG Evaluation Dashboard](Screen%20Shot/Rag%20Dashboard/Image/O1.png)
 
-> 📄 *Detailed evaluation methodology, statistical analysis, and findings: [Coming Soon]*
+> 📄 Detailed evaluation methodology, statistical analysis, and findings: [RAG Statistical Analysis](Statistical%20Analysis%20RAG/README.md)
 
 ### Agent Observability Dashboard
 
