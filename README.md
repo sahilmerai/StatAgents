@@ -41,17 +41,7 @@ The system is designed as a **plug-and-play framework** — you can create your 
 
 ## 🎬 Demo
 
-### StatAgents in Action
-
-https://github.com/sahilmerai/StatAgents/raw/main/Screen%20Shot/App/Video/StatAgents.mp4
-
-### RAG Evaluation Dashboard
-
-https://github.com/sahilmerai/StatAgents/raw/main/Screen%20Shot/Rag%20Dashboard/Video/Video%20Project.mp4
-
-### Token Tracker & Agent Observability Dashboard
-
-https://github.com/sahilmerai/StatAgents/raw/main/Screen%20Shot/Token%20Tracker%20Dashboard/Video/Token%20Tracker.mp4
+<video src="https://github.com/sahilmerai/StatAgents/raw/main/Screen%20Shot/App/Video/StatAgents.mp4" controls width="100%"></video>
 
 ---
 
@@ -225,7 +215,7 @@ We conducted a rigorous evaluation to determine the optimal retrieval method for
 
 A dedicated **Streamlit dashboard** provides interactive visualization of all evaluation metrics, statistical test results, and comparative analysis.
 
-https://github.com/sahilmerai/StatAgents/raw/main/Screen%20Shot/Rag%20Dashboard/Video/Video%20Project.mp4
+<video src="https://github.com/sahilmerai/StatAgents/raw/main/Screen%20Shot/Rag%20Dashboard/Video/Video%20Project.mp4" controls width="100%"></video>
 
 > 📄 *Detailed evaluation methodology, statistical analysis, and findings: [Coming Soon]*
 
@@ -240,7 +230,7 @@ A comprehensive **Streamlit dashboard** for monitoring and evaluating the multi-
 
 This observability layer makes the system fully transparent and experimentally reproducible — essential for both development iteration and academic evaluation.
 
-https://github.com/sahilmerai/StatAgents/raw/main/Screen%20Shot/Token%20Tracker%20Dashboard/Video/Token%20Tracker.mp4
+<video src="https://github.com/sahilmerai/StatAgents/raw/main/Screen%20Shot/Token%20Tracker%20Dashboard/Video/Token%20Tracker.mp4" controls width="100%"></video>
 
 ---
 
