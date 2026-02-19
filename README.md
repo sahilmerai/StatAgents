@@ -9,6 +9,7 @@
     <a href="#-agents">Agents</a> •
     <a href="#-knowledge-layer">Knowledge Layer</a> •
     <a href="#-evaluation--observability">Evaluation</a> •
+    <a href="#-build-your-own-agent">Build Your Own Agent</a> •
     <a href="#-usage">Usage</a>
   </p>
   <p align="center">
@@ -25,6 +26,8 @@
 
 StatAgents is a multi-agent system where **10 specialized AI agents** collaborate to perform end-to-end statistical analysis — from data exploration and cleaning to econometric modeling, hypothesis testing, time series forecasting, and professional LaTeX report generation. Each agent has domain-specific expertise backed by **GraphRAG and FAISS knowledge bases** built from statistical textbooks, enabling rigorous, textbook-grounded analysis rather than generic LLM responses.
 
+The system is designed as a **plug-and-play framework** — you can create your own custom agents (SQL Agent, ML Agent, Sampling Agent, News Agent, or anything else), connect your own knowledge bases, and plug them into the existing multi-agent team with full observability.
+
 **Key highlights:**
 
 - 🎓 **HOD-orchestrated Swarm** — A Head of Department agent dynamically routes tasks to 9 specialist agents using AutoGen's Swarm handoff pattern
@@ -32,6 +35,23 @@ StatAgents is a multi-agent system where **10 specialized AI agents** collaborat
 - 🐳 **Sandboxed code execution** — All Python code runs inside Docker containers for safe, reproducible analysis
 - 📊 **Empirically validated RAG** — Statistical hypothesis testing (not vibes) determined the optimal retrieval method: Local GraphRAG + FAISS hybrid
 - 🔍 **Full observability** — Token tracking dashboard, agent routing maps, and conversation analytics for every experiment
+- 🔌 **Plug-and-play** — Build your own agents with custom tools and knowledge bases, and integrate them into the system in minutes
+
+---
+
+## 🎬 Demo
+
+### StatAgents in Action
+
+https://github.com/sahilmerai/StatAgents/raw/main/Screen%20Shot/App/Video/StatAgents.mp4
+
+### RAG Evaluation Dashboard
+
+https://github.com/sahilmerai/StatAgents/raw/main/Screen%20Shot/Rag%20Dashboard/Video/Video%20Project.mp4
+
+### Token Tracker & Agent Observability Dashboard
+
+https://github.com/sahilmerai/StatAgents/raw/main/Screen%20Shot/Token%20Tracker%20Dashboard/Video/Token%20Tracker.mp4
 
 ---
 
@@ -205,9 +225,9 @@ We conducted a rigorous evaluation to determine the optimal retrieval method for
 
 A dedicated **Streamlit dashboard** provides interactive visualization of all evaluation metrics, statistical test results, and comparative analysis.
 
+https://github.com/sahilmerai/StatAgents/raw/main/Screen%20Shot/Rag%20Dashboard/Video/Video%20Project.mp4
+
 > 📄 *Detailed evaluation methodology, statistical analysis, and findings: [Coming Soon]*
->
-> 📹 *Dashboard demo video: Coming Soon*
 
 ### Agent Observability Dashboard
 
@@ -220,7 +240,208 @@ A comprehensive **Streamlit dashboard** for monitoring and evaluating the multi-
 
 This observability layer makes the system fully transparent and experimentally reproducible — essential for both development iteration and academic evaluation.
 
-> 📹 *Dashboard demo video: Coming Soon*
+https://github.com/sahilmerai/StatAgents/raw/main/Screen%20Shot/Token%20Tracker%20Dashboard/Video/Token%20Tracker.mp4
+
+---
+
+## 🔌 Build Your Own Agent
+
+StatAgents is designed as a **plug-and-play framework**. You can create custom agents for any domain — SQL analysis, machine learning, survey sampling, news aggregation, or anything else — and plug them into the existing multi-agent team.
+
+This walkthrough uses a **Sampling Agent** as an example to show the complete process.
+
+### Step 1: Prepare Your Knowledge Base (Optional)
+
+If your agent needs domain-specific knowledge, create a FAISS vector database from a textbook or reference material.
+
+**Convert PDF to Markdown:**
+
+```python
+import pdfplumber
+from pathlib import Path
+
+def extract_with_pdfplumber(pdf_path, output_md):
+    """Extract text and tables from PDF to Markdown"""
+    content = []
+    
+    with pdfplumber.open(pdf_path) as pdf:
+        for page in pdf.pages:
+            text = page.extract_text()
+            content.append(text)
+            
+            tables = page.extract_tables()
+            for table in tables:
+                content.append("\n[TABLE]\n")
+                for row in table:
+                    content.append(" | ".join(str(cell) for cell in row if cell))
+                content.append("\n")
+    
+    Path(output_md).write_text("\n\n".join(content), encoding='utf-8')
+
+# Example: Convert a sampling textbook
+extract_with_pdfplumber("path/to/sampling_textbook.pdf", "path/to/sampling_book.md")
+```
+
+**Build FAISS index using `Rag.py`:**
+
+Update the paths and parameters in `Rag.py`:
+
+```python
+INPUT_FILE = r"path/to/sampling_book.md"
+OUTPUT_DIR = r"path/to/Sampling Brain"
+```
+
+Adjust `chunk_size` and `chunk_overlap` based on your content, then run the script to generate the FAISS index.
+
+### Step 2: Create the Retrieval Tool
+
+Add a new retrieval function in `tool.py` pointing to your FAISS index:
+
+```python
+def retrieve_sampling_knowledge(
+    query: Annotated[str, "Question about sampling methodology from textbook"]
+) -> str:
+    """Query sampling textbook using FAISS RAG for relevant context."""
+    try:
+        FAISS_INDEX_PATH = r"path/to/Sampling Brain"
+        
+        embeddings = AzureOpenAIEmbeddings(
+            azure_deployment=os.getenv("AZURE_OPENAI_EMBEDDING_DEPLOYMENT"),
+            openai_api_version=os.getenv("AZURE_OPENAI_API_VERSION"),
+            azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+            api_key=os.getenv("AZURE_OPENAI_API_KEY")
+        )
+        
+        db = FAISS.load_local(
+            FAISS_INDEX_PATH, 
+            embeddings,
+            allow_dangerous_deserialization=True
+        )
+        
+        docs = db.similarity_search(query, k=4)
+        
+        if not docs:
+            return "⚠️ No relevant information found."
+        
+        results = ["📚 **Sampling Textbook Context (FAISS RAG)**\n"]
+        
+        for i, doc in enumerate(docs, 1):
+            content = doc.page_content.strip()
+            results.append(f"**Chunk {i}:**\n{content}\n")
+            results.append("-" * 80 + "\n")
+        
+        return "\n".join(results)
+        
+    except Exception as e:
+        return f"❌ RAG Error: {str(e)}"
+```
+
+### Step 3: Create the System Prompt
+
+Create a `.txt` file in `Agents System prompt/` — for example, `Sampling_Agent.txt`.
+
+Your system prompt should define:
+
+- **Role** — What the agent specializes in (e.g., survey sampling design, stratified sampling, sample size calculation)
+- **Tools** — When and how to use each tool (RAG retrieval for theory, code execution for computation)
+- **Handoff** — Always hand back to `Head_of_the_Department` when task is complete
+- **Output format** — How results should be structured for the user
+
+### Step 4: Register the Agent
+
+**4a. Load the system prompt at the top of `agents.py`:**
+
+```python
+SAMPLING_PROMPT = load_prompt("Sampling_Agent.txt")
+```
+
+**4b. Create the agent in `agents.py`:**
+
+```python
+Sampling_Agent = TrackableAssistantAgent(
+    name="Sampling_Agent",
+    description="Sampling specialist. Designs survey samples, calculates sample sizes, and applies stratified/cluster sampling methods.",
+    model_client=HOD,
+    tools=[retrieve_sampling_knowledge, execute_python_code],
+    reflect_on_tool_use=True,
+    system_message=SAMPLING_PROMPT,
+    handoffs=["Head_of_the_Department"],
+)
+```
+
+### Step 5: Connect to the Team
+
+**5a. Add to HOD's handoffs in `agents.py`:**
+
+```python
+HOD_Office = TrackableAssistantAgent(
+    name="Head_of_the_Department",
+    ...
+    handoffs=["EDA_Agent", "CodeExecutor", "RedditNewsAgent", 
+              "visualizer_Agent", "TS_Agent", "DOE_Agent",
+              "Econometric_Agent", "Data_processing_unit", 
+              "Statistician", "Sampling_Agent"],  # ← Add here
+    ...
+)
+```
+
+**5b. Add to participants list in `agents.py`:**
+
+```python
+participants = [
+    HOD_Office,
+    reddit_agent,
+    CodeExecutor,
+    DOE_Agent,
+    visualizer_Agent,
+    Data_processing_unit,
+    Econometric_Agent,
+    TS_Agent,
+    EDA_Agent,
+    Statistician,
+    Sampling_Agent,  # ← Add here
+]
+```
+
+**5c. Add to name normalizer in `agents.py`:**
+
+```python
+def _normalize_agent_name(self, name: str) -> str:
+    ...
+    elif name == "sampling_agent":
+        return "Sampling_Agent"
+    ...
+```
+
+### Step 6: Register in Main
+
+Add the system prompt to the tracking dict in `main.py`:
+
+```python
+system_prompts = {
+    ...
+    "Sampling_Agent": load_prompt("Sampling_Agent.txt"),  # ← Add here
+}
+```
+
+### Step 7: Update HOD System Prompt
+
+Update the HOD's system prompt (`Agents System prompt/HOD.txt`) to include routing rules for your new agent. Add when the HOD should delegate to the Sampling Agent — for example, when users ask about survey design, sample size calculation, or sampling methodology.
+
+### That's It!
+
+Your new agent is now part of the team. The HOD will automatically route relevant queries to it, and all interactions will appear in the observability dashboard with full token tracking.
+
+**Ideas for custom agents you can build:**
+
+| Agent Idea | Tools | Knowledge Base |
+|------------|-------|----------------|
+| 🗄️ SQL Agent | `execute_python_code`, SQL connector | Database schema (FAISS) |
+| 🤖 ML Agent | `execute_python_code`, model registry | ML textbook (FAISS) |
+| 📋 Sampling Agent | `retrieve_sampling_knowledge`, `execute_python_code` | Sampling textbook (FAISS) |
+| 📰 News Agent | News API tool | — |
+| 💰 Financial Agent | `execute_python_code`, market data API | Finance textbook (FAISS) |
+| 🏥 Biostatistics Agent | `execute_python_code`, RAG tool | Biostat reference (FAISS) |
 
 ---
 
@@ -235,6 +456,8 @@ StatAgents/
 ├── ECO Brain/                # Econometrics knowledge base (GraphRAG + FAISS)
 ├── DOE Brain/                # DOE knowledge base (GraphRAG + FAISS)
 ├── Statistical Analysis RAG/ # Statistical inference knowledge base (FAISS)
+├── Statistical brain/        # Statistical books source material
+├── Screen Shot/              # Demo videos and screenshots
 ├── Test Dataset/             # Sample datasets for testing
 ├── Token/                    # Token tracking data and logs
 ├── coding/                   # Docker code execution workspace
