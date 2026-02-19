@@ -1,5 +1,6 @@
 <p align="center">
-  <h1 align="center">🧠 StatAgents</h1>
+  <img src="StatAgents%20logo/StatAgent%20HG1.png" alt="StatAgents Logo" width="200">
+  <h1 align="center">StatAgents</h1>
   <p align="center">
     <strong>An open-source multi-agent data-science toolkit built on AutoGen for collaborative statistical modeling and analytics.</strong>
   </p>
