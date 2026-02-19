@@ -190,3 +190,104 @@ file_path = './data/Raw_data/Credit Card Dataset.csv'
 df = pd.read_csv(file_path)
 
 # Calculate average transaction amount 
+
+==================================================
+CWD: F:\Project work\Cafe Restaurant Analysis\Agents
+CPY_DIR: F:\Project work\Cafe Restaurant Analysis\Agents\coding
+../data/ exists: True
+Code received (first 200 chars): import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set professional style
+plt.style.use('seaborn-v0_8-darkgrid')
+sns.set_palette("husl")
+
+# Load processed 
+
+==================================================
+CWD: F:\Project work\Cafe Restaurant Analysis\Agents
+CPY_DIR: F:\Project work\Cafe Restaurant Analysis\Agents\coding
+../data/ exists: True
+Code received (first 200 chars): import pandas as pd
+
+# Recreate the processed dataset with the handled missing values
+# Original path where the raw data was located
+raw_data_path = './data/Raw_data/Loan Dataset.csv'
+
+# Load raw data
+
+==================================================
+CWD: F:\Project work\Cafe Restaurant Analysis\Agents
+CPY_DIR: F:\Project work\Cafe Restaurant Analysis\Agents\coding
+../data/ exists: True
+Code received (first 200 chars): import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load processed data
+processed_data_path = './data/Processed_data/loan_dataset_processed.csv'
+df = pd.rea
+
+==================================================
+CWD: F:\Project work\Cafe Restaurant Analysis\Agents
+CPY_DIR: F:\Project work\Cafe Restaurant Analysis\Agents\coding
+../data/ exists: True
+Code received (first 200 chars): import pandas as pd
+from scipy import stats
+import matplotlib.pyplot as plt
+
+# Load the processed data
+file_path = './data/Processed_data/loan_dataset_processed.csv'
+df = pd.read_csv(file_path)
+
+# Gro
+
+==================================================
+CWD: F:\Project work\Cafe Restaurant Analysis\Agents
+CPY_DIR: F:\Project work\Cafe Restaurant Analysis\Agents\coding
+../data/ exists: True
+Code received (first 200 chars): # Running One-way ANOVA
+
+# Check if assumptions are met
+if all(p > 0.05 for _, p in normality_results.items()) and levene_p > 0.05:
+    anova_stat, anova_p = stats.f_oneway(*income_groups)
+    result 
+
+==================================================
+CWD: F:\Project work\Cafe Restaurant Analysis\Agents
+CPY_DIR: F:\Project work\Cafe Restaurant Analysis\Agents\coding
+../data/ exists: True
+Code received (first 200 chars): import pandas as pd
+from scipy import stats
+
+# Load the processed data
+df = pd.read_csv('./data/Processed_data/loan_dataset_processed.csv')
+
+# Create income groups based on quantiles
+df['IncomeGroup']
+
+==================================================
+CWD: F:\Project work\Cafe Restaurant Analysis\Agents
+CPY_DIR: F:\Project work\Cafe Restaurant Analysis\Agents\coding
+../data/ exists: True
+Code received (first 200 chars): # Running One-way ANOVA since assumptions are met
+anova_stat, anova_p = stats.f_oneway(*income_groups)
+
+# Prepare results for output
+{'ANOVA Statistic': anova_stat, 'p-value': anova_p}
+
+==================================================
+CWD: F:\Project work\Cafe Restaurant Analysis\Agents
+CPY_DIR: F:\Project work\Cafe Restaurant Analysis\Agents\coding
+../data/ exists: True
+Code received (first 200 chars): import pandas as pd
+from scipy import stats
+
+# Load the processed data
+df = pd.read_csv('./data/Processed_data/loan_dataset_processed.csv')
+
+# Create income groups based on quantiles
+df['IncomeGroup']

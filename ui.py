@@ -18,7 +18,8 @@ def setup_sidebar():
     - Simple CSV upload to ./data/ folder
     """
     with st.sidebar:
-        st.header("Chat")
+        st.sidebar.image("F:\Project work\Cafe Restaurant Analysis\Agents\StatAgents logo\StatAgents G1.png", use_container_width = True)
+        st.header("StatAgents")
 
         # --- Token Tracking Status ---
         tracker = st.session_state.get("token_tracker")

@@ -11,7 +11,15 @@ from agents import initialize_agent
 from ui import setup_sidebar, display_chat_history
 from prompts import load_prompt
 
-st.header("StatAgents")
+# st.header("StatAgents")
+# st.image("F:\Project work\Cafe Restaurant Analysis\Agents\StatAgents logo\StatAgent HG1.png", use_container_width = True)
+
+st.set_page_config(
+    page_title="StatAgent",
+    page_icon="📊",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 # Windows compatibility
 if sys.platform == "win32":
@@ -44,7 +52,7 @@ setup_sidebar()
 display_chat_history()
 
 # User input
-user_query = st.chat_input("How can I help you with your marketing strategy?")
+user_query = st.chat_input("How can I help you with your data?")
 if user_query:
     if user_query.strip() == "":
         st.warning("Please enter a query.")
@@ -63,8 +71,8 @@ if user_query:
                 "CodeExecutor": load_prompt("CodeExecutor_agent.txt"),
                 "RedditNewsAgent": load_prompt("Reddit_agent.txt"),
                 "Econometric_Agent": load_prompt("econometrc_agent.txt"),
+                "Statistician_Agent": load_prompt("statistical_testing_agent.txt"),
                 "DOE_Agent": load_prompt("DOE.txt"),
-
             }
             
             experiment_id = tracker.start_session(

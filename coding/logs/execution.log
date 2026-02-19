@@ -298,3 +298,179 @@ EXECUTION LOG (Extended Timeout)
 ==================================================
 Code executed successfully
 
+
+==================================================
+ERROR LOG
+==================================================
+Error: [Errno 2] No such file or directory: './data/Processed_data/loan_dataset_processed.csv'
+Code:
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set professional style
+plt.style.use('seaborn-v0_8-darkgrid')
+sns.set_palette("husl")
+
+# Load processed data
+processed_data_path = './data/Processed_data/loan_dataset_processed.csv'
+df = pd.read_csv(processed_data_path)
+
+# Visualizing the Relationship between ApplicantIncome and LoanAmount
+plt.figure(figsize=(14, 7))
+sns.scatterplot(data=df, x='ApplicantIncome', y='LoanAmount', hue='Education', style='Credit_History', palette='Set1')
+plt.title('Applicant Income vs Loan Amount', fontsize=16, fontweight='bold')
+plt.xlabel('Applicant Income ($)', fontsize=13)
+plt.ylabel('Loan Amount ($)', fontsize=13)
+plt.grid(alpha=0.3)
+plt.legend(title='Education / Credit History', fontsize=10)
+plt.tight_layout()
+plt.savefig('./data/Output/Plots/applicant_income_vs_loan_amount.png', dpi=300, bbox_inches='tight')
+plt.close()
+
+# Visualizing Credit History Distribution
+plt.figure(figsize=(10, 6))
+sns.countplot(x='Credit_History', data=df, palette='pastel')
+plt.title('Credit History Distribution', fontsize=16, fontweight='bold')
+plt.xlabel('Credit History (0=Bad, 1=Good)', fontsize=13)
+plt.ylabel('Count', fontsize=13)
+plt.grid(alpha=0.3)
+plt.tight_layout()
+plt.savefig('./data/Output/Plots/credit_history_distribution.png', dpi=300, bbox_inches='tight')
+plt.close()
+
+# Visualizing Distribution of Loan Amount with Boxplot
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='LoanAmount', data=df, palette='Set2')
+plt.title('Distribution of Loan Amount', fontsize=16, fontweight='bold')
+plt.xlabel('Loan Amount ($)', fontsize=13)
+plt.grid(alpha=0.3)
+plt.tight_layout()
+plt.savefig('./data/Output/Plots/loan_amount_distribution.png', dpi=300, bbox_inches='tight')
+plt.close()
+
+# Visualizing Loan Amount by Property Area
+plt.figure(figsize=(12, 6))
+sns.boxplot(x='Property_Area', y='LoanAmount', data=df, palette='Set2')
+plt.title('Loan Amount by Property Area', fontsize=16, fontweight='bold')
+plt.xlabel('Property Area', fontsize=13)
+plt.ylabel('Loan Amount ($)', fontsize=13)
+plt.grid(alpha=0.3)
+plt.tight_layout()
+plt.savefig('./data/Output/Plots/loan_amount_by_property_area.png', dpi=300, bbox_inches='tight')
+plt.close()
+
+==================================================
+EXECUTION LOG
+==================================================
+Code executed successfully
+
+Output:
+Processed data saved to: ./data/Processed_data/loan_dataset_processed.csv
+
+Warnings:
+<string>:11: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+<string>:12: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+<string>:13: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+<string>:14: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+<string>:15: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+<string>:16: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+
+
+==================================================
+EXECUTION LOG
+==================================================
+Code executed successfully
+
+Warnings:
+<string>:24: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+<string>:35: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
+
+<string>:45: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+
+
+==================================================
+EXECUTION LOG
+==================================================
+Code executed successfully
+
+
+==================================================
+ERROR LOG
+==================================================
+Error: name 'normality_results' is not defined
+Code:
+# Running One-way ANOVA
+
+# Check if assumptions are met
+if all(p > 0.05 for _, p in normality_results.items()) and levene_p > 0.05:
+    anova_stat, anova_p = stats.f_oneway(*income_groups)
+    result = {'ANOVA Statistic': anova_stat, 'p-value': anova_p, 'Assumptions Met': True}
+else:
+    # If assumptions are violated, we use Welch's ANOVA
+    anova_stat, anova_p = stats.ttest_ind(income_groups[0], income_groups[1], equal_var=False)
+    result = {'ANOVA Statistic': anova_stat, 'p-value': anova_p, 'Assumptions Met': False}
+
+result
+
+==================================================
+EXECUTION LOG
+==================================================
+Code executed successfully
+
+
+==================================================
+ERROR LOG
+==================================================
+Error: name 'stats' is not defined
+Code:
+# Running One-way ANOVA since assumptions are met
+anova_stat, anova_p = stats.f_oneway(*income_groups)
+
+# Prepare results for output
+{'ANOVA Statistic': anova_stat, 'p-value': anova_p}
+
+==================================================
+EXECUTION LOG
+==================================================
+Code executed successfully
+

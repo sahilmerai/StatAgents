@@ -12,7 +12,7 @@ import numpy as np
 import re
 
 st.set_page_config(
-    page_title="Enhanced DOE RAG Dashboard",
+    page_title="StatAgents: RAG Evaluation Dashboard",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -154,7 +154,8 @@ def get_score_badge(score):
         return '<span class="metric-badge badge-poor">Poor</span>'
 
 def render_sidebar(combined_df):
-    st.sidebar.title("📊 Enhanced RAG Evaluation")
+    st.sidebar.image("F:\Project work\Cafe Restaurant Analysis\Agents\StatAgents logo\StatAgents G1.png", use_container_width = True)
+    st.sidebar.title("📊 StatAgents:  RAG Evaluation Dashboard")
     st.sidebar.markdown("---")
     
     page = st.sidebar.radio(

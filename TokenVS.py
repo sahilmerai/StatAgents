@@ -352,7 +352,8 @@ def create_system_prompt_loads_chart(session_data):
 # ============================================================================
 
 with st.sidebar:
-    st.title("📊 Token Tracking Dashboard")
+    st.sidebar.image("F:\Project work\Cafe Restaurant Analysis\Agents\StatAgents logo\StatAgents G1.png", use_container_width = True)
+    st.title("StatAgents")
     st.markdown("---")
     
     # Live refresh button
